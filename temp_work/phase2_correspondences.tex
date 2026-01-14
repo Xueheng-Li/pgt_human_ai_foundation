@@ -1,0 +1,214 @@
+% Phase 2: Best-Response Correspondence Properties
+% Step 3 of ABE Existence Proof
+% Date: 2026-01-12
+
+\subsection*{Step 3: Best-Response Correspondence Properties}
+
+We establish that the best-response correspondences for both humans and AI satisfy the conditions required for Kakutani's fixed-point theorem: non-emptiness, convexity, and upper hemicontinuity.
+
+\subsubsection*{3.1 Human Best-Response Correspondence}
+
+For each human $i \in N_H$, define the best-response correspondence $BR_i^H: \Sigma \rightrightarrows \Delta(S_i)$ by
+\begin{equation}
+    BR_i^H(\sigma) = \argmax_{\sigma_i' \in \Delta(S_i)} \mathbb{E}_{\sigma_{-i}}\left[U_i^H(\sigma_i', \sigma_{-i}, h_i(\sigma), \tilde{h}_i)\right],
+\end{equation}
+where the expectation is taken over opponents' strategies according to $\sigma_{-i}$, beliefs are computed as $h_i^{(1,k)} = \sigma_k$ and $h_i^{(2,k)} = \sigma_i$ for $k \in N_H \setminus \{i\}$, and attributed beliefs $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ are fixed constants.
+
+Explicitly, the objective function is
+\begin{equation}
+    V_i(\sigma_i', \sigma) = \sum_{s \in S} \left(\prod_{k \neq i} \sigma_k(s_k)\right) \sigma_i'(s_i) \cdot U_i^H(s, h_i(\sigma), \tilde{h}_i),
+\end{equation}
+where the belief arguments are:
+\begin{itemize}
+    \item Genuine second-order beliefs: $h_i^{(2,k)} = \sigma_i \in \Delta(S_i)$ for each $k \in N_H \setminus \{i\}$
+    \item Attributed second-order beliefs: $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i) \in \Delta(S_i)$ for each $j \in N_A$
+\end{itemize}
+
+\begin{lemma}[Human Best-Response Properties]
+\label{lem:human-br}
+Under Assumptions A1 and A2, for each human $i \in N_H$, the correspondence $BR_i^H: \Sigma \rightrightarrows \Delta(S_i)$ is:
+\begin{enumerate}
+    \item[(i)] non-empty valued,
+    \item[(ii)] convex valued, and
+    \item[(iii)] upper hemicontinuous.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We verify each property in turn.
+
+\medskip
+\noindent\textbf{(i) Non-emptiness.}
+The set $\Delta(S_i)$ is a simplex in $\mathbb{R}^{|S_i|}$, hence compact. The objective function $V_i(\cdot, \sigma): \Delta(S_i) \to \mathbb{R}$ is continuous in $\sigma_i'$. To see this, note that $V_i$ is a polynomial in $\sigma_i'$:
+\begin{equation}
+    V_i(\sigma_i', \sigma) = \sum_{s_i \in S_i} \sigma_i'(s_i) \cdot \underbrace{\left[\sum_{s_{-i} \in S_{-i}} \left(\prod_{k \neq i} \sigma_k(s_k)\right) U_i^H(s_i, s_{-i}, h_i(\sigma), \tilde{h}_i)\right]}_{:= w_i(s_i, \sigma)}.
+\end{equation}
+This is linear in $\sigma_i'$ with coefficients $w_i(s_i, \sigma)$ that are finite real numbers. Linearity implies continuity.
+
+By the Weierstrass Extreme Value Theorem, a continuous function on a compact set attains its maximum. Hence $BR_i^H(\sigma) \neq \emptyset$ for all $\sigma \in \Sigma$.
+
+\medskip
+\noindent\textbf{(ii) Convexity.}
+We show that $BR_i^H(\sigma)$ is a convex subset of $\Delta(S_i)$ for each $\sigma \in \Sigma$.
+
+Let $\hat{\sigma}_i, \tilde{\sigma}_i \in BR_i^H(\sigma)$ and let $\mu \in [0,1]$. Define $\bar{\sigma}_i = \mu \hat{\sigma}_i + (1-\mu) \tilde{\sigma}_i$. Since $\Delta(S_i)$ is convex, $\bar{\sigma}_i \in \Delta(S_i)$.
+
+Because $V_i(\cdot, \sigma)$ is linear in its first argument:
+\begin{align}
+    V_i(\bar{\sigma}_i, \sigma) &= V_i(\mu \hat{\sigma}_i + (1-\mu) \tilde{\sigma}_i, \sigma) \\
+    &= \mu V_i(\hat{\sigma}_i, \sigma) + (1-\mu) V_i(\tilde{\sigma}_i, \sigma) \\
+    &= \mu V^* + (1-\mu) V^* = V^*,
+\end{align}
+where $V^* = \max_{\sigma_i' \in \Delta(S_i)} V_i(\sigma_i', \sigma)$ is the maximum value (attained by both $\hat{\sigma}_i$ and $\tilde{\sigma}_i$ since they are in the argmax set).
+
+Hence $\bar{\sigma}_i$ also attains the maximum, so $\bar{\sigma}_i \in BR_i^H(\sigma)$. Therefore $BR_i^H(\sigma)$ is convex.
+
+\medskip
+\noindent\textbf{(iii) Upper Hemicontinuity.}
+We apply Berge's Maximum Theorem. Consider the parametrized optimization problem
+\begin{equation}
+    \max_{\sigma_i' \in C(\sigma)} f(\sigma_i', \sigma),
+\end{equation}
+where:
+\begin{itemize}
+    \item $f: \Delta(S_i) \times \Sigma \to \mathbb{R}$ is the objective function $f(\sigma_i', \sigma) = V_i(\sigma_i', \sigma)$
+    \item $C: \Sigma \rightrightarrows \Delta(S_i)$ is the constraint correspondence $C(\sigma) = \Delta(S_i)$ (constant)
+\end{itemize}
+
+Berge's Maximum Theorem states: if $f$ is continuous on $\Delta(S_i) \times \Sigma$ and $C$ is continuous with non-empty compact values, then the argmax correspondence is upper hemicontinuous.
+
+\smallskip
+\noindent\textit{Step (iii.a): Continuity of constraint correspondence.}
+The constraint correspondence $C(\sigma) = \Delta(S_i)$ is constant, hence trivially continuous (both upper and lower hemicontinuous). Its values are non-empty and compact.
+
+\smallskip
+\noindent\textit{Step (iii.b): Continuity of objective function.}
+We must show $V_i(\sigma_i', \sigma)$ is jointly continuous in $(\sigma_i', \sigma) \in \Delta(S_i) \times \Sigma$.
+
+Decompose the objective as
+\begin{equation}
+    V_i(\sigma_i', \sigma) = \underbrace{\sum_{s \in S} \left(\prod_{k \in N} \sigma_k(s_k)\right) \pi_i(s)}_{\text{material component}} + \underbrace{\sum_{s \in S} \left(\prod_{k \in N} \sigma_k(s_k)\right) \psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})}_{\text{psychological component}},
+\end{equation}
+where we use the convention $\sigma_i(s_i) = \sigma_i'(s_i)$ in the product.
+
+\textit{Material component.} The material payoff $\pi_i: S \to \mathbb{R}$ is fixed for finite $S$. The expression $\sum_{s \in S} \left(\prod_{k \in N} \sigma_k(s_k)\right) \pi_i(s)$ is a polynomial in the components of $(\sigma_i', \sigma_{-i})$, hence continuous.
+
+\textit{Psychological component.} Consider the composition:
+\begin{enumerate}
+    \item The belief mapping $\sigma \mapsto (h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ where:
+    \begin{itemize}
+        \item Genuine beliefs: $h_i^{(2,k)} = \sigma_i$ is the projection onto coordinate $i$, hence continuous in $\sigma$
+        \item Attributed beliefs: $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ is constant in $\sigma$, hence continuous
+    \end{itemize}
+    Thus the belief mapping is continuous.
+
+    \item By Assumption A1 (specifically A1b as refined in the proof strategy), the psychological payoff $\psi_i(s, \cdot, \cdot)$ is continuous in beliefs for each fixed $s \in S$.
+
+    \item The composition $(s, \sigma) \mapsto \psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ is continuous in $\sigma$ for each $s$.
+
+    \item The expectation $\sum_{s \in S} \left(\prod_{k \in N} \sigma_k(s_k)\right) \psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ is a finite sum of products of continuous functions, hence continuous in $(\sigma_i', \sigma)$.
+\end{enumerate}
+
+Combining both components, $V_i$ is continuous on $\Delta(S_i) \times \Sigma$.
+
+\smallskip
+\noindent\textit{Step (iii.c): Application of Berge's theorem.}
+The hypotheses of Berge's Maximum Theorem are satisfied:
+\begin{itemize}
+    \item The objective $V_i$ is continuous on $\Delta(S_i) \times \Sigma$
+    \item The constraint $C(\sigma) = \Delta(S_i)$ is continuous with non-empty compact values
+\end{itemize}
+
+Therefore, the argmax correspondence $BR_i^H(\sigma) = \argmax_{\sigma_i' \in \Delta(S_i)} V_i(\sigma_i', \sigma)$ is upper hemicontinuous.
+\end{proof}
+
+\begin{remark}[Role of Attributed Beliefs]
+The key observation is that attributed beliefs $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ are \textbf{constants} with respect to the strategy profile $\sigma$. They depend only on exogenous parameters $(\theta_j, x_j, \omega_i)$, not on equilibrium play. This simplifies the continuity argument: we need not establish continuity of $\phi_i$ for existence---only well-definedness (Assumption A2'). The continuity of $\psi_i$ in beliefs (Assumption A1b) is applied only to genuine beliefs $h_i^{(2,k)} = \sigma_i$, which vary continuously with $\sigma$.
+\end{remark}
+
+\subsubsection*{3.2 AI Best-Response Correspondence}
+
+For each AI agent $j \in N_A$, define the best-response correspondence $BR_j^A: \Sigma \rightrightarrows \Delta(S_j)$ by
+\begin{equation}
+    BR_j^A(\sigma) = \argmax_{\sigma_j' \in \Delta(S_j)} \mathbb{E}_{\sigma_{-j}}\left[U_j^A(\sigma_j', \sigma_{-j}; \theta_j)\right].
+\end{equation}
+
+The objective function is
+\begin{equation}
+    V_j(\sigma_j', \sigma) = \sum_{s \in S} \left(\prod_{k \neq j} \sigma_k(s_k)\right) \sigma_j'(s_j) \cdot U_j^A(s; \theta_j).
+\end{equation}
+
+\begin{lemma}[AI Best-Response Properties]
+\label{lem:ai-br}
+Under Assumption A1, for each AI $j \in N_A$, the correspondence $BR_j^A: \Sigma \rightrightarrows \Delta(S_j)$ is:
+\begin{enumerate}
+    \item[(i)] non-empty valued,
+    \item[(ii)] convex valued, and
+    \item[(iii)] upper hemicontinuous.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This is the standard argument for Nash equilibrium existence in finite games.
+
+\medskip
+\noindent\textbf{(i) Non-emptiness.}
+The simplex $\Delta(S_j)$ is compact. The objective $V_j(\cdot, \sigma)$ is linear in $\sigma_j'$:
+\begin{equation}
+    V_j(\sigma_j', \sigma) = \sum_{s_j \in S_j} \sigma_j'(s_j) \cdot \underbrace{\left[\sum_{s_{-j} \in S_{-j}} \left(\prod_{k \neq j} \sigma_k(s_k)\right) U_j^A(s_j, s_{-j}; \theta_j)\right]}_{:= w_j(s_j, \sigma_{-j})}.
+\end{equation}
+Linearity implies continuity. By Weierstrass, $BR_j^A(\sigma) \neq \emptyset$.
+
+\medskip
+\noindent\textbf{(ii) Convexity.}
+By linearity of $V_j$ in $\sigma_j'$, any convex combination of maximizers is also a maximizer. The argument is identical to that for humans in Lemma~\ref{lem:human-br}(ii).
+
+\medskip
+\noindent\textbf{(iii) Upper Hemicontinuity.}
+Apply Berge's Maximum Theorem. The constraint $C(\sigma) = \Delta(S_j)$ is constant (hence continuous with non-empty compact values). The objective $V_j(\sigma_j', \sigma)$ is a polynomial in $(\sigma_j', \sigma_{-j})$, hence continuous. Therefore $BR_j^A$ is upper hemicontinuous.
+\end{proof}
+
+\begin{remark}[Comparison with Human Case]
+The AI best-response argument is simpler than the human case because:
+\begin{enumerate}
+    \item AI utility $U_j^A(s; \theta_j)$ has no belief-dependent component
+    \item No psychological payoff $\psi_j$ requires continuity verification
+    \item The objective is a pure polynomial in strategies
+\end{enumerate}
+This is the standard Nash existence argument applied to the AI component of the game.
+\end{remark}
+
+\subsubsection*{3.3 Summary of Step 3}
+
+We have established:
+
+\begin{proposition}[Individual Best-Response Properties]
+\label{prop:br-properties}
+Under Assumptions A1 and A2, the individual best-response correspondences satisfy:
+\begin{enumerate}
+    \item For each human $i \in N_H$: $BR_i^H: \Sigma \rightrightarrows \Delta(S_i)$ is non-empty valued, convex valued, and upper hemicontinuous.
+    \item For each AI $j \in N_A$: $BR_j^A: \Sigma \rightrightarrows \Delta(S_j)$ is non-empty valued, convex valued, and upper hemicontinuous.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{lem:human-br} and Lemma~\ref{lem:ai-br}.
+\end{proof}
+
+\noindent\textbf{Assumptions used in Step 3:}
+\begin{itemize}
+    \item \textbf{A1a} (Finite strategy spaces): Ensures $\Delta(S_i)$ is a compact simplex
+    \item \textbf{A1b} (Continuity of $\psi_i$ in beliefs): Essential for continuity of human objective function
+    \item \textbf{A2'} (Well-definedness of $\phi_i$): Ensures attributed beliefs are valid probability distributions
+\end{itemize}
+
+\noindent\textbf{Key technical points:}
+\begin{enumerate}
+    \item Attributed beliefs are \textbf{constant} in $\sigma$, contributing no continuity issues
+    \item Genuine second-order beliefs $h_i^{(2,k)} = \sigma_i$ are \textbf{continuous} in $\sigma$ (projection)
+    \item The psychological payoff $\psi_i$ is continuous in beliefs by assumption, making the composition continuous
+    \item Berge's Maximum Theorem converts objective continuity and constraint regularity into correspondence upper hemicontinuity
+\end{enumerate}
+
+\bigskip
+\noindent\textit{[End of Step 3]}

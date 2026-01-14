@@ -1,0 +1,56 @@
+% Proof of Proposition 4: Attribution-Dependent Multiplicity
+% Appendix material for main manuscript
+% Notation follows sec_framework.tex and sec_equilibrium.tex
+
+The proposition establishes that different attribution functions can sustain different equilibria in the same material game. We first state sufficient conditions, then prove the result constructively.
+
+\begin{proof}[Proof of Proposition~\ref{prop:multiplicity}]
+
+\noindent\textbf{Sufficient Conditions.} For a psychological game $\Gamma$ with at least one human ($n_H \geq 1$) and one AI ($n_A \geq 1$), attribution-dependent multiplicity occurs if, for some human $i \in N_H$ and AI $j \in N_A$:
+\begin{enumerate}
+    \item[(i)] \textbf{Belief-dependent payoffs}: $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$ for some strategy profile.
+    \item[(ii)] \textbf{Distinct attributions}: $\phi_i(\theta_j, x_j, \omega_i) \neq \phi'_i(\theta_j, x_j, \omega_i)$ for some configuration.
+    \item[(iii)] \textbf{Best-response separation}: The change in attributed beliefs shifts equilibrium strategies: $s_i^*[\phi] \neq s_i^*[\phi']$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Step 1: Attribution functions determine attributed beliefs.}
+
+Fix AI $j \in N_A$ with design parameters $\theta_j$ and observable signals $x_j$, and human $i \in N_H$ with anthropomorphism tendency $\omega_i$. By ABE condition (ABE4), the attributed beliefs are:
+\begin{align*}
+    \tilde{h}_i^{(2,j)}[\phi] &:= \phi_i(\theta_j, x_j, \omega_i) \\
+    \tilde{h}_i^{(2,j)}[\phi'] &:= \phi'_i(\theta_j, x_j, \omega_i)
+\end{align*}
+By condition (ii), these differ: $\tilde{h}_i^{(2,j)}[\phi] \neq \tilde{h}_i^{(2,j)}[\phi']$.
+
+\medskip
+\noindent\textbf{Step 2: Different attributed beliefs induce different psychological payoffs.}
+
+Human $i$'s utility function is $U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})$. Since $\tilde{h}_i^{(2,j)}[\phi] \neq \tilde{h}_i^{(2,j)}[\phi']$ and condition (i) ensures $\psi_i$ responds to attributed beliefs:
+\[
+    \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}[\phi]) \neq \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}[\phi'])
+\]
+for at least some strategy profiles $s$.
+
+\medskip
+\noindent\textbf{Step 3: Different psychological payoffs shift best responses.}
+
+Define human $i$'s best-response correspondence in each game:
+\begin{align*}
+    BR_i[\phi](s_{-i}, h_i) &= \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}, h_i, \tilde{h}_i[\phi]) \\
+    BR_i[\phi'](s_{-i}, h_i) &= \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}, h_i, \tilde{h}_i[\phi'])
+\end{align*}
+Since utility functions differ (Step 2), by condition (iii), for some configuration: $BR_i[\phi](s_{-i}, h_i) \neq BR_i[\phi'](s_{-i}, h_i)$.
+
+\medskip
+\noindent\textbf{Step 4: Construct equilibria under each attribution function.}
+
+By Theorem~\ref{thm:existence}, under Assumptions A1--A3, an ABE exists for both $\Gamma(\phi)$ and $\Gamma(\phi')$. Let $(s^*, h^*, \tilde{h}^*) \in ABE(\Gamma, \phi)$ and $(s'^*, h'^*, \tilde{h}'^*) \in ABE(\Gamma, \phi')$.
+
+\medskip
+\noindent\textbf{Step 5: Verify equilibria have distinct strategies.}
+
+At equilibrium $s^*$, human $i$'s strategy satisfies $s_i^* \in BR_i[\phi](s_{-i}^*, h_i^*)$ with attributed beliefs $\tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$. At equilibrium $s'^*$, human $i$'s strategy satisfies $s_i'^* \in BR_i[\phi'](s_{-i}'^*, h_i'^*)$ with attributed beliefs $\tilde{h}_i'^{*(2,j)} = \phi'_i(\theta_j, x_j, \omega_i)$.
+
+Since $\tilde{h}_i^{*(2,j)} \neq \tilde{h}_i'^{*(2,j)}$ and condition (iii) requires strict best-response separation, we have $s_i^* \neq s_i'^*$, so $s^* \neq s'^*$.
+\end{proof}

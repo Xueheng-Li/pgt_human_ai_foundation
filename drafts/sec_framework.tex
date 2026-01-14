@@ -1,0 +1,144 @@
+% Section 2: The Formal Framework
+\section{The Formal Framework}
+\label{sec:framework}
+
+This section presents the formal structure of asymmetric psychological games with human and AI players. We introduce the primitives, belief hierarchies, and the attribution function that captures how humans project mental states onto AI agents.
+
+\subsection{Players and Types}
+
+The population consists of two disjoint player sets: a set $N_H$ of \textbf{human players} with $|N_H| = n_H \geq 1$, and a set $N_A$ of \textbf{AI agents} with $|N_A| = n_A \geq 0$. The total player set is $N = N_H \cup N_A$ with $|N| = n = n_H + n_A$. Define the human population share as $\alpha = n_H / n \in (0, 1]$.
+
+Each player $i \in N$ has a finite strategy set $S_i$, with mixed strategies $\sigma_i \in \Delta(S_i)$. The strategy profile space is $S = \prod_{i \in N} S_i$.
+
+Players are characterised by type parameters. For humans $i \in N_H$, the type $t_i = (\beta_i, \gamma_i, \omega_i, \ldots) \in T_i$ encodes psychological characteristics: indignation sensitivity $\beta_i$, guilt sensitivity $\gamma_i$, and anthropomorphism tendency $\omega_i \in [0,1]$. For AI $j \in N_A$, the design parameters $\theta_j \in \Theta_j$ encode programmed objectives.
+
+\subsection{Payoffs}
+
+Payoffs decompose into material and psychological components. For all players, $\pi_i(s)$ denotes the material payoff given strategy profile $s$. For humans, total utility is
+\begin{equation}
+    U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}),
+\end{equation}
+where $\psi_i$ is the psychological payoff depending on second-order beliefs (defined formally in Definitions \ref{def:indignation}--\ref{def:guilt} below). We write $U_i^H(s_i, s_{-i}, h_i, \tilde{h}_i)$ when emphasizing individual strategy choice. AI utility is design-dependent with no psychological component:
+\begin{equation}
+    U_j^A(s; \theta_j) = f_j(s; \theta_j).
+\end{equation}
+
+Common AI specifications include materialist ($U_j^A = \pi_j(s)$), prosocial ($U_j^A = \pi_j(s) + \rho_j \sum_{k \in N} \pi_k(s)$), and conditional objectives.
+
+\subsection{Belief Hierarchies}
+
+Following \citet{mertens1985formulation} and \citet{battigalli2009dynamic}, we construct belief hierarchies recursively. For human $i \in N_H$:
+\begin{align}
+    h_i^{(0)} &= t_i \in T_i \quad \text{(type)} \\
+    h_i^{(1)} &\in \Delta(S_{-i}) \quad \text{(first-order beliefs about others' play)} \\
+    h_i^{(2,k)} &\in \Delta(\Delta(S_{-k})) \quad \text{(second-order beliefs: what } k \text{ expects from others)}
+\end{align}
+We use $h_i^{(n)}$ instead of the $\beta_i^{(n)}$ notation from \citet{battigalli2009dynamic} to avoid confusion with the indignation sensitivity parameter $\beta$. We write $h_i^{(1,k)}$ for the marginal of $h_i^{(1)}$ on player $k$'s strategy. For action $a \in S_k$, we write $h_i^{(2,k)}(a)$ for the probability that player $i$ believes player $k$ expected action $a$. We write $h_i^{(2)} = \{h_i^{(2,k)}\}_{k \neq i}$ for the collection of second-order beliefs.
+
+\subsection{Attributed Beliefs}
+
+The key departure from standard psychological game theory is the distinction between genuine and attributed beliefs.
+
+\begin{defn}[Attributed Beliefs]
+\label{def:attributed-beliefs}
+For human $i \in N_H$ interacting with AI $j \in N_A$, the \textbf{attributed second-order belief} is:
+\begin{equation}
+    \tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
+\end{equation}
+where $\theta_j \in \Theta_j$ is the AI's design parameters, $x_j \in X$ is observable signals (interface design, behavioural cues), and $\omega_i \in [0,1]$ is human $i$'s anthropomorphism tendency.
+\end{defn}
+
+The attributed belief $\tilde{h}_i^{(2,j)} \in \Delta(S_i)$ represents ``what human $i$ believes AI $j$ expected human $i$ to do.'' This is the belief that triggers guilt or indignation when human $i$ disappoints the AI's perceived expectations.
+
+The key distinction: \textbf{genuine beliefs} $h_i^{(2,k)}$ about other humans $k \in N_H$ are formed through observation and Bayesian updating; \textbf{attributed beliefs} $\tilde{h}_i^{(2,j)}$ about AI $j \in N_A$ are formed through psychological projection via the attribution function.
+
+\subsection{The Attribution Function}
+
+The attribution function is the novel primitive of ABE theory, formalising how humans project mental states onto AI agents.
+
+\begin{defn}[Attribution Function]
+\label{def:attribution-function}
+For each human $i \in N_H$, the attribution function is a mapping
+\begin{equation}
+    \phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)
+\end{equation}
+that determines how human $i$ attributes expectations to AI $j$ based on AI's design parameters $\theta_j$, observable signals $x_j$, and the human's anthropomorphism tendency $\omega_i$.
+\end{defn}
+
+\begin{remark}[Rational Attribution Benchmark]
+\label{rem:rational-benchmark}
+We define the \textbf{rational attribution benchmark} $\tilde{h}_i^{(2,j),RAT}$ as the attributed belief that would arise if the human correctly inferred AI expectations from the AI's objective function: $\tilde{h}_i^{(2,j),RAT} = \lim_{\omega_i \to 0} \phi_i(\theta_j, x_j, \omega_i)$ when this limit exists, representing attribution without anthropomorphic bias.
+\end{remark}
+
+The attribution function formalises the empirically established process of mind perception \citep{gray2007dimensions,epley2007seeing}. Its inputs correspond to well-established antecedents of intentionality attribution \citep{wiese2017robots}. Attribution intensity varies with human-like cues including voice \citep{schroeder2016voice}, gaze behaviour, and movement patterns, all of which can be captured in the signal vector $x_j$.
+
+Three main approaches to specifying $\phi_i$ are:
+\begin{enumerate}
+    \item \textbf{Behavioural attribution}: $\phi_i^{beh}(\theta_j, x_j, \omega_i) = g(s_j^{obs}, \omega_i)$, depending on AI's observed behaviour
+    \item \textbf{Signal-based attribution}: $\phi_i^{sig}(\theta_j, x_j, \omega_i) = g(x_j, \omega_i)$, depending primarily on observable signals
+    \item \textbf{Dispositional attribution}: $\phi_i^{disp}(\theta_j, x_j, \omega_i) = \omega_i \cdot \bar{h} + (1 - \omega_i) \cdot \underline{h}$, depending primarily on the human's anthropomorphism tendency
+\end{enumerate}
+
+\begin{example}[Linear Attribution]
+A simple parametric form is
+\begin{equation}
+    \tilde{h}_i^{(2,j)}(C) = \omega_i \cdot \left( \rho_j + \eta \cdot x_j \right)
+\end{equation}
+where $\rho_j \in [0,1]$ is AI's prosociality parameter, $x_j \in [0,1]$ is anthropomorphic signal strength, $\eta > 0$ is signal sensitivity, and $\omega_i \in [0,1]$ is individual anthropomorphism. Attributed beliefs about AI's expectation of cooperation increase with AI prosociality, anthropomorphic signals, and individual anthropomorphism tendency.
+\end{example}
+
+\subsection{Psychological Payoffs}
+
+Two main psychological mechanisms are relevant: indignation and guilt.
+
+\begin{defn}[Indignation with Attenuation]
+\label{def:indignation}
+The indignation payoff captures disutility from disappointing others' expectations:
+\begin{equation}
+    \psi_i^{IND}(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = -\beta_i \cdot \mathbf{1}_{s_i = D} \cdot \left[ \sum_{k \in N_H} h_i^{(2,k)}(C) + \lambda_i^{IND} \sum_{j \in N_A} \tilde{h}_i^{(2,j)}(C) \right]
+\end{equation}
+where $\beta_i > 0$ is indignation sensitivity, $h_i^{(2,k)}(C)$ is the probability that human $i$ believes human $k$ expected cooperation, $\tilde{h}_i^{(2,j)}(C)$ is the attributed probability that AI $j$ expected cooperation, $\lambda_i^{IND} \in [0,1]$ is the indignation attenuation factor toward AI, and $\mathbf{1}_{s_i = D}$ is the indicator for defection (adapted to context-specific actions in applications).
+\end{defn}
+
+The attenuation of indignation toward AI reflects intent attribution. Indignation requires perceiving malicious intent, but humans perceive AI behaviour as data-driven rather than prejudice-driven \citep{bigman2023people}.
+
+\begin{defn}[Guilt Aversion with Attenuation]
+\label{def:guilt}
+The guilt payoff captures disutility from falling short of perceived obligations:
+\begin{equation}
+    \psi_i^{GUILT}(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = -\gamma_i \cdot \left[ \sum_{k \in N_H} \max\{0, h_i^{(2,k)} - \pi_k(s)\} + \lambda_i^{GUILT} \sum_{j \in N_A} \max\{0, \tilde{h}_i^{(2,j)} - \pi_j(s)\} \right]
+\end{equation}
+where $\gamma_i > 0$ is guilt sensitivity and $\lambda_i^{GUILT} \in [0,1]$ is the guilt attenuation factor toward AI.
+\end{defn}
+
+\citet{demelo2017people} find that participants feel ``considerably less guilt'' when exploiting machines than humans, suggesting guilt requires attribution of experience (capacity to suffer) that humans do not readily grant to AI. Cross-cultural evidence reveals heterogeneity: Japanese participants exhibit guilt toward robots comparable to guilt toward humans, while Western participants show strong attenuation \citep{karpus2025cross}.
+
+\subsection{Game Definition}
+
+\begin{defn}[Asymmetric Human-AI Psychological Game]
+\label{def:game}
+An asymmetric psychological game is a tuple
+\begin{equation}
+    \Gamma = (N_H, N_A, \{T_i\}_{i \in N_H}, \{\Theta_j\}_{j \in N_A}, \{S_i\}_{i \in N}, \{U_i^H\}_{i \in N_H}, \{U_j^A\}_{j \in N_A}, \phi, p)
+\end{equation}
+where $N_H, N_A$ are human and AI player sets, $T_i$ and $\Theta_j$ are type spaces, $S_i$ are strategy sets, $U_i^H$ and $U_j^A$ are utility functions, $\phi = \{\phi_i\}_{i \in N_H}$ are attribution functions, and $p$ is the common prior over types.
+\end{defn}
+
+\subsection{Assumptions}
+
+We impose the following regularity conditions:
+
+\begin{assumption}[Regularity]
+\label{ass:regularity}
+(A1) Strategy spaces $S_i$ are non-empty and finite. Type spaces $T_i$ and $\Theta_j$ are non-empty, convex, and compact. Payoff functions are continuous.
+\end{assumption}
+
+\begin{assumption}[Attribution Continuity]
+\label{ass:attribution}
+(A2) The attribution function $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$ is continuous in $(\theta_j, x_j)$ for fixed $\omega_i$.
+\end{assumption}
+
+\begin{assumption}[Bounded Psychological Payoffs]
+\label{ass:bounded}
+(A3) There exists $M < \infty$ such that $|\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})| \leq M$ for all $i \in N_H$, all $s \in S$, and all beliefs.
+\end{assumption}

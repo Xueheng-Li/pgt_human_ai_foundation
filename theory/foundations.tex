@@ -1,0 +1,696 @@
+% Foundations of Attributed Belief Equilibrium Theory
+% A consolidated document of assumptions and basic concepts
+% Date: 2026-01-11
+
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{margin=1in}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{assumption}{Assumption}
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+
+\title{Foundations of Attributed Belief Equilibrium Theory\\[0.5em]
+\large Assumptions, Primitives, and Basic Concepts}
+\author{}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document consolidates the foundational elements of the Attributed Belief Equilibrium (ABE) theory for human-AI psychological games. It presents all primitives, assumptions, and basic concepts in a self-contained manner, serving as a reference for theoretical development. The framework extends psychological game theory (GPS 1989, BD 2009) to heterogeneous populations where humans have belief-dependent preferences and AI have design-dependent objectives.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Anthropomorphism: The Psychological Foundation}
+%==============================================================================
+
+The entire ABE framework rests on a fundamental psychological phenomenon: humans systematically attribute mental states to non-human agents. This section establishes anthropomorphism as the key behavioral assumption underlying the theory.
+
+\subsection{The Phenomenon}
+
+\begin{definition}[Anthropomorphism]
+\label{def:anthropomorphism}
+\textbf{Anthropomorphism} is the attribution of human-like mental states---beliefs, intentions, expectations, emotions---to non-human agents. In the context of human-AI interaction, anthropomorphism refers to humans perceiving AI systems as having genuine mental states despite knowing (at some level) that AI are computational systems.
+\end{definition}
+
+\begin{remark}[Descriptive vs. Normative]
+Anthropomorphism is a \emph{descriptive} claim about human psychology, not a \emph{normative} claim about AI. The question is not whether AI ``really'' has mental states (a contested philosophical issue), but whether humans \emph{behave as if} AI has mental states. The empirical evidence strongly supports this behavioral pattern.
+\end{remark}
+
+\subsection{Empirical Foundations}
+
+The psychological literature provides robust evidence for anthropomorphism toward artificial agents. We summarize the key findings that support Assumption A0 and its behavioral implications.
+
+\begin{enumerate}
+    \item \textbf{Three-factor theory} \citep{epley2007seeing}: Anthropomorphism is driven by:
+    \begin{itemize}
+        \item \emph{Elicited agent knowledge}: Activation of human-like concepts when observing agent behavior
+        \item \emph{Effectance motivation}: Desire to understand and predict agent behavior
+        \item \emph{Sociality motivation}: Need for social connection, especially when human contact is limited
+    \end{itemize}
+
+    \item \textbf{Computers as social actors} \citep{nass2000machines}: Humans apply social rules (politeness, reciprocity, gender stereotypes) to computers even when they know they are interacting with machines.
+
+    \item \textbf{Mind perception} \citep{gray2007dimensions}: Humans perceive minds along two dimensions---agency (capacity to act) and experience (capacity to feel). AI is typically attributed high agency but low experience, though this varies with design features.
+
+    \item \textbf{Moral standing} \citep{waytz2014mind}: Anthropomorphized agents are accorded greater moral consideration, affecting judgments about harm, rights, and obligations.
+
+    \item \textbf{Meta-analytic evidence} \citep{blut2021understanding}: A meta-analysis of 97 effect sizes confirms that anthropomorphism positively affects trust, satisfaction, and behavioral intentions toward AI across diverse contexts, establishing the robustness of the phenomenon.
+
+    \item \textbf{Economic behavior in strategic games}: Recent large-scale studies demonstrate that humans treat AI partners differently in economic games. \citet{mei2024turing} show that GPT-4's behavior is statistically indistinguishable from human behavior in trust and public goods games across 50+ countries, yet participants still respond differently when they know their partner is AI. \citet{aimone2014neural} find that betrayal aversion---the reluctance to trust when betrayal is possible---is absent when the partner is a computer, suggesting that emotional bonding mechanisms fail to activate in human-AI interaction.
+\end{enumerate}
+
+\subsection{The Core Behavioral Assumption}
+
+\begin{assumption}[Anthropomorphism]
+\label{ass:anthropomorphism}
+\textbf{(A0)} Humans interacting with AI agents attribute mental states to those agents. Specifically, humans form beliefs about what the AI ``expects,'' ``intends,'' or ``wants,'' and these attributed mental states affect human behavior through psychological mechanisms (guilt, indignation, reciprocity) that also operate in human-human interaction.
+\end{assumption}
+
+\begin{remark}[Empirical Support for A0]
+Assumption A0 is the best-supported assumption in our framework, drawing on convergent evidence from psychology, human-computer interaction, and human-robot interaction spanning three decades. The three-factor theory \citep{epley2007seeing} establishes anthropomorphism as a fundamental cognitive process (not an error), while the mind perception framework \citep{gray2007dimensions} provides the dimensional structure. Meta-analytic evidence \citep{blut2021understanding} confirms consistent effects across 97 effect sizes.
+\end{remark}
+
+\begin{remark}[Heterogeneity]
+Assumption A0 does not require that all humans anthropomorphize equally. The parameter $\omega_i \in [0,1]$ captures individual variation in anthropomorphism tendency. When $\omega_i = 0$, human $i$ treats AI as a pure machine with no attributed mental states; when $\omega_i = 1$, human $i$ fully anthropomorphizes AI as if it were human.
+\end{remark}
+
+\subsection{Attenuated Moral Emotions}
+
+While humans anthropomorphize AI (Assumption A0), the psychological consequences differ from human-human interaction. Critically, \emph{moral emotions are attenuated toward AI}:
+
+\begin{enumerate}
+    \item \textbf{Reduced guilt}: Humans experience considerably less guilt when exploiting machines than when exploiting humans \citep{demelo2017people}. In trust games where participants could choose to exploit their partner's trust, guilt responses were substantially weaker toward computer partners despite identical payoff structures.
+
+    \item \textbf{Reduced moral outrage}: People exhibit less moral outrage when algorithms discriminate compared to when humans discriminate \citep{bigman2023people}. The mechanism is \emph{intent attribution}: algorithms are perceived as data-driven rather than prejudiced, reducing the perceived malice that triggers indignation.
+
+    \item \textbf{Reduced reciprocity}: Economic game studies consistently find reduced prosociality toward AI partners, including lower trust \citep{aimone2014neural}, lower cooperation in prisoner's dilemma and public goods games, and less punishment of defection.
+\end{enumerate}
+
+\begin{remark}[The Central Empirical Challenge]
+This attenuation is the central empirical challenge for ABE theory: humans attribute mental states to AI (A0 holds) but do not fully activate the moral-emotional responses that would follow from genuine belief attribution toward humans. We formalize this through attenuation parameters in the psychological payoff functions (see Definitions \ref{def:indignation} and \ref{def:guilt}).
+\end{remark}
+
+\subsection{Implications for Game Theory}
+
+Anthropomorphism has three key implications for strategic interaction:
+
+\begin{enumerate}
+    \item \textbf{Psychological payoffs extend to AI}: If humans attribute expectations to AI, then guilt from disappointing AI and indignation from violating AI's perceived norms become strategically relevant.
+
+    \item \textbf{Beliefs are asymmetric}: Humans form attributed beliefs about AI ``mental states,'' but AI (as currently designed) does not form genuine beliefs about human beliefs. This creates the fundamental asymmetry that ABE addresses.
+
+    \item \textbf{Design affects psychology}: AI interface design, behavioral patterns, and communication style can manipulate the strength of anthropomorphism, thereby affecting equilibrium outcomes.
+\end{enumerate}
+
+\subsection{Relationship to Attribution Function}
+
+The attribution function $\phi_i$ formalizes how anthropomorphism translates into specific attributed beliefs:
+\begin{equation}
+    \tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
+\end{equation}
+
+The anthropomorphism parameter $\omega_i$ modulates the \emph{intensity} of attribution: higher $\omega_i$ leads to stronger attributed expectations (closer to what would be attributed to a human). The AI design parameters $\theta_j$ and signals $x_j$ affect the \emph{content} of attribution: what specific expectations are attributed.
+
+\begin{example}[Anthropomorphism in the Trust Game]
+Consider a trust game where an AI trustor sends money to a human trustee. A highly anthropomorphic human ($\omega_i$ high) may:
+\begin{itemize}
+    \item Feel guilt from keeping the money (``the AI trusted me'')
+    \item Attribute disappointment to the AI (``it expected me to return some'')
+    \item Reciprocate based on perceived AI intentions (``it was being generous'')
+\end{itemize}
+A non-anthropomorphic human ($\omega_i \approx 0$) would simply maximize material payoff, treating the AI transfer as a windfall with no psychological content.
+\end{example}
+
+\subsection{Empirical Boundary Conditions}
+
+Several empirical findings constrain the scope and generalizability of Assumption A0 and the ABE framework:
+
+\begin{enumerate}
+    \item \textbf{Cultural variation}: Western and East Asian populations show different patterns of moral emotion toward AI. Japanese participants exhibit guilt toward robots comparable to guilt toward humans, while Western participants (US, Europe) exploit robots without remorse \citep{karpus2025cross}. This suggests that attenuation factors $\lambda_i^{GUILT}$ and $\lambda_i^{IND}$ may require culture-specific calibration.
+
+    \item \textbf{Agency-Experience dissociation}: Humans attribute moderate \emph{agency} (planning, reasoning, decision-making) but low \emph{experience} (capacity to feel pain, pleasure, emotions) to AI \citep{gray2007dimensions}. This dissociation explains why attributed beliefs form (agency-based) but moral emotions are attenuated (experience-based). It provides the psychological foundation for attenuation factors $\lambda < 1$.
+
+    \item \textbf{Emotional expression effects}: When AI displays emotional responses---distress, disappointment, gratitude---human moral emotions are partially restored. This suggests that attenuation factors are \emph{design-dependent}: anthropomorphic design choices can shift $\lambda_i^{GUILT}$ and $\lambda_i^{IND}$ upward, with implications for equilibrium behavior.
+
+    \item \textbf{LLM vs. robot distinction}: Most existing evidence comes from studies with physical robots or simple computer programs. Modern large language models (LLMs) may elicit different attribution patterns due to their conversational ability \citep{mei2024turing}. The ABE framework applies to AI agents generally, but parameter calibration may differ across AI types.
+
+    \item \textbf{Temporal dynamics}: Limited evidence exists on how attribution and attenuation evolve with extended AI exposure. The current framework treats $\omega_i$, $\lambda_i^{GUILT}$, and $\lambda_i^{IND}$ as fixed parameters, but learning dynamics may be important for long-run predictions.
+\end{enumerate}
+
+%==============================================================================
+\section{Primitives and Notation}
+%==============================================================================
+
+\subsection{Player Sets}
+
+\begin{notation}
+The population consists of two disjoint player sets:
+\begin{itemize}[leftmargin=2cm]
+    \item[$N_H$] Set of \textbf{human players}, with $|N_H| = n_H \geq 1$
+    \item[$N_A$] Set of \textbf{AI agents}, with $|N_A| = n_A \geq 0$
+    \item[$N$] Total player set: $N = N_H \cup N_A$, with $|N| = n = n_H + n_A$
+\end{itemize}
+\end{notation}
+
+\begin{remark}[Population Share]
+Define the human population share as $\alpha = n_H / n \in (0, 1]$. When $\alpha = 1$ (i.e., $n_A = 0$), ABE reduces to standard psychological game theory.
+\end{remark}
+
+\subsection{Strategy Spaces}
+
+\begin{notation}
+For each player $i \in N$:
+\begin{itemize}[leftmargin=2cm]
+    \item[$S_i$] Finite strategy set for player $i$
+    \item[$\sigma_i$] Mixed strategy: $\sigma_i \in \Delta(S_i)$
+    \item[$S$] Strategy profile space: $S = \prod_{i \in N} S_i$
+    \item[$S_{-i}$] Strategies of all players except $i$: $S_{-i} = \prod_{j \neq i} S_j$
+\end{itemize}
+\end{notation}
+
+\subsection{Type Spaces}
+
+\begin{notation}
+Players are characterized by type parameters:
+\begin{itemize}[leftmargin=2cm]
+    \item[$T_i$] \textbf{Human type space} for $i \in N_H$: compact, convex subset of $\mathbb{R}^{m_i}$
+    \item[$t_i$] Human type: $t_i = (\beta_i, \gamma_i, \omega_i, \ldots) \in T_i$
+    \item[$\Theta_j$] \textbf{AI design space} for $j \in N_A$: compact, convex subset of $\mathbb{R}^{p_j}$
+    \item[$\theta_j$] AI design parameters: $\theta_j \in \Theta_j$
+\end{itemize}
+\end{notation}
+
+\begin{remark}[Type Interpretation]
+Human types $t_i$ encode psychological characteristics (indignation sensitivity $\beta_i$, guilt sensitivity $\gamma_i$, anthropomorphism tendency $\omega_i$). AI design parameters $\theta_j$ encode programmed objectives (prosociality level, conditionality rules).
+\end{remark}
+
+\subsection{Payoff Components}
+
+\begin{notation}
+Payoffs decompose into material and psychological components:
+\begin{itemize}[leftmargin=2cm]
+    \item[$\pi_i(s)$] \textbf{Material payoff} for player $i$ given strategy profile $s$
+    \item[$\psi_i(\cdot)$] \textbf{Psychological payoff} for human $i$ (belief-dependent)
+    \item[$U_i^H$] \textbf{Total human utility}: $U_i^H = \pi_i + \psi_i$
+    \item[$U_j^A$] \textbf{AI utility}: $U_j^A(s; \theta_j)$ (design-dependent, no psychological component)
+\end{itemize}
+\end{notation}
+
+%==============================================================================
+\section{Belief Hierarchies}
+%==============================================================================
+
+\subsection{Standard Belief Hierarchies (Human-Human)}
+
+Following \citet{mertens1985formulation} and \citet{battigalli2009dynamic}, we construct belief hierarchies recursively.
+
+\begin{definition}[Belief Hierarchy for Humans]
+\label{def:belief-hierarchy}
+For human $i \in N_H$, the belief hierarchy is:
+\begin{align}
+    h_i^{(0)} &= t_i \in T_i \quad \text{(type)} \\
+    h_i^{(1)} &\in \Delta(S_{-i}) \quad \text{(first-order beliefs about others' play)} \\
+    h_i^{(2,k)} &\in \Delta(\Delta(S_{-k})) \quad \text{(second-order beliefs: what $k$ expects from others)} \\
+    h_i^{(n)} &\in \Delta(\mathcal{H}_{-i}^{n-1}) \quad \text{(higher-order beliefs)}
+\end{align}
+The full belief hierarchy is $h_i = (h_i^{(0)}, h_i^{(1)}, h_i^{(2)}, \ldots) \in \mathcal{H}_i$.
+\end{definition}
+
+\begin{remark}[Notation Convention]
+We use $h_i^{(n)}$ instead of the $\beta_i^{(n)}$ notation from \citet{battigalli2009dynamic} to avoid confusion with the indignation sensitivity parameter $\beta$.
+\end{remark}
+
+\subsection{Attributed Beliefs (Human-AI)}
+
+\begin{definition}[Attributed Beliefs]
+\label{def:attributed-beliefs}
+For human $i \in N_H$ interacting with AI $j \in N_A$, the \textbf{attributed second-order belief} is:
+\begin{equation}
+    \tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
+\end{equation}
+where:
+\begin{itemize}
+    \item $\theta_j \in \Theta_j$: AI's design parameters
+    \item $x_j \in X$: observable signals (interface design, behavioral cues)
+    \item $\omega_i \in \Omega_i = [0,1]$: human $i$'s anthropomorphism tendency
+    \item $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$: attribution function
+\end{itemize}
+\end{definition}
+
+\begin{remark}[Codomain Clarification]
+\textbf{Critical}: The attributed belief $\tilde{h}_i^{(2,j)}$ represents ``what human $i$ believes AI $j$ expected human $i$ to do.'' Hence, the codomain is $\Delta(S_i)$, not $\Delta(S_j)$. This is the belief that triggers guilt or indignation when human $i$ disappoints the AI's perceived expectations.
+\end{remark}
+
+\begin{remark}[Genuine vs. Attributed]
+The key distinction:
+\begin{itemize}
+    \item \textbf{Genuine beliefs} $h_i^{(2,k)}$ about other humans $k \in N_H$ are formed through observation and Bayesian updating
+    \item \textbf{Attributed beliefs} $\tilde{h}_i^{(2,j)}$ about AI $j \in N_A$ are formed through psychological projection via the attribution function $\phi_i$
+\end{itemize}
+\end{remark}
+
+\subsection{Complete Belief Structure}
+
+\begin{definition}[Complete Belief System]
+\label{def:complete-beliefs}
+Human $i$'s complete belief system consists of:
+\begin{enumerate}
+    \item \textbf{Genuine beliefs about humans}: $\{h_i^{(n,k)}\}_{k \in N_H, n \geq 1}$
+    \item \textbf{Attributed beliefs about AI}: $\{\tilde{h}_i^{(n,j)}\}_{j \in N_A, n \geq 2}$
+    \item \textbf{First-order beliefs about AI play}: $h_i^{(1,j)} \in \Delta(S_j)$ for $j \in N_A$
+\end{enumerate}
+\end{definition}
+
+%==============================================================================
+\section{The Attribution Function}
+%==============================================================================
+
+The attribution function is the novel primitive of ABE theory, formalizing how humans project mental states onto AI agents.
+
+\begin{remark}[Grounding in Mind Perception]
+The attribution function $\phi_i$ formalizes the empirically established process of mind perception \citep{gray2007dimensions,epley2007seeing}. Its inputs---AI design parameters $\theta_j$, observable signals $x_j$, and individual anthropomorphism tendency $\omega_i$---correspond to well-established antecedents of intentionality attribution \citep{wiese2017robots}. Attribution intensity varies with human-like cues including voice \citep{schroeder2016voice}, gaze behavior, and movement patterns, all of which can be captured in the signal vector $x_j$.
+\end{remark}
+
+\subsection{Formal Definition}
+
+\begin{definition}[Attribution Function]
+\label{def:attribution-function}
+For each human $i \in N_H$, the attribution function is a mapping:
+\begin{equation}
+    \phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)
+\end{equation}
+that determines how human $i$ attributes expectations to AI $j$ based on:
+\begin{itemize}
+    \item AI's design parameters $\theta_j$ (prosociality, conditionality)
+    \item Observable signals $x_j$ (interface design, behavioral history, communication style)
+    \item Human's anthropomorphism tendency $\omega_i$
+\end{itemize}
+\end{definition}
+
+\subsection{Specification Approaches}
+
+Three main approaches to specifying $\phi_i$:
+
+\begin{definition}[Behavioral Attribution]
+\label{def:behavioral-attribution}
+The attribution function depends on AI's observed behavior:
+\begin{equation}
+    \phi_i^{beh}(\theta_j, x_j, \omega_i) = g(s_j^{obs}, \omega_i)
+\end{equation}
+where $s_j^{obs}$ is AI $j$'s observed action history.
+\end{definition}
+
+\begin{definition}[Signal-Based Attribution]
+\label{def:signal-attribution}
+The attribution function depends primarily on observable signals:
+\begin{equation}
+    \phi_i^{sig}(\theta_j, x_j, \omega_i) = g(x_j, \omega_i)
+\end{equation}
+where $x_j$ includes interface design, framing, and anthropomorphic cues.
+\end{definition}
+
+\begin{definition}[Dispositional Attribution]
+\label{def:dispositional-attribution}
+The attribution function depends primarily on the human's anthropomorphism tendency:
+\begin{equation}
+    \phi_i^{disp}(\theta_j, x_j, \omega_i) = \omega_i \cdot \bar{h} + (1 - \omega_i) \cdot \underline{h}
+\end{equation}
+where $\bar{h}$ represents ``high expectations'' and $\underline{h}$ represents ``low expectations.''
+\end{definition}
+
+\subsection{Parametric Examples}
+
+\begin{example}[Linear Attribution]
+\label{ex:linear-attribution}
+A simple parametric form:
+\begin{equation}
+    \tilde{h}_i^{(2,j)}(C) = \omega_i \cdot \left( \gamma_j + \eta \cdot x_j \right)
+\end{equation}
+where:
+\begin{itemize}
+    \item $\gamma_j \in [0,1]$: AI's prosociality parameter
+    \item $x_j \in [0,1]$: anthropomorphic signal strength
+    \item $\eta > 0$: signal sensitivity
+    \item $\omega_i \in [0,1]$: individual anthropomorphism
+\end{itemize}
+This implies that attributed beliefs about AI's expectation of cooperation increase with AI prosociality, anthropomorphic signals, and individual anthropomorphism tendency.
+\end{example}
+
+%==============================================================================
+\section{Utility Functions}
+%==============================================================================
+
+\subsection{Human Utility}
+
+\begin{definition}[Human Utility Function]
+\label{def:human-utility}
+For human $i \in N_H$, total utility is:
+\begin{equation}
+    U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})
+\end{equation}
+where:
+\begin{itemize}
+    \item $\pi_i(s)$: material payoff
+    \item $\psi_i(\cdot)$: psychological payoff depending on second-order beliefs
+\end{itemize}
+\end{definition}
+
+\subsection{Psychological Payoff Mechanisms}
+
+\begin{definition}[Indignation with Attenuation]
+\label{def:indignation}
+The indignation payoff captures disutility from disappointing others' expectations. Empirical evidence indicates that indignation toward AI is attenuated relative to humans \citep{bigman2023people,xu2022punishment}, which we capture through the attenuation parameter $\lambda_i^{IND} \in [0,1]$:
+\begin{equation}
+    \psi_i^{IND}(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = -\beta_i \cdot \mathbf{1}_{s_i = D} \cdot \left[ \sum_{k \in N_H} h_i^{(2,k)}(C) + \lambda_i^{IND} \sum_{j \in N_A} \tilde{h}_i^{(2,j)}(C) \right]
+\end{equation}
+where:
+\begin{itemize}
+    \item $\beta_i > 0$: indignation sensitivity
+    \item $\mathbf{1}_{s_i = D}$: indicator for defection
+    \item $h_i^{(2,k)}(C)$: probability that human $k$ expected cooperation
+    \item $\tilde{h}_i^{(2,j)}(C)$: attributed probability that AI $j$ expected cooperation
+    \item $\lambda_i^{IND} \in [0,1]$: \textbf{indignation attenuation factor} toward AI
+\end{itemize}
+When $\lambda_i^{IND} = 1$, indignation operates identically toward humans and AI; when $\lambda_i^{IND} = 0$, AI violations do not trigger indignation. Empirical evidence suggests typical values $\lambda_i^{IND} < 1$.
+\end{definition}
+
+\begin{remark}[Mechanism of Indignation Attenuation]
+The attenuation of indignation toward AI reflects \emph{intent attribution}. Indignation requires perceiving malicious intent, but humans perceive AI behavior as data-driven rather than prejudice-driven \citep{bigman2023people}. This fundamentally reduces the ``moral dyad'' perception necessary for full indignation activation. Consequently, third-party punishment of AI norm violators may be reduced in mixed human-AI populations.
+\end{remark}
+
+\begin{definition}[Guilt Aversion with Attenuation]
+\label{def:guilt}
+The guilt payoff captures disutility from falling short of perceived obligations. Empirical evidence indicates that guilt toward AI is substantially attenuated \citep{demelo2017people}, which we capture through the attenuation parameter $\lambda_i^{GUILT} \in [0,1]$:
+\begin{equation}
+    \psi_i^{GUILT}(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = -\gamma_i \cdot \left[ \sum_{k \in N_H} \max\{0, h_i^{(2,k)} - \pi_k(s)\} + \lambda_i^{GUILT} \sum_{j \in N_A} \max\{0, \tilde{h}_i^{(2,j)} - \pi_j(s)\} \right]
+\end{equation}
+where:
+\begin{itemize}
+    \item $\gamma_i > 0$: guilt sensitivity
+    \item $\lambda_i^{GUILT} \in [0,1]$: \textbf{guilt attenuation factor} toward AI
+\end{itemize}
+When $\lambda_i^{GUILT} = 1$, guilt operates identically toward humans and AI; when $\lambda_i^{GUILT} = 0$, disappointing AI expectations does not trigger guilt.
+\end{definition}
+
+\begin{remark}[Empirical Evidence on Guilt Attenuation]
+\citet{demelo2017people} provide the core finding: participants felt ``considerably less guilt'' when exploiting machines than humans, even though they felt the same level of envy. This asymmetry suggests guilt requires attribution of \emph{experience} (capacity to suffer) that humans do not readily grant to AI \citep{gray2007dimensions}. Cross-cultural evidence suggests heterogeneity: Japanese participants exhibit guilt toward robots comparable to guilt toward humans, while Western participants show strong attenuation \citep{karpus2025cross}. Furthermore, when AI \emph{expresses} emotional distress, guilt is partially restored, suggesting that $\lambda_i^{GUILT}$ is design-dependent.
+\end{remark}
+
+\begin{remark}[Combined Psychological Payoffs]
+In general, psychological payoffs may combine multiple mechanisms:
+\begin{equation}
+    \psi_i = \psi_i^{IND} + \psi_i^{GUILT} + \psi_i^{REC} + \ldots
+\end{equation}
+where $\psi_i^{REC}$ captures reciprocity motives.
+\end{remark}
+
+\subsection{AI Utility}
+
+\begin{definition}[AI Utility Function]
+\label{def:ai-utility}
+For AI $j \in N_A$, utility is design-dependent with no psychological component:
+\begin{equation}
+    U_j^A(s; \theta_j) = f_j(s; \theta_j)
+\end{equation}
+where $f_j$ is determined by the AI's programmed objective.
+\end{definition}
+
+\begin{example}[AI Utility Specifications]
+Common specifications include:
+\begin{align}
+    \text{Materialist:} \quad & U_j^A = \pi_j(s) \\
+    \text{Prosocial:} \quad & U_j^A = \pi_j(s) + \gamma_j \sum_{k \in N} \pi_k(s) \\
+    \text{Conditional:} \quad & U_j^A = \pi_j(s) \cdot g(\text{observed human cooperation})
+\end{align}
+where $\gamma_j \geq 0$ is the prosociality parameter.
+\end{example}
+
+%==============================================================================
+\section{Assumptions}
+%==============================================================================
+
+We state all assumptions required for the theory.
+
+\subsection{Regularity Assumptions}
+
+\begin{assumption}[Compactness]
+\label{ass:compact}
+\textbf{(A1a)} Strategy spaces $S_i$ are non-empty and finite for all $i \in N$.
+\end{assumption}
+
+\begin{assumption}[Type Space Regularity]
+\label{ass:type-regular}
+\textbf{(A1b)} Human type spaces $T_i$ and AI design spaces $\Theta_j$ are non-empty, convex, and compact subsets of Euclidean spaces.
+\end{assumption}
+
+\begin{assumption}[Continuity of Payoffs]
+\label{ass:continuity-payoffs}
+\textbf{(A1c)} Material payoff functions $\pi_i: S \to \mathbb{R}$ are continuous. Psychological payoff functions $\psi_i: S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)} \to \mathbb{R}$ are continuous in all arguments.
+\end{assumption}
+
+\subsection{Attribution Assumptions}
+
+\begin{assumption}[Attribution Continuity]
+\label{ass:attribution-continuity}
+\textbf{(A2)} The attribution function $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$ is continuous in $(\theta_j, x_j)$ for fixed $\omega_i$, and measurable in $\omega_i$.
+\end{assumption}
+
+\begin{remark}[Empirical Support for Continuity]
+Assumption A2 is imposed for mathematical tractability. While direct tests are lacking, the \emph{gradable} nature of attribution antecedents provides indirect support: mind perception varies continuously with morphology, unpredictability, and interactivity \citep{waytz2010causes}, and intentionality attribution varies with continuous behavioral cues \citep{wiese2017robots}. We note that potential threshold effects---particularly the uncanny valley \citep{gray2012feeling}---may violate strict continuity at extreme levels of human-likeness, though this applies primarily to appearance-based rather than behavior-based attribution.
+\end{remark}
+
+\begin{assumption}[Attribution Monotonicity]
+\label{ass:attribution-monotone}
+\textbf{(A2')} (Optional) Higher anthropomorphism leads to higher attributed expectations:
+\begin{equation}
+    \omega_i' > \omega_i \implies \tilde{h}_i^{(2,j)}(C; \omega_i') \geq \tilde{h}_i^{(2,j)}(C; \omega_i)
+\end{equation}
+for cooperative actions $C$.
+\end{assumption}
+
+\begin{remark}[Empirical Support for Monotonicity]
+Assumption A2' is well-supported by meta-analytic evidence. \citet{blut2021understanding} confirm a positive relationship between anthropomorphism and trust across 97 effect sizes. \citet{waytz2014trusting} demonstrate that anthropomorphizing an autonomous vehicle (via naming and voice) increases trust, and \citet{joo2024mind} show that perceiving human-like mental qualities in AI increases moral blame. The key caveat is that monotonicity may fail for \emph{appearance-based} attribution at extreme human-likeness (uncanny valley; \citealp{gray2012feeling}), but behavioral and design-based attribution appears monotonic.
+\end{remark}
+
+\subsection{Boundedness Assumptions}
+
+\begin{assumption}[Bounded Psychological Payoffs]
+\label{ass:bounded-psi}
+\textbf{(A3)} There exists $M < \infty$ such that $|\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})| \leq M$ for all $i \in N_H$, all $s \in S$, and all beliefs in their respective domains.
+\end{assumption}
+
+\begin{remark}[Role of Boundedness]
+Assumption A3 ensures that psychological payoffs do not dominate material payoffs arbitrarily, maintaining a well-defined utility structure. This is standard in psychological game theory.
+\end{remark}
+
+\subsection{Belief Consistency Assumptions}
+
+\begin{assumption}[Genuine Belief Consistency]
+\label{ass:belief-consistency}
+\textbf{(A4)} For humans $i, k \in N_H$, genuine beliefs satisfy Bayesian consistency:
+\begin{enumerate}
+    \item Lower-order beliefs are marginals of higher-order beliefs
+    \item Beliefs are updated via Bayes' rule given observed information
+\end{enumerate}
+\end{assumption}
+
+\begin{assumption}[First-Order Belief Consistency]
+\label{ass:first-order}
+\textbf{(A5)} First-order beliefs about AI actions are correct in equilibrium:
+\begin{equation}
+    h_i^{(1,j)} = \sigma_j^* \quad \text{for all } i \in N_H, j \in N_A
+\end{equation}
+where $\sigma_j^*$ is AI $j$'s equilibrium strategy.
+\end{assumption}
+
+%==============================================================================
+\section{Game Definition}
+%==============================================================================
+
+\begin{definition}[Asymmetric Human-AI Psychological Game]
+\label{def:game}
+An asymmetric psychological game is a tuple:
+\begin{equation}
+    \Gamma = (N_H, N_A, \{T_i\}_{i \in N_H}, \{\Theta_j\}_{j \in N_A}, \{S_i\}_{i \in N}, \{U_i^H\}_{i \in N_H}, \{U_j^A\}_{j \in N_A}, \phi, p)
+\end{equation}
+where:
+\begin{enumerate}
+    \item $N_H, N_A$: human and AI player sets
+    \item $T_i$: human type spaces
+    \item $\Theta_j$: AI design parameter spaces
+    \item $S_i$: strategy sets
+    \item $U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})$: human utility
+    \item $U_j^A(s; \theta_j)$: AI utility
+    \item $\phi = \{\phi_i\}_{i \in N_H}$: attribution functions
+    \item $p \in \Delta(\prod_{i \in N_H} T_i \times \prod_{j \in N_A} \Theta_j)$: common prior over types
+\end{enumerate}
+\end{definition}
+
+%==============================================================================
+\section{Equilibrium Concept}
+%==============================================================================
+
+\begin{definition}[Attributed Belief Equilibrium (ABE)]
+\label{def:ABE}
+A strategy profile $s^* = (s_H^*, s_A^*)$, genuine belief system $h^*$, and attributed belief system $\tilde{h}^*$ constitute an \textbf{Attributed Belief Equilibrium} if:
+
+\begin{enumerate}[label=\textbf{(ABE\arabic*)}]
+    \item \textbf{Human Optimality}: For all $i \in N_H$,
+    \begin{equation}
+        s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*)
+    \end{equation}
+
+    \item \textbf{AI Optimality}: For all $j \in N_A$,
+    \begin{equation}
+        s_j^* \in \arg\max_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j)
+    \end{equation}
+
+    \item \textbf{Genuine Belief Consistency}: For all $i, k \in N_H$,
+    \begin{align}
+        h_i^{*(1,k)} &= s_k^* \quad \text{(first-order consistency)} \\
+        h_i^{*(2,k)} &= h_k^{*(1,i)} \quad \text{(second-order consistency)}
+    \end{align}
+
+    \item \textbf{Attribution Consistency}: For all $i \in N_H$ and $j \in N_A$,
+    \begin{equation}
+        \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
+    \end{equation}
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Key Features of ABE]
+\begin{enumerate}
+    \item \textbf{Dual consistency}: Genuine beliefs (H-H) satisfy Bayesian consistency; attributed beliefs (H-A) satisfy attribution consistency
+    \item \textbf{Asymmetric rationality}: Humans are psychologically rational; AI are design-rational
+    \item \textbf{No cognizability for attributed beliefs}: Unlike BD (2009), attributed beliefs need not be ``cognizable'' since AI lacks genuine beliefs
+\end{enumerate}
+\end{remark}
+
+%==============================================================================
+\section{Nesting and Special Cases}
+%==============================================================================
+
+\begin{proposition}[Reduction to Standard PGT]
+\label{prop:nesting}
+When $N_A = \emptyset$ (no AI agents), ABE reduces to Sequential Psychological Equilibrium as in \citet{battigalli2009dynamic}.
+\end{proposition}
+
+\begin{proposition}[Reduction to Nash]
+\label{prop:nash}
+When $\psi_i \equiv 0$ for all $i \in N_H$ (no psychological payoffs), ABE reduces to Nash Equilibrium.
+\end{proposition}
+
+\begin{proposition}[Rational Attribution]
+\label{prop:rational-attribution}
+If the attribution function $\phi_i$ maps to beliefs consistent with AI's actual objective function (i.e., $\tilde{h}_i^{(2,j)}$ equals what a rational observer would infer about AI's ``intended'' actions), then ABE is equivalent to a Bayesian game with type uncertainty about AI design parameters.
+\end{proposition}
+
+%==============================================================================
+\section{Summary of Key Symbols}
+%==============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Summary of Notation}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Domain} & \textbf{Interpretation} \\
+\midrule
+$N_H, N_A$ & Finite sets & Human and AI player sets \\
+$n_H, n_A$ & $\mathbb{Z}_+$ & Player counts \\
+$\alpha$ & $(0,1]$ & Human population share \\
+$S_i$ & Finite set & Strategy set for player $i$ \\
+$T_i$ & $\subseteq \mathbb{R}^{m_i}$ & Human type space \\
+$\Theta_j$ & $\subseteq \mathbb{R}^{p_j}$ & AI design space \\
+$\beta_i$ & $\mathbb{R}_+$ & Indignation sensitivity \\
+$\gamma_i$ & $\mathbb{R}_+$ & Guilt sensitivity \\
+$\omega_i$ & $[0,1]$ & Anthropomorphism tendency \\
+$\lambda_i^{IND}$ & $[0,1]$ & Indignation attenuation toward AI \\
+$\lambda_i^{GUILT}$ & $[0,1]$ & Guilt attenuation toward AI \\
+$h_i^{(n)}$ & $\Delta(\mathcal{H}_{-i}^{n-1})$ & $n$-th order belief \\
+$\tilde{h}_i^{(2,j)}$ & $\Delta(S_i)$ & Attributed belief about AI $j$ \\
+$\phi_i$ & $\Theta_j \times X \times \Omega_i \to \Delta(S_i)$ & Attribution function \\
+$\pi_i$ & $S \to \mathbb{R}$ & Material payoff \\
+$\psi_i$ & $S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)} \to \mathbb{R}$ & Psychological payoff \\
+$U_i^H$ & $S \times \mathcal{H}_i \times \tilde{\mathcal{H}}_i \to \mathbb{R}$ & Human utility \\
+$U_j^A$ & $S \times \Theta_j \to \mathbb{R}$ & AI utility \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Summary of Assumptions}
+\begin{tabular}{@{}lp{10cm}@{}}
+\toprule
+\textbf{Label} & \textbf{Statement} \\
+\midrule
+\textbf{A0} & \textbf{Anthropomorphism}: Humans attribute mental states to AI and these attributed states affect behavior through psychological mechanisms (guilt, indignation, reciprocity) \\
+\midrule
+A1a & Strategy spaces are finite and non-empty \\
+A1b & Type spaces are compact, convex subsets of Euclidean space \\
+A1c & Payoff functions are continuous \\
+A2 & Attribution function is continuous in design parameters and signals \\
+A2' & (Optional) Attribution is monotonic in anthropomorphism \\
+A3 & Psychological payoffs are bounded \\
+A4 & Genuine beliefs satisfy Bayesian consistency \\
+A5 & First-order beliefs about AI are correct in equilibrium \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%==============================================================================
+\section{Open Issues and Theoretical Gaps}
+%==============================================================================
+
+Based on critical review, the following issues require attention:
+
+\subsection{Codomain of Attribution Function}
+
+The attribution function $\phi_i$ should output beliefs about what AI expected \textit{the human} to do, not beliefs about what AI will do. Formally:
+\begin{equation}
+    \phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i) \quad \text{(correct)}
+\end{equation}
+This is because guilt/indignation is triggered by disappointing expectations about one's own behavior.
+
+\subsection{Dependence on AI Behavior}
+
+Should $\phi_i$ depend on AI's observed behavior $s_j^{obs}$? The current specification excludes this, but humans likely update attributed beliefs based on AI actions. This creates a feedback loop that complicates equilibrium analysis.
+
+\subsection{Nesting Result}
+
+A formal proof is needed showing ABE $\to$ SPE when $N_A = \emptyset$. This legitimizes ABE as a proper extension of psychological game theory.
+
+\subsection{Higher-Order Attributed Beliefs}
+
+The current framework stops at second-order attributed beliefs. What about $\tilde{h}_i^{(3,j)}$---what human thinks AI thinks human expected? This may be relevant for some applications.
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}

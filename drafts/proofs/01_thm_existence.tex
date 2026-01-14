@@ -1,0 +1,77 @@
+% Proof of Theorem: Existence of ABE
+% Appendix material for main manuscript
+% Notation follows sec_framework.tex and sec_equilibrium.tex
+
+\begin{proof}[Proof of Theorem~\ref{thm:existence}]
+The proof applies Kakutani's fixed-point theorem to the best-response correspondence on the mixed strategy space. The key insight: both genuine and attributed beliefs are \emph{functions} of strategies, not independent equilibrium variables, so the fixed-point argument operates on the finite-dimensional space $\Sigma$ alone.
+
+\medskip
+\noindent\textbf{Step 1: Strategy space construction.}
+Let $\Sigma = \prod_{i \in N} \Delta(S_i)$ be the space of mixed strategy profiles. Since each $S_i$ is finite and non-empty (A1), each simplex $\Delta(S_i)$ is non-empty, compact (closed and bounded in $\mathbb{R}^{|S_i|}$), and convex. The finite product $\Sigma$ inherits these properties.
+
+\medskip
+\noindent\textbf{Step 2: Belief computation.}
+Given a strategy profile $\sigma \in \Sigma$, beliefs are determined as follows:
+\begin{itemize}
+    \item \emph{Attributed beliefs}: For human $i \in N_H$ and AI $j \in N_A$, define $\tilde{h}_i^{(2,j)}(\sigma) = \phi_i(\theta_j, x_j, \omega_i)$. These are independent of $\sigma$---constants determined by AI design parameters, observable signals, and the human's anthropomorphism tendency.
+    \item \emph{Genuine beliefs}: For humans $i, k \in N_H$, define first-order beliefs $h_i^{(1,k)}(\sigma) = \sigma_k$ and second-order beliefs $h_i^{(2,k)}(\sigma) = \sigma_i$. Each is a coordinate projection, hence continuous in $\sigma$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Step 3: Best-response correspondence.}
+For each human $i \in N_H$, define $BR_i^H: \Sigma \rightrightarrows \Delta(S_i)$ by
+\[
+    BR_i^H(\sigma) = \arg\max_{\sigma_i' \in \Delta(S_i)} \sum_{s \in S} \left(\prod_{k \in N} \sigma_k'(s_k)\right) U_i^H(s, h_i(\sigma), \tilde{h}_i)
+\]
+where $\sigma_k' = \sigma_k$ for $k \neq i$, and beliefs $h_i(\sigma), \tilde{h}_i$ are computed as in Step 2.
+
+For each AI $j \in N_A$, define $BR_j^A: \Sigma \rightrightarrows \Delta(S_j)$ by
+\[
+    BR_j^A(\sigma) = \arg\max_{\sigma_j' \in \Delta(S_j)} \sum_{s \in S} \left(\prod_{k \in N} \sigma_k'(s_k)\right) U_j^A(s; \theta_j)
+\]
+where $\sigma_k' = \sigma_k$ for $k \neq j$.
+
+We verify that each $BR_k$ (for $k \in N$) is:
+\begin{enumerate}
+    \item[(i)] \emph{Non-empty valued}: The simplex $\Delta(S_k)$ is compact and the objective is continuous in $\sigma_k'$, so the maximum is attained (Weierstrass).
+    \item[(ii)] \emph{Convex valued}: The objective is linear in $\sigma_k'$; any convex combination of maximizers is a maximizer.
+    \item[(iii)] \emph{Upper hemicontinuous}: The constraint set $\Delta(S_k)$ is constant (hence continuous). The objective is continuous in $(\sigma_k', \sigma)$: the material component is polynomial in $\sigma$; the psychological component $\psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ is continuous by A1 (continuity of $\psi_i$ in beliefs) and continuity of the belief mappings. By Berge's Maximum Theorem, $BR_k$ is upper hemicontinuous.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Step 4: Fixed-point application.}
+Define the joint correspondence $BR: \Sigma \rightrightarrows \Sigma$ by $BR(\sigma) = \prod_{k \in N} BR_k(\sigma)$. The product of non-empty, convex-valued, upper hemicontinuous correspondences inherits these properties. Each $BR_k(\sigma)$ is closed (as the $\arg\max$ of a continuous function over a compact set), so $BR$ has a closed graph.
+
+By Kakutani's fixed-point theorem: $\Sigma$ is non-empty, compact, and convex; $BR(\sigma)$ is non-empty and convex for all $\sigma$; $BR$ has a closed graph. Therefore, there exists $\sigma^* \in \Sigma$ with $\sigma^* \in BR(\sigma^*)$.
+
+\medskip
+\noindent\textbf{Step 5: Equilibrium verification.}
+We verify that the fixed point $\sigma^*$, together with beliefs computed from Steps 2, satisfies all four ABE conditions.
+
+\emph{(ABE1) Human Optimality}: For $i \in N_H$, the fixed-point property gives $\sigma_i^* \in BR_i^H(\sigma^*)$, so $\sigma_i^*$ maximizes $U_i^H$ given $\sigma_{-i}^*$ and the induced beliefs.
+
+\emph{(ABE2) AI Optimality}: For $j \in N_A$, we have $\sigma_j^* \in BR_j^A(\sigma^*)$, so $\sigma_j^*$ maximizes $U_j^A$ given $\sigma_{-j}^*$.
+
+\emph{(ABE3) Genuine Belief Consistency}: Define equilibrium beliefs by:
+\begin{align*}
+    h_i^{*(1,k)} &:= h_i^{(1,k)}(\sigma^*) = \sigma_k^* \\
+    h_i^{*(2,k)} &:= h_i^{(2,k)}(\sigma^*) = \sigma_i^*
+\end{align*}
+First-order consistency holds: $h_i^{*(1,k)} = \sigma_k^*$ (beliefs equal actual strategies). For second-order consistency, we need $h_i^{*(2,k)} = h_k^{*(1,i)}$. By construction:
+\[
+    h_i^{*(2,k)} = \sigma_i^* = h_k^{(1,i)}(\sigma^*) = h_k^{*(1,i)}
+\]
+Thus $i$'s belief about what $k$ expected from $i$ equals what $k$ actually expected from $i$.
+
+\emph{(ABE4) Attribution Consistency}: Define $\tilde{h}_i^{*(2,j)} := \phi_i(\theta_j, x_j, \omega_i)$. This is exactly the attribution consistency condition.
+
+All four ABE conditions are satisfied. Therefore, $(\sigma^*, h^*, \tilde{h}^*)$ is an Attributed Belief Equilibrium.
+\end{proof}
+
+\begin{remark}[Role of Assumptions]
+The proof uses: A1 (finite strategy spaces, continuous payoffs) for compactness, convexity, and Berge's theorem; A2 (well-defined attribution) for attributed beliefs to be valid probability distributions; A3 (bounded psychological payoffs) is implied by A1 given compactness of $\Sigma$, ensuring continuity of the utility function.
+\end{remark}
+
+\begin{remark}[Comparison with Standard PGT]
+The ABE existence argument is structurally simpler than existence proofs for standard psychological game equilibria \citep{battigalli2009dynamic}. Attributed beliefs are exogenously determined---constants, not equilibrium variables. The fixed-point problem is confined to the finite-dimensional space $\Sigma$, not the infinite-dimensional belief space.
+\end{remark}

@@ -1,0 +1,203 @@
+% Proof of Proposition: Public Goods ABE
+% Appendix material for main manuscript
+% Notation follows sec_framework.tex and sec_applications.tex
+% Requires: Assumption (A2') Attribution Monotonicity, Condition (I) Indignation Dominance,
+%           and $\beta_i > 0$ for all humans.
+
+% Note: The proposition statement is in sec_applications.tex.
+% This proof requires:
+%   (A2') Attribution Monotonicity: $\phi_i(\theta_j, x_j, \omega_i)$ weakly increasing in $\omega_i$
+%   (I)   Indignation Dominance: $\beta_i[(n_H - 1) + \lambda_i^{IND} n_A] > E(1 - m/n)$
+%   $\beta_i > 0$ for all $i \in N_H$ (positive indignation sensitivity)
+
+\begin{proof}[Proof of Proposition~\ref{prop:public-goods}]
+The proposition requires (A2') attribution monotonicity, (I) indignation dominance, and $\beta_i > 0$ for all humans. We prove each claim in turn.
+
+The human utility function is $U_i^H = \pi_i + \psi_i^{IND}$, where:
+\begin{align}
+    \pi_i(c) &= E - c_i + \frac{m}{n} \sum_{k \in N} c_k, \\
+    \psi_i^{IND} &= -\beta_i \cdot \mathbf{1}_{c_i < c^*} \cdot \left[ \sum_{k \in N_H \setminus \{i\}} h_i^{(2,k)}(c^*) + \lambda_i^{IND} \sum_{j \in N_A} \tilde{h}_i^{(2,j)}(c^*) \right],
+\end{align}
+with reference level $c^* = E$. Under dispositional attribution (Definition~\ref{def:dispositional-attribution}), $\tilde{h}_i^{(2,j)}(E) = \omega_i \cdot \bar{h}(c_A)$, where $\bar{h}(E) = \bar{h}_H$ (high baseline) and $\bar{h}(0) = \bar{h}_L$ (low baseline), with $\bar{h}_H > \bar{h}_L \geq 0$.
+
+\medskip
+\noindent\textbf{Proof of (i): Cooperation equilibrium.}
+
+We show that under conditions (A2') and (I), if AI contribute $c_A = E$ and humans attribute sufficiently high expectations ($\omega_i \geq \bar{\omega}_i$), the symmetric profile $c^* = (E, \ldots, E)$ constitutes an ABE.
+
+\emph{Step 1 (Candidate equilibrium).}
+Consider the strategy profile:
+\begin{equation}
+    c_k^* = E \quad \text{for all } k \in N.
+\end{equation}
+Under this profile, all humans cooperate ($n_C^H = n_H$) and all AI cooperate by design ($n_C^A = n_A$).
+
+\emph{Step 2 (Genuine belief consistency).}
+In the candidate equilibrium, genuine belief consistency (Definition~\ref{def:ABE}(iii)) requires:
+\begin{equation}
+    h_i^{(2,k)}(E) = 1 \quad \text{for all } k \in N_H \setminus \{i\}.
+\end{equation}
+
+\emph{Step 3 (Attribution consistency).}
+By dispositional attribution with cooperating AI:
+\begin{equation}
+    \tilde{h}_i^{(2,j)}(E) = \omega_i \cdot \bar{h}_H \quad \text{for all } j \in N_A.
+\end{equation}
+This satisfies attribution consistency (Definition~\ref{def:ABE}(iv)).
+
+\emph{Step 4 (Cooperation payoff).}
+If human $i$ cooperates:
+\begin{equation}
+    U_i^H(E \mid c_{-i}^* = E) = \frac{m}{n}(n_H + n_A) E = mE.
+\end{equation}
+The psychological term vanishes because $\mathbf{1}_{E < E} = 0$.
+
+\emph{Step 5 (Defection payoff).}
+If human $i$ deviates to $c_i = 0$:
+\begin{align}
+    \pi_i(0 \mid c_{-i}^* = E) &= E + \frac{m(n-1)}{n} E, \\
+    \psi_i^{IND}(0) &= -\beta_i \left[ (n_H - 1) + \lambda_i^{IND} n_A \omega_i \bar{h}_H \right].
+\end{align}
+Thus:
+\begin{equation}
+    U_i^H(0 \mid c_{-i}^* = E) = E\left(1 + \frac{m(n-1)}{n}\right) - \beta_i \left[ (n_H - 1) + \lambda_i^{IND} n_A \omega_i \bar{h}_H \right].
+\end{equation}
+
+\emph{Step 6 (Human optimality).}
+Cooperation is optimal iff $U_i^H(E) \geq U_i^H(0)$:
+\begin{equation}\label{eq:coop-ic}
+    \beta_i \left[ (n_H - 1) + \lambda_i^{IND} n_A \omega_i \bar{h}_H \right] \geq E\left(1 - \frac{m}{n}\right).
+\end{equation}
+
+\emph{Step 7 (Threshold anthropomorphism).}
+When $\lambda_i^{IND} n_A > 0$, solving \eqref{eq:coop-ic} for $\omega_i$ yields the threshold:
+\begin{equation}\label{eq:omega-threshold}
+    \bar{\omega}_i = \frac{E(1 - m/n) - \beta_i(n_H - 1)}{\beta_i \lambda_i^{IND} n_A \bar{h}_H}.
+\end{equation}
+Condition (I) ensures $\bar{\omega}_i \leq 1$, so cooperation is attainable. When $\omega_i \geq \bar{\omega}_i$, cooperation is weakly optimal (with indifference at the threshold). When $\bar{\omega}_i \leq 0$, cooperation holds for all $\omega_i \in [0,1]$.
+
+\emph{Step 8 (ABE verification).}
+The candidate profile satisfies: (i) human optimality (Step 6); (ii) genuine belief consistency (Step 2); (iii) attribution consistency (Step 3). \hfill $\square$
+
+\medskip
+\noindent\textbf{Proof of (ii): Defection equilibrium.}
+
+We show that under low anthropomorphism with defecting AI, symmetric defection is the unique symmetric ABE (asymmetric equilibria may exist but are not characterized).
+
+\emph{Step 1 (Candidate equilibrium).}
+Consider the profile:
+\begin{equation}
+    c_k^* = 0 \quad \text{for all } k \in N.
+\end{equation}
+
+\emph{Step 2 (Belief consistency).}
+In symmetric defection:
+\begin{align}
+    h_i^{(2,k)}(E) &= 0 \quad \text{for all } k \in N_H \setminus \{i\}, \\
+    \tilde{h}_i^{(2,j)}(E) &= \omega_i \cdot \bar{h}_L \quad \text{for all } j \in N_A.
+\end{align}
+
+\emph{Step 3 (Psychological cost).}
+The indignation cost of defection:
+\begin{equation}
+    |\psi_i^{IND}| = \beta_i \lambda_i^{IND} n_A \omega_i \bar{h}_L.
+\end{equation}
+As $\omega_i \to 0$, this vanishes.
+
+\emph{Step 4 (Defection dominance).}
+Defection is preferred iff:
+\begin{equation}
+    E\left(1 - \frac{m}{n}\right) > \beta_i \lambda_i^{IND} n_A \omega_i \bar{h}_L.
+\end{equation}
+This holds when $\omega_i < \underline{\omega}$, where (assuming $\lambda_i^{IND} n_A > 0$):
+\begin{equation}
+    \underline{\omega} = \frac{E(1 - m/n)}{\beta_i \lambda_i^{IND} n_A \bar{h}_L}.
+\end{equation}
+
+\emph{Step 5 (Uniqueness among symmetric equilibria).}
+Symmetric cooperation fails when $\omega_i$ is low: even with belief consistency requiring $h_i^{(2,k)}(E) = 1$, if $\beta_i(n_H - 1) + \beta_i \lambda_i^{IND} n_A \omega_i \bar{h}_L < E(1 - m/n)$, deviation is profitable. The defection equilibrium is self-fulfilling: zero expectations yield zero psychological costs, confirming defection as optimal. \hfill $\square$
+
+\medskip
+\noindent\textbf{Proof of (iii): Population share effects.}
+
+Fix $n_H \geq 2$ and vary $n_A \geq 0$. Define:
+\begin{align}
+    \Delta\pi_i &= E\left(1 - \frac{m}{n_H + n_A}\right) \quad \text{(material temptation)}, \\
+    \Psi_i &= \beta_i \left[ \sum_{k \in N_H \setminus \{i\}} h_i^{(2,k)}(E) + \lambda_i^{IND} n_A \omega_i \bar{h}(c_A) \right] \quad \text{(psychological deterrent)}.
+\end{align}
+
+\emph{Material channel.}
+The material temptation increases with $n_A$:
+\begin{equation}
+    \frac{\partial (\Delta\pi_i)}{\partial n_A} = \frac{mE}{(n_H + n_A)^2} > 0.
+\end{equation}
+More AI dilute the MPCR, increasing free-rider incentives.
+
+\emph{Psychological channel.}
+The psychological deterrent also increases with $n_A$:
+\begin{equation}
+    \frac{\partial \Psi_i}{\partial n_A} = \beta_i \lambda_i^{IND} \omega_i \bar{h}(c_A) \geq 0.
+\end{equation}
+More AI create more sources of attributed expectations.
+
+\emph{Net effect.}
+Define the cooperation incentive $I_i = \Psi_i - \Delta\pi_i$. Then:
+\begin{equation}
+    \frac{\partial I_i}{\partial n_A} = \underbrace{\beta_i \lambda_i^{IND} \omega_i \bar{h}(c_A)}_{\text{psychological (+)}} - \underbrace{\frac{mE}{(n_H + n_A)^2}}_{\text{material (--)}}.
+\end{equation}
+The psychological channel has constant marginal effect; the material channel weakens as $n_A$ grows. For sufficiently large $n_A$, the psychological channel dominates whenever $\lambda_i^{IND} \omega_i \bar{h}(c_A) > 0$.
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+\textbf{Channel} & \textbf{Direction} & \textbf{Behavior} \\
+\hline
+Material & $\partial(\Delta\pi_i)/\partial n_A > 0$ & Diminishes with $n_A$ \\
+Psychological & $\partial \Psi_i/\partial n_A \geq 0$ & Constant in $n_A$ \\
+\hline
+\end{tabular}
+\end{center}
+
+This establishes that AI population share affects equilibrium through both channels, with the net effect depending on $\lambda_i^{IND}$. \hfill $\square$
+\end{proof}
+
+\begin{remark}[Connection to standard PGT]
+\label{rem:standard-pgt}
+When $n_A = 0$, condition \eqref{eq:coop-ic} reduces to:
+\begin{equation}
+    \beta_i(n_H - 1) \geq E\left(1 - \frac{m}{n_H}\right),
+\end{equation}
+the standard condition for cooperation in psychological public goods games with indignation \citep{battigalli2019frustration}. ABE extends this by adding the term $\lambda_i^{IND} n_A \omega_i \bar{h}(c_A)$, capturing psychological costs from attributed AI expectations. The nesting result confirms that ABE generalizes standard PGT.
+\end{remark}
+
+\begin{remark}[Role of attenuation $\lambda_i^{IND}$]
+\label{rem:attenuation-role}
+The attenuation factor $\lambda_i^{IND}$ determines whether AI presence affects equilibrium psychologically. When $\lambda_i^{IND} \approx 1$, indignation toward AI operates at full strength, and the psychological channel can dominate material dilution. When $\lambda_i^{IND} \approx 0$, AI are psychologically irrelevant: humans may acknowledge AI ``expectations'' but experience no emotional response to violating them. This parameter captures the intuition that attributed mental states may feel less binding than genuine ones.
+\end{remark}
+
+\begin{remark}[Boundary cases]
+\label{rem:boundary-cases}
+When $n_A = 0$, the threshold $\bar{\omega}_i$ in equation~\eqref{eq:omega-threshold} is undefined; cooperation requires $\beta_i(n_H - 1) \geq E(1 - m/n)$ independent of $\omega_i$. When $\lambda_i^{IND} = 0$ with $n_A > 0$, AI contribute only through material payoffs; the psychological term vanishes and the analysis reduces to standard public goods games without belief-dependent preferences toward AI. The assumption $\beta_i > 0$ ensures indignation has behavioral content; when $\beta_i = 0$, the incentive constraint \eqref{eq:coop-ic} cannot be satisfied since $E(1 - m/n) > 0$.
+\end{remark}
+
+\begin{remark}[Role of assumption (A2')]
+\label{rem:a2-role}
+Assumption (A2') attribution monotonicity---that $\phi_i(\theta_j, x_j, \omega_i)$ is weakly increasing in $\omega_i$---is not used in the existence proof per se, but ensures the threshold $\bar{\omega}_i$ has the correct comparative statics interpretation. Under (A2'), higher anthropomorphism leads to higher attributed expectations, which in turn lowers the cooperation threshold through \eqref{eq:omega-threshold}. Without (A2'), a human with higher $\omega_i$ might attribute lower expectations, reversing the relationship between anthropomorphism and cooperation.
+\end{remark}
+
+\begin{remark}[Empirical implications]
+\label{rem:empirical-implications}
+The proposition generates testable predictions:
+\begin{enumerate}
+    \item \textbf{AI behavior matters}: Cooperating AI sustain human cooperation more effectively than defecting AI, through higher attributed expectations ($\bar{h}_H > \bar{h}_L$).
+    \item \textbf{Anthropomorphism matters}: Higher $\omega_i$ lowers the cooperation threshold, making cooperation easier to sustain.
+    \item \textbf{Population composition effects are non-monotonic}: Adding AI may increase or decrease cooperation depending on whether the psychological channel (via $\lambda_i^{IND}$) or material channel dominates.
+    \item \textbf{Null prediction}: If $\omega_i = 0$ or $\lambda_i^{IND} = 0$, AI presence affects cooperation only through material dilution---the novel ABE effects vanish.
+\end{enumerate}
+These predictions distinguish ABE from standard models where AI enter only through material payoffs.
+\end{remark}
+
+\begin{remark}[Threshold interpretation]
+\label{rem:threshold-interpretation}
+The thresholds $\bar{\omega}_i$ (for cooperation) and $\underline{\omega}$ (for defection) have natural interpretations. At $\omega_i = \bar{\omega}_i$, the psychological cost of defection exactly equals the material gain; cooperation requires sufficient anthropomorphism to push beyond this threshold. Conversely, $\underline{\omega}$ marks the point below which material incentives dominate regardless of attributed expectations. The gap between these thresholds defines a region of multiplicity where both equilibria may exist.
+\end{remark}

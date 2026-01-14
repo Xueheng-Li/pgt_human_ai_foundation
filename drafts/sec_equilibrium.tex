@@ -1,0 +1,209 @@
+% Section 3: Equilibrium
+\section{Attributed Belief Equilibrium}
+\label{sec:equilibrium}
+
+This section defines Attributed Belief Equilibrium (ABE) and establishes its existence under the regularity conditions introduced above.
+
+\subsection{Definition}
+
+\begin{defn}[Attributed Belief Equilibrium]
+\label{def:ABE}
+A strategy profile $s^* = (s_H^*, s_A^*)$, genuine belief system $h^*$, and attributed belief system $\tilde{h}^*$ constitute an \textbf{Attributed Belief Equilibrium} if:
+\begin{enumerate}
+    \item \textbf{Human Optimality}: For all $i \in N_H$,
+    \begin{equation}
+        s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*)
+    \end{equation}
+
+    \item \textbf{AI Optimality}: For all $j \in N_A$,
+    \begin{equation}
+        s_j^* \in \arg\max_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j)
+    \end{equation}
+
+    \item \textbf{Genuine Belief Consistency}: For all $i, k \in N_H$,
+    \begin{align}
+        h_i^{*(1,k)} &= s_k^* \quad \text{(first-order consistency)} \\
+        h_i^{*(2,k)} &= h_k^{*(1,i)} \quad \text{(second-order consistency)}
+    \end{align}
+
+    \item \textbf{Attribution Consistency}: For all $i \in N_H$ and $j \in N_A$,
+    \begin{equation}
+        \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
+    \end{equation}
+\end{enumerate}
+\end{defn}
+
+The definition captures two distinct consistency requirements. Genuine beliefs about other humans satisfy standard Bayesian consistency as in \citet{battigalli2009dynamic}. Attributed beliefs about AI satisfy attribution consistency: they are determined by the attribution function given AI characteristics and the human's anthropomorphism tendency.
+
+\begin{remark}[Mixed Strategies]
+The definition extends naturally to mixed strategies by replacing pure strategies $s_i$ with mixed strategies $\sigma_i \in \Delta(S_i)$ and taking expectations over strategy profiles.
+\end{remark}
+
+Three key features distinguish ABE from standard psychological game equilibria:
+\begin{enumerate}
+    \item \textbf{Dual consistency}: Genuine beliefs (H-H) satisfy Bayesian consistency; attributed beliefs (H-A) satisfy attribution consistency.
+    \item \textbf{Asymmetric rationality}: Humans are psychologically rational; AI are design-rational.
+    \item \textbf{No cognizability for attributed beliefs}: Unlike \citet{battigalli2009dynamic}, attributed beliefs need not be ``cognizable'' since AI lacks genuine beliefs.
+\end{enumerate}
+
+\subsection{Existence}
+
+\begin{theorem}[Existence of ABE]
+\label{thm:existence}
+Under Assumptions A1--A3, an Attributed Belief Equilibrium exists.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+The proof extends the fixed-point approach of \citet{battigalli2009dynamic} to dual belief structures.
+
+\textbf{Step 1: Construct the relevant spaces.} Define the space of strategy profiles $\Sigma = \prod_{i \in N} \Delta(S_i)$, which is non-empty, compact, and convex by A1. For each human $i$, the attributed belief is pinned down by $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$, which is well-defined and continuous by A2.
+
+\textbf{Step 2: Define the best-response correspondence.} For humans, given beliefs $(h_i, \tilde{h}_i)$, define
+\[
+    BR_i^H(h_i, \tilde{h}_i) = \arg\max_{\sigma_i \in \Delta(S_i)} \mathbb{E}[U_i^H(\sigma_i, \sigma_{-i}, h_i, \tilde{h}_i)].
+\]
+For AI, define
+\[
+    BR_j^A(\sigma_{-j}) = \arg\max_{\sigma_j \in \Delta(S_j)} \mathbb{E}[U_j^A(\sigma_j, \sigma_{-j}; \theta_j)].
+\]
+By A1 (compactness and continuity), these correspondences are non-empty, convex-valued, and upper hemicontinuous.
+
+\textbf{Step 3: Construct the fixed-point mapping.} Define $\Phi: \Sigma \to \Sigma$ as follows. Given strategy profile $\sigma$:
+\begin{enumerate}
+    \item Compute attributed beliefs: $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$
+    \item Compute genuine belief consistency: $h_i^{(1,k)} = \sigma_k$ and $h_i^{(2,k)} = h_k^{(1,i)}$
+    \item Apply best responses: $\Phi(\sigma) = BR^H(h, \tilde{h}) \times BR^A(\sigma)$
+\end{enumerate}
+By Kakutani's fixed-point theorem, $\Phi$ has a fixed point $\sigma^*$.
+
+\textbf{Step 4: Verify equilibrium conditions.} At the fixed point, human optimality holds by construction of $BR_i^H$, AI optimality holds by construction of $BR_j^A$, genuine belief consistency holds by the construction in Step 3, and attribution consistency holds by definition of $\tilde{h}_i^{(2,j)}$.
+\end{proof}
+
+\begin{remark}[Role of Bounded Psychological Payoffs]
+Assumption A3 ensures that the best-response correspondences are well-behaved. Without boundedness, psychological payoffs could dominate material payoffs arbitrarily, potentially leading to non-existence.
+\end{remark}
+
+\subsection{Special Cases and Nesting}
+
+\begin{proposition}[Reduction to Standard PGT]
+\label{prop:nesting}
+When $N_A = \emptyset$ (no AI agents), ABE reduces to Psychological Nash Equilibrium (PNE) as defined in \citet{geanakoplos1989psychological}, which coincides with Sequential Psychological Equilibrium (SPE) of \citet{battigalli2009dynamic} for static games.
+\end{proposition}
+
+The proof shows that when $N_A = \emptyset$, conditions ABE2 and ABE4 are vacuously satisfied, psychological payoffs simplify to depend only on genuine beliefs, and ABE1/ABE3 reduce exactly to PNE optimality and belief consistency. See Appendix~\ref{app:proofs}.
+
+\begin{proposition}[Reduction to Nash]
+\label{prop:nash}
+When $\psi_i \equiv 0$ for all $i \in N_H$ (no psychological payoffs), ABE strategy profiles coincide with Nash equilibria of the material game $\Gamma^M = (N, \{S_i\}, \{\pi_i\}_{i \in N_H}, \{U_j^A(\cdot; \theta_j)\}_{j \in N_A})$.
+\end{proposition}
+
+The proof establishes a bijection: when $\psi_i \equiv 0$, human utility reduces to $U_i^H = \pi_i$, so beliefs become ``strategically irrelevant'' and the optimality conditions reduce to Nash best responses. See Appendix~\ref{app:proofs}.
+
+\begin{proposition}[Rational Attribution and Bayesian Game Equivalence]
+\label{prop:rational-attribution}
+A strategy profile $\sigma^*$ together with attribution function $\phi$ satisfy \textbf{rational attribution} if: (i) $\phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*$ for all $i \in N_H, j \in N_A$ (attribution projects equilibrium), and (ii) $\sigma^*$ satisfies ABE optimality given $\phi$ (strategies are optimal). Under rational attribution, ABE strategy profiles correspond bijectively to Bayes-Nash equilibria of an equivalent Bayesian game $\Gamma^B$ with type uncertainty about AI design parameters.
+\end{proposition}
+
+Rational attribution is a fixed-point requirement: $\phi$ projects equilibrium play, and $\sigma^*$ is an equilibrium given $\phi$. Existence is not guaranteed for general games but holds in games with unique Nash equilibria. The proposition identifies when ABE reduces to standard Bayesian game theory---precisely when humans form ``correct'' beliefs about AI expectations. See Appendix~\ref{app:proofs} for the complete proof and construction of the equivalent Bayesian game $\Gamma^B$.
+
+\begin{defn}[Rational Attribution as a Fixed Point]
+\label{def:rational-attribution}
+Fix a psychological game $\Gamma$. A strategy profile $\sigma^* \in \prod_{k \in N} \Delta(S_k)$ together with attribution function $\phi$ satisfy \textbf{rational attribution} if the following fixed-point condition holds:
+\begin{enumerate}
+    \item[(i)] \textbf{Attribution projects equilibrium}: For all $i \in N_H$ and $j \in N_A$,
+    \begin{equation}
+        \phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*
+    \end{equation}
+    That is, the attributed belief about ``what AI expects human $i$ to do'' equals human $i$'s actual equilibrium strategy.
+
+    \item[(ii)] \textbf{Strategies are optimal}: Given the beliefs determined by $\phi$, the profile $\sigma^*$ satisfies ABE optimality:
+    \begin{itemize}
+        \item For all $i \in N_H$: $\sigma_i^* \in \arg\max_{\sigma_i} \mathbb{E}[U_i^H(\sigma_i, \sigma_{-i}^*, h_i(\sigma^*), \tilde{h}_i(\phi))]$
+        \item For all $j \in N_A$: $\sigma_j^* \in \arg\max_{\sigma_j} U_j^A(\sigma_j, \sigma_{-j}^*; \theta_j)$
+    \end{itemize}
+\end{enumerate}
+The pair $(\sigma^*, \phi)$ is mutually consistent: $\phi$ projects the equilibrium play, and $\sigma^*$ is indeed an equilibrium given $\phi$.
+\end{defn}
+
+Rational attribution captures the case where humans correctly anticipate equilibrium behavior: the attributed belief ``what AI expects me to do'' coincides with what the human actually does in equilibrium. This is the ``rational'' benchmark: no systematic bias in belief formation.
+
+\begin{corollary}[Complete Information Reduction]
+\label{cor:complete-info}
+When types are common knowledge (degenerate prior $p$), rational attribution ABE reduces to Nash equilibrium of a game with type-dependent payoffs.
+\end{corollary}
+
+\begin{remark}[Economic Interpretation]
+Proposition~\ref{prop:rational-attribution} identifies when the ABE framework reduces to standard Bayesian game theory:
+\begin{enumerate}
+    \item \textbf{Rational attribution as a benchmark.} When humans form beliefs about AI expectations ``correctly''---attributing to AI exactly the expectations consistent with equilibrium---the psychological game reduces to a standard game of incomplete information.
+
+    \item \textbf{Departures from rationality.} The ABE framework differs non-trivially from Bayesian games precisely when attribution is \emph{not} rational: when $\phi_i(\theta_j, x_j, \omega_i) \neq \sigma_i^*$. Such departures arise from anthropomorphic bias, signal effects, or systematic misattribution.
+
+    \item \textbf{Design implications.} If AI designers want outcomes equivalent to the rational Bayesian benchmark, they should design AI interfaces and behaviors that induce rational attribution. Conversely, strategic manipulation of attribution can shift outcomes away from the Bayesian benchmark.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Equilibrium Multiplicity under Rational Attribution]
+If the underlying game has multiple equilibria, the rational attribution condition can hold for at most one equilibrium per attribution function $\phi$. This is because $\phi_i(\theta_j, x_j, \omega_i)$ is a deterministic function of its arguments---it cannot output different values for different equilibria. The proposition establishes correspondence for each equilibrium satisfying the fixed-point condition separately.
+\end{remark}
+
+\subsection{Multiplicity}
+
+Different attribution functions can sustain different equilibria in the same material game.
+
+\begin{proposition}[Attribution-Dependent Multiplicity]
+\label{prop:multiplicity}
+Consider a psychological game $\Gamma$ with at least one human and one AI. Suppose for some human $i \in N_H$ and AI $j \in N_A$:
+\begin{enumerate}
+    \item[(i)] \textbf{Belief-dependent payoffs}: $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$ for some strategy profile.
+    \item[(ii)] \textbf{Distinct attributions}: $\phi_i(\theta_j, x_j, \omega_i) \neq \phi'_i(\theta_j, x_j, \omega_i)$ for some configuration.
+    \item[(iii)] \textbf{Best-response separation}: The change in attributed beliefs shifts equilibrium strategies.
+\end{enumerate}
+Then $\Gamma$ admits ABE under $\phi$ and $\phi'$ with distinct equilibrium strategy profiles: $s^*(\phi) \neq s^*(\phi')$.
+\end{proposition}
+
+\begin{remark}[Comparison with Standard PGT Multiplicity]
+In standard psychological game theory, multiplicity arises from feedback between equilibrium strategies and belief consistency. In ABE, a distinct source emerges: attributed beliefs are exogenously fixed by $\phi$, so changing $\phi$ directly changes utility and thereby equilibrium. This feed-forward structure---$\phi \to \tilde{h}^{(2)} \to U^H \to s^*$---makes ABE multiplicity conceptually cleaner.
+\end{remark}
+
+\begin{remark}[Genericity]
+Conditions (i)--(iii) are generic. Condition (i) fails only when $\psi_i$ is independent of attributed beliefs. Condition (ii) fails only when all attribution functions coincide. Condition (iii) fails only when payoff changes leave best responses unchanged. Attribution-dependent multiplicity is the typical outcome, not an exceptional one.
+\end{remark}
+
+This multiplicity has important design implications. Interface design, framing, and behavioural presentation affect attribution patterns and thereby equilibrium selection---even with fixed material payoffs. A prosocial AI signalling expectations through humanlike cues induces more cooperation than an equally prosocial AI with a mechanical interface.
+
+\subsubsection*{Illustrative Examples}
+
+We provide three numerical examples demonstrating the proposition.
+
+\paragraph{Example 1: Trust Game with Guilt.}
+
+Consider a trust game with AI trustor (endowment $E = 10$, prosociality $\rho_A = 0.3$) and human trustee (guilt sensitivity $\gamma_H = 2$, attenuation $\lambda_H^{GUILT} = 0.5$, anthropomorphism $\omega_H = 0.8$). AI sends $x = 10$; human returns $y \in [0, 30]$. Human utility: $U_H = 30 - y - \max\{0, \tilde{h}_H^{(2,A)} - y\}$.
+
+\emph{Attribution $\phi$ (anthropomorphic interface)}: $\tilde{h}_H^{(2,A)} = 0.8(0.3 \times 30 + 0.5 \times 20) = 15.2$.
+
+\emph{Attribution $\phi'$ (mechanical interface)}: $\tilde{h}_H^{(2,A)} = 0.8 \times 0.3 \times 30 = 7.2$.
+
+Equilibrium returns: $y^*(\phi) = 15.2$, $y^*(\phi') = 7.2$. The anthropomorphic interface doubles AI's payoff (from 7.2 to 15.2) through elevated attributed expectations.
+
+\paragraph{Example 2: Public Goods with Indignation.}
+
+Consider a public goods game: one human, one AI, endowment $E = 10$, multiplier $m = 1.5$, binary contributions $\{0, 10\}$. AI contributes $c_A = 10$. Human has $\beta_H = 8$, $\lambda_H^{IND} = 0.5$. Material payoffs: defection yields 17.5, cooperation yields 15.
+
+\emph{Attribution $\phi$ (high)}: $\tilde{h}_H^{(2,A)}(C) = 0.64$. Indignation cost from defection: $8 \times 0.5 \times 0.64 = 2.56 > 2.5$ (material gain). Human cooperates.
+
+\emph{Attribution $\phi'$ (low)}: $\tilde{h}_H^{(2,A)}(C) = 0.16$. Indignation cost: $8 \times 0.5 \times 0.16 = 0.64 < 2.5$. Human defects.
+
+Equilibrium contributions: $c_H^*(\phi) = 10$, $c_H^*(\phi') = 0$.
+
+\paragraph{Example 3: Coordination Game.}
+
+One human, one AI, choose technology $\{A, B\}$. Coordination yields payoff 2; miscoordination yields 0. AI plays $A$. Human has expectation conformity parameter $\beta_H = 3$.
+
+\emph{Attribution $\phi$}: Human believes AI expects $A$ with probability 0.9. Utility: $U_H(A) = 2$, $U_H(B) = -2.7$. Human plays $A$.
+
+\emph{Attribution $\phi'$}: Human believes AI expects $B$ with probability 0.9. Utility: $U_H(A) = -0.7$, $U_H(B) = 0$. Human plays $B$.
+
+Under $\phi$: ABE is $(A, A)$ with payoffs $(2, 2)$. Under $\phi'$: ABE is $(B, A)$ with payoffs $(0, 0)$.
+
+The attribution function serves as an equilibrium selection device, determining whether coordination succeeds.

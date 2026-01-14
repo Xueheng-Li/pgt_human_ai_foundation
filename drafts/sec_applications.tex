@@ -1,0 +1,117 @@
+% Section 4: Applications
+\section{Applications}
+\label{sec:applications}
+
+We apply the ABE framework to three canonical games: the trust game, public goods provision, and coordination. These applications illustrate how attributed beliefs shape strategic outcomes in human-AI interaction.
+
+\begin{remark}[Notation Convention]
+In applications with a single human and single AI, we use subscripts $H$ and $A$ instead of indices $i$ and $j$ for clarity.
+\end{remark}
+
+\subsection{Trust Game}
+
+Consider a trust game with an AI trustor and a human trustee. The AI trustor has endowment $E$ and can send any amount $x \in [0, E]$ to the human trustee. The sent amount is tripled, so the trustee receives $3x$. The trustee then returns any amount $y \in [0, 3x]$ to the AI.
+
+Material payoffs are $\pi_A(x,y) = E - x + y$ for the AI and $\pi_H(x,y) = 3x - y$ for the human. The AI is designed with prosociality parameter $\rho_A$, yielding utility
+\[
+    U_A(x, y; \rho_A) = (1 - \rho_A)(E - x + y) + \rho_A(E + 2x).
+\]
+A prosocial AI ($\rho_A > 0$) sends more because it values total surplus.
+
+The human trustee experiences guilt from disappointing the AI's perceived expectations:
+\[
+    U_H(y; \tilde{h}_H) = 3x - y - \gamma_H \cdot \lambda_H^{GUILT} \cdot \max\{0, \tilde{h}_H^{(2,A)} - y\},
+\]
+where $\tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x_A, \omega_H)$ is the attributed belief about what the AI ``expected'' to receive back.
+
+\begin{proposition}[Trust Game ABE]
+\label{prop:trust}
+In the trust game with AI trustor and human trustee, suppose (A2') the attribution function $\phi_H$ is weakly increasing in $\omega_H$, and (G) guilt dominance holds: $\gamma_H \lambda_H^{GUILT} > 1$. Then:
+\begin{enumerate}
+    \item Higher anthropomorphism $\omega_H$ increases attributed expectations $\tilde{h}_H^{(2,A)}$.
+    \item Higher attributed expectations increase equilibrium returns: $y^* = \min\{\tilde{h}_H^{(2,A)}, 3x\}$.
+    \item The same material payoffs support different equilibrium outcomes depending on anthropomorphism.
+\end{enumerate}
+\end{proposition}
+
+The result is consistent with evidence that betrayal aversion---the reluctance to trust when betrayal is possible---is absent when the partner is a computer \citep{aimone2014neural}. When humans do not anthropomorphise AI ($\omega_H \approx 0$), attributed expectations are low, guilt is minimal, and returns approach the materialist optimum of zero. When humans anthropomorphise AI ($\omega_H$ high), attributed expectations rise, guilt becomes salient, and returns increase.
+
+\subsection{Public Goods Game}
+
+Consider a public goods game with $n_H \geq 2$ humans and $n_A \geq 0$ AI agents. Each player has endowment $E$ and makes a binary contribution $c_i \in \{0, E\}$---either contributing the full endowment or nothing. The public good is multiplied by $m > 1$ (with $m < n$ for the social dilemma) and shared equally:
+\[
+    \pi_i(c) = E - c_i + \frac{m}{n} \sum_{k \in N} c_k.
+\]
+
+Humans experience indignation from defecting (contributing less than the cooperative norm $c^* = E$):
+\[
+    \psi_i^{IND} = -\beta_i \cdot \mathbf{1}_{c_i = 0} \cdot \left[ \sum_{k \in N_H \setminus \{i\}} h_i^{(2,k)}(E) + \lambda_i^{IND} \sum_{j \in N_A} \tilde{h}_i^{(2,j)}(E) \right],
+\]
+where $\tilde{h}_i^{(2,j)}(E) = \omega_i \cdot \bar{h}(c_A)$ is human $i$'s attributed belief that AI $j$ expected cooperation, with $\bar{h}(E) > \bar{h}(0)$ reflecting that cooperating AI induces higher attributed expectations.
+
+\begin{proposition}[Public Goods ABE]
+\label{prop:public-goods}
+Consider the public goods game above. Suppose (A2') attribution monotonicity holds, and define \textbf{(I) indignation dominance}: $\beta_i[(n_H - 1) + \lambda_i^{IND} n_A] > E(1 - m/n)$ for all $i \in N_H$. Then:
+\begin{enumerate}
+    \item If AI contribute $c_A = E$ and $\omega_i \geq \bar{\omega}_i$ for all humans (where $\bar{\omega}_i \in [0,1]$ under (I)), there exists a symmetric ABE with $c_H^* = E$.
+    \item If AI contribute $c_A = 0$ and $\omega_i$ is sufficiently low for all humans, the unique symmetric ABE has $c_H^* = 0$.
+    \item Holding $n_H$ fixed, increasing the AI share $n_A/n$ affects equilibrium through two channels: a material channel (reducing MPCR, increasing defection temptation) and a psychological channel (increasing attributed expectations, increasing defection cost). The net effect depends on $\lambda_i^{IND}$.
+\end{enumerate}
+\end{proposition}
+
+The AI population share matters for two reasons. Materially, adding AI while holding human count fixed dilutes the MPCR ($m/n$ falls), strengthening the free-rider problem. Psychologically, if humans attribute expectations to AI, more AI agents means more attributed expectations, which increases the psychological cost of defection.
+
+The attenuation factor $\lambda_i^{IND}$ determines which channel dominates. If indignation toward AI is strong ($\lambda_i^{IND} \approx 1$), the psychological channel can overcome material temptation, sustaining cooperation. If indignation toward AI is attenuated ($\lambda_i^{IND} \approx 0$), AI expectations do not trigger indignation, and the material channel dominates---adding AI may paradoxically undermine cooperation.
+
+\subsection{Coordination Game}
+
+Consider a coordination game where players choose between two technologies, $A$ and $B$. Payoffs are higher when players coordinate:
+\[
+    \pi_i(s) = \begin{cases}
+        2 & \text{if all players choose the same technology} \\
+        0 & \text{otherwise}
+    \end{cases}
+\]
+
+Suppose humans experience expectation conformity: deviating from others' perceived expectations creates disutility. For a 2-player game (one human $H$, one AI $A$), the human's psychological payoff is:
+\[
+    \psi_H(s_H) = -\beta_H \cdot \lambda_H^{EC} \cdot \sum_{s' \neq s_H} \tilde{h}_H^{(2,A)}(s'),
+\]
+where $\tilde{h}_H^{(2,A)}(s')$ is the attributed probability that AI expected human to play $s'$, $\beta_H > 0$ is expectation conformity sensitivity, and $\lambda_H^{EC} \in [0,1]$ is the attenuation factor toward AI.
+
+When AI plays $A$ and signals with clarity $x_A \in [0,1]$, the attribution function yields:
+\[
+    \tilde{h}_H^{(2,A)}(A) = \omega_H \cdot x_A, \quad \tilde{h}_H^{(2,A)}(B) = \omega_H \cdot (1 - x_A).
+\]
+
+\begin{proposition}[Coordination ABE]
+\label{prop:coordination}
+In the coordination game with AI designed to play $A$ (commitment $\theta_A > 0$), suppose (A2') the attribution function is weakly increasing in $\omega_H$, and (C) signal clarity satisfies $x_A > 0.5$. Then:
+\begin{enumerate}
+    \item Attributed beliefs favour $A$: $\tilde{h}_H^{(2,A)}(A) > \tilde{h}_H^{(2,A)}(B)$.
+    \item High anthropomorphism amplifies the psychological pull toward the AI-favoured equilibrium: $\partial \Delta U_H / \partial \omega_H > 0$.
+    \item AI serves as focal point provider: $(A, A)$ is the unique ABE, resolving the multiplicity of the material game.
+\end{enumerate}
+\end{proposition}
+
+This has practical implications for AI-assisted coordination. When humans need to coordinate but face multiple equilibria, AI agents can help by signalling a focal point. The effectiveness depends on anthropomorphism: humans who attribute expectations to AI experience psychological pressure to conform to those expectations, facilitating coordination.
+
+\subsection{Design Implications}
+
+The applications yield principles for AI design in strategic settings.
+
+\paragraph{Interface determines equilibrium.}
+Anthropomorphic design features---voice, naming, emotional expression---are not window dressing. They enter equilibrium through the attribution function $\phi_i(\theta_j, x_j, \omega_i)$: higher anthropomorphism $\omega_i$ elevates attributed beliefs $\tilde{h}_i^{(2,j)}$, which in turn affect psychological payoffs and optimal strategies. The trust game (Proposition~\ref{prop:trust}) shows that identical material payoffs support different equilibrium returns depending solely on how anthropomorphic the AI appears.
+
+\paragraph{Match presentation to objectives.}
+When AI is prosocially designed ($\rho_A > 0$), anthropomorphic presentation amplifies cooperation. Elevated attributed expectations make guilt and indignation salient, inducing humans to reciprocate trust and contribute to public goods. But when AI is materialistically designed ($\rho_A = 0$), anthropomorphic presentation creates phantom expectations---humans feel guilty for disappointing agents that neither expect nor care. Mechanical presentation avoids this welfare-reducing mismatch.
+
+\paragraph{Attenuation cuts both ways.}
+The attenuation factors $\lambda^{GUILT}$ and $\lambda^{IND}$ reduce the psychological weight of AI expectations relative to human expectations. This protects humans from phantom expectations when AI is materialistic, but it also limits the cooperation-inducing power of prosocial AI. The public goods analysis (Proposition~\ref{prop:public-goods}) reveals that when $\lambda^{IND}$ is low, increasing the AI share may paradoxically \emph{undermine} cooperation: the material channel (diluted marginal returns) dominates the psychological channel (attributed expectations). Optimal attenuation depends on whether AI in the environment is predominantly prosocial or materialistic---a question with cross-cultural dimensions given documented variation in moral emotion attenuation toward machines \citep{karpus2025cross}.
+
+\paragraph{AI as coordination device.}
+Beyond dyadic interactions, AI can serve as a \emph{constructed focal point} in coordination problems. Unlike spontaneous Schelling focal points, this mechanism operates through design commitment, clear signalling ($x_A > 0.5$), and attribution: humans who attribute expectations to AI experience psychological pressure to conform. The coordination game (Proposition~\ref{prop:coordination}) shows that AI can resolve equilibrium multiplicity, selecting the efficient outcome when material incentives alone leave coordination indeterminate.
+
+\medskip
+
+These principles raise welfare questions. When does anthropomorphism help, and when does it harm? Section~\ref{sec:welfare} formalizes the tradeoffs, showing that over-anthropomorphism with materialistic AI is the core design failure to avoid.

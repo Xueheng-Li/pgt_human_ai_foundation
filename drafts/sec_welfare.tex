@@ -1,0 +1,163 @@
+% Section 5: Welfare
+\section{Welfare and Optimal AI Design}
+\label{sec:welfare}
+
+This section examines the welfare implications of ABE and derives principles for optimal AI design.
+
+\subsection{Welfare Measures}
+
+Define social welfare as the sum of material payoffs:
+\[
+    W(s) = \sum_{i \in N} \pi_i(s).
+\]
+This measure focuses on material outcomes, treating psychological payoffs as instrumental---they affect behaviour but are not valued directly for welfare purposes.
+
+An alternative is to include human psychological welfare:
+\[
+    W^{ext}(s, h, \tilde{h}) = \sum_{i \in N} \pi_i(s) + \sum_{i \in N_H} \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}).
+\]
+This extended measure values psychological states intrinsically.
+
+\subsection{Anthropomorphism and Welfare}
+
+The welfare effects of anthropomorphism depend critically on AI design.
+
+\begin{proposition}[Welfare Effects of Anthropomorphism]
+\label{prop:welfare-anthro}
+Consider the public goods game (Part 1) or trust game (Part 2). Under Assumptions (A1)--(A3) and (A2') attribution monotonicity:
+\begin{enumerate}
+    \item When AI is prosocially designed ($\rho_A > 0$), if (E) cooperation is efficient ($m > 1$) and (I) indignation dominance holds, then higher anthropomorphism $\omega$ weakly increases material welfare $W(s^*)$.
+    \item When AI is materialistically designed ($\rho_A = 0$), if (G) guilt dominance holds ($G = \gamma_H \lambda_H^{GUILT} > 1$), then higher anthropomorphism $\omega$ may reduce extended welfare $W^{ext}(s^*, h^*, \tilde{h}^*)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof Sketch]
+Part 1: With prosocial AI, attributed expectations favour cooperation. Higher $\omega$ elevates attributed expectations, increasing the psychological cost of defection. This induces more cooperation, which raises total material payoffs when $m > 1$.
+
+Part 2: With materialist AI, the AI has no prosocial expectations. But if humans over-anthropomorphise, they attribute \emph{phantom expectations} that do not exist. When these phantom expectations exceed feasible returns, humans incur guilt---a pure welfare loss that benefits no one.
+\end{proof}
+
+\begin{example}[Phantom Expectations in the Trust Game]
+\label{ex:phantom}
+Consider the trust game with $E = 10$, $x = 10$, and guilt parameter $G = 1.5$. With materialist AI ($\rho_A = 0$) and attribution function $\phi_H(0, x, \omega_H) = 5\omega_H x$:
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& $\omega_H = 0.6$ & $\omega_H = 1.0$ \\
+\hline
+Attributed expectation & 30 & 50 \\
+Equilibrium return & 30 & 30 \\
+Material welfare & 30 & 30 \\
+Human guilt & 0 & $-30$ \\
+Extended welfare & 30 & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+At moderate anthropomorphism ($\omega_H = 0.6$), phantom expectations equal the maximum feasible return, so the human meets them and incurs no guilt. At high anthropomorphism ($\omega_H = 1.0$), phantom expectations exceed feasibility---the human returns everything possible but still fails to meet attributed expectations, incurring guilt of $-30$. Extended welfare drops from 30 to 0.
+\end{example}
+
+\subsection{Over-Anthropomorphism}
+
+Define the \textbf{rational attribution benchmark} as the attributed belief a perfectly informed, non-anthropomorphising agent would form:
+\[
+    \tilde{h}_i^{(2,j),RAT} \equiv \phi_i(\theta_j, x_j, 0),
+\]
+where $\theta_j$ captures AI design parameters, $x_j$ denotes observable signals, and $\omega_i = 0$ indicates no psychological tendency to project human-like mental states.
+
+Human $i$ exhibits \textbf{over-anthropomorphism} toward AI $j$ when attributed beliefs exceed this benchmark:
+\[
+    \tilde{h}_i^{(2,j)} > \tilde{h}_i^{(2,j),RAT}.
+\]
+We use ``over-anthropomorphism'' as a descriptive term for attribution exceeding the rational benchmark, without implying welfare harm. The prefix ``over-'' refers to the direction of deviation, not its normative valence---Part 1 below demonstrates that over-anthropomorphism can improve welfare.
+
+\begin{proposition}[Welfare Effects of Over-Anthropomorphism]
+\label{prop:over-anthro}
+Under Assumptions (A1)--(A3), (A2') attribution monotonicity, and (A2'') attribution non-degeneracy:
+\begin{enumerate}
+    \item When AI is prosocially designed and (E) cooperation is efficient, over-anthropomorphism \emph{weakly} improves material welfare $W(s^*)$. The improvement is strict when over-anthropomorphism induces a regime switch from defection to cooperation.
+    \item When AI is materialistically designed, over-anthropomorphism \emph{may} reduce extended welfare $W^{ext}$. This is an existence result: welfare loss requires that phantom expectations exceed feasible returns and that humans have positive guilt sensitivity.
+\end{enumerate}
+\end{proposition}
+
+Part 1 is weak because over-anthropomorphism affects welfare only through equilibrium selection. Within pure defection or pure cooperation regions, marginal increases in $\tilde{h} - \tilde{h}^{RAT}$ do not alter behaviour. Part 2 is an existence result: when attributed expectations remain below feasible returns, humans satisfy phantom expectations and incur no guilt.
+
+\subsection{Asymmetric Welfare Implications}
+
+The two parts of Proposition~\ref{prop:over-anthro} reveal a fundamental asymmetry.
+
+With \emph{prosocial AI}, over-anthropomorphism amplifies cooperation beyond what rational attribution would induce. Attributed expectations, though exceeding the rational benchmark, align directionally with AI preferences. The AI genuinely values cooperative outcomes; humans who attribute expectations to it are not entirely wrong about the direction of AI preferences, even if they overestimate their magnitude. This directional alignment creates mutual gains: humans cooperate more, AI achieves its prosocial objective, and material welfare rises.
+
+With \emph{materialist AI}, over-anthropomorphism creates expectations where none exist. The AI has no prosocial preferences ($\rho_A = 0$), so any attributed expectations are \emph{phantom}---they exist in the human's psychological model but correspond to nothing in AI objectives. When these phantom expectations exceed feasible returns, humans incur guilt from failing to meet expectations that (a) the AI never held and (b) were impossible to satisfy. This guilt is pure welfare loss: it benefits no one.
+
+The critical distinction is whether attributed expectations correspond to genuine AI preferences. When attributed expectations align with AI design (prosocial case), over-anthropomorphism coordinates behaviour toward efficient outcomes. When attributed expectations are phantom (materialist case), over-anthropomorphism generates deadweight psychological costs.
+
+This asymmetry creates a potential alignment problem. If AI designers want to maximise human welfare, they must consider not just AI objectives but also how humans perceive those objectives. A prosocial AI with a mechanical interface may fail to elicit cooperation because humans do not attribute expectations to it. A materialist AI with an anthropomorphic interface may harm welfare by inducing guilt without providing offsetting benefits.
+
+\subsection{Optimal AI Presentation}
+
+Given these welfare effects, what is the optimal AI presentation strategy?
+
+\begin{proposition}[Optimal AI Design]
+\label{prop:optimal-design}
+Consider the public goods game (Parts i, iii) or trust game (Part ii). Suppose (A1)--(A3) regularity, (A2') attribution monotonicity, and (A2''') signal monotonicity hold. Let $\omega \in (0,1)$ denote the representative human's anthropomorphism tendency.
+\begin{enumerate}
+    \item \textbf{Prosocial AI} ($\rho_A = 1$): Under (E) cooperation efficiency, (I) indignation dominance, and (T) temptation dominance, the optimal signal is $x^* = \max\{0, x_{crit}\}$, where $x_{crit}$ is the minimal signal to induce cooperation. Higher efficiency reduces the required signal: $\partial x^*/\partial m < 0$.
+
+    \item \textbf{Materialist AI} ($\rho_A = 0$): Under (G') positive guilt sensitivity, $x^* = 0$. Any positive signal creates phantom expectations that reduce extended welfare.
+
+    \item \textbf{Mixed AI} ($\rho_A \in (0,1)$): Under (E) and (G'), the optimal signal $x^* \in (0, \bar{x})$ balances cooperation benefits against guilt costs. At interior solutions: $\partial x^*/\partial m > 0$, $\partial x^*/\partial G < 0$, $\partial x^*/\partial \omega < 0$.
+\end{enumerate}
+\end{proposition}
+
+The comparative statics in Parts (i) and (iii) move in opposite directions: $\partial x^*/\partial m < 0$ versus $\partial x^*/\partial m > 0$. This reflects different optimisation objectives. Part (i) finds the \emph{minimal} signal to cross the cooperation threshold---higher efficiency lowers the threshold, reducing the required signal. Part (iii) balances material and psychological welfare at the margin---higher efficiency increases the value of expanding cooperation, justifying a higher signal. As $\rho_A \to 1$ and guilt costs vanish, Part (iii) degenerates to Part (i).
+
+The three parts nest naturally. As $\rho_A \to 1$, attributed expectations are met in cooperation equilibrium, guilt vanishes, and the solution approaches Part (i). As $\rho_A \to 0$, baseline expectations vanish, expectations become purely signal-driven, and the solution approaches Part (ii): $x^* \to 0$.
+
+The proposition has implications for AI regulation. It characterises the \emph{social} optimum, where the planner internalises psychological costs. Private AI designers may have misaligned incentives: anthropomorphic presentation increases engagement and revenue, while psychological costs (guilt, disappointment) are externalised to users. When $\rho_A < 1$, private designers prefer higher $x$ than the social optimum, creating a case for regulation---disclosure requirements or anthropomorphism limits.
+
+\subsection{AI Transparency and Regulation}
+
+The phantom expectations mechanism supports a case for AI transparency requirements. If AI objectives were transparent, humans could calibrate $\omega$ appropriately: maintaining positive anthropomorphism toward prosocial AI (preserving cooperation benefits) while setting $\omega = 0$ toward materialist AI (eliminating phantom expectations).
+
+The policy calculus depends on the population of AI systems:
+\begin{itemize}
+    \item If most AI is prosocially designed, some over-anthropomorphism may be welfare-enhancing.
+    \item If most AI is materialistically designed, over-anthropomorphism causes net harm, favouring transparency mandates.
+    \item With a mixed population, optimal policy must balance cooperation gains against psychological costs.
+\end{itemize}
+
+AI designers may have misaligned incentives. Anthropomorphic presentation increases engagement and revenue, while psychological costs from phantom expectations are borne by users. This externality suggests that market outcomes may feature excessive anthropomorphic design of materialist AI, strengthening the case for transparency regulation.
+
+\subsection{Attenuation as a Welfare Buffer}
+
+For expositional clarity, we adopt a representative-agent framework in this subsection, writing $\lambda^{IND}$ and $\lambda^{GUILT}$ for the common attenuation factors when all humans share identical psychological parameters.
+
+The attenuation factors $\lambda^{IND}$ and $\lambda^{GUILT}$ serve as a natural buffer against welfare losses from over-anthropomorphism.
+
+\begin{remark}[Welfare Role of Attenuation]
+When moral emotions are attenuated toward AI ($\lambda < 1$), the psychological costs of disappointing AI are reduced. This protects humans from full exposure to phantom expectations, limiting welfare losses from over-anthropomorphism.
+\end{remark}
+
+However, attenuation also limits the welfare gains from prosocial AI. If humans do not feel guilt toward AI, then even a genuinely prosocial AI cannot induce cooperation through psychological mechanisms. The optimal attenuation level thus depends on the population composition: high attenuation is protective when AI is predominantly materialist, but costly when AI is predominantly prosocial.
+
+\subsection{Cross-Cultural Implications}
+
+Cross-cultural evidence suggests systematic variation in anthropomorphism $\omega$ across populations \citep{karpus2025cross}. Japanese participants exhibit guilt toward robots comparable to guilt toward humans (low attenuation, high effective $\omega$), while Western participants show strong attenuation (low effective $\omega$).
+
+This variation has asymmetric welfare implications. Populations with high baseline $\omega$ benefit more from prosocial AI---larger cooperation gains from attributed expectations---but are also more vulnerable to materialist AI---larger phantom expectation costs. The cultural trait that amplifies benefits also amplifies harms.
+
+Optimal AI design may therefore be culture-dependent. In high-$\omega$ cultures, prosocial design is especially valuable (large cooperation benefits), but materialist AI with anthropomorphic presentation is especially harmful (severe phantom expectations). In low-$\omega$ cultures, anthropomorphic design has limited effects regardless of AI objectives.
+
+This asymmetry has regulatory implications. Transparency policies that enable calibrated anthropomorphism are especially important for high-$\omega$ populations. Without transparency, these populations face the largest welfare losses from materialist AI that presents anthropomorphically. International coordination on AI transparency may be complicated by divergent cultural exposures to phantom expectation costs.
+
+\subsection{Dynamic Considerations}
+
+The static welfare analysis assumes fixed anthropomorphism $\omega$ and attenuation $\lambda$. In practice, these parameters may evolve with AI exposure. If repeated interaction with AI reveals that attributed expectations are systematically violated (because AI is materialist), humans may learn to anthropomorphise less, naturally adjusting $\omega$ downward.
+
+\begin{remark}[Learning and Long-Run Welfare]
+If anthropomorphism is endogenous to experience, then short-run welfare losses from over-anthropomorphism may be self-correcting. However, if AI designers continuously update presentation to maintain anthropomorphism, this natural correction may be undermined.
+\end{remark}
+
+This dynamic creates a regulatory challenge. Static welfare analysis may underestimate losses if it ignores the ``arms race'' between AI presentation and human learning.

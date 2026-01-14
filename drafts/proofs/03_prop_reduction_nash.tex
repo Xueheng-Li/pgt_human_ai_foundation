@@ -1,0 +1,104 @@
+% Proof of Proposition: Reduction to Nash Equilibrium
+% For inclusion in ABE manuscript appendix
+% When psychological payoffs vanish, ABE reduces to Nash equilibrium
+
+\noindent\textit{Incomplete information}: When the game involves incomplete information about types, the material game $\Gamma^M$ becomes a Bayesian game where types affect only AI utilities $U_j^A(s; \theta_j)$. The result holds ex-post for each type realization, and the correspondence extends to interim equilibria via standard Bayesian game arguments.
+
+\begin{proof}
+The proof establishes a bijection between ABE of $\Gamma$ (when $\psi_i \equiv 0$) and Nash equilibria of $\Gamma^M$.
+
+\medskip
+\noindent\textbf{Part 1: ABE $\Rightarrow$ Nash.} Let $(s^*, h^*, \tilde{h}^*)$ be an ABE of $\Gamma$ with $\psi_i \equiv 0$ for all $i \in N_H$. We show $s^*$ is a Nash equilibrium of $\Gamma^M$.
+
+\medskip
+\noindent\textit{Step 1.1: Human utility reduction.}
+When $\psi_i \equiv 0$, the human utility function becomes:
+\begin{equation}
+    U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = \pi_i(s) + 0 = \pi_i(s).
+\end{equation}
+Thus human utility equals material payoff and is \emph{independent of beliefs} $(h_i, \tilde{h}_i)$.
+
+\medskip
+\noindent\textit{Step 1.2: Human optimality implies Nash best response.}
+By ABE condition (ABE1), for each human $i \in N_H$:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*).
+\end{equation}
+Substituting from Step 1.1:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} \pi_i(s_i, s_{-i}^*) = \arg\max_{s_i \in S_i} u_i(s_i, s_{-i}^*).
+\end{equation}
+This is exactly the Nash best-response condition for player $i$ in $\Gamma^M$.
+
+\medskip
+\noindent\textit{Step 1.3: AI optimality is Nash best response.}
+By ABE condition (ABE2), for each AI $j \in N_A$:
+\begin{equation}
+    s_j^* \in \arg\max_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j) = \arg\max_{s_j \in S_j} u_j(s_j, s_{-j}^*).
+\end{equation}
+This is exactly the Nash best-response condition for player $j$ in $\Gamma^M$.
+
+\medskip
+\noindent\textit{Step 1.4: Conclusion.}
+Combining Steps 1.2 and 1.3, every player $k \in N = N_H \cup N_A$ satisfies:
+\begin{equation}
+    s_k^* \in \arg\max_{s_k \in S_k} u_k(s_k, s_{-k}^*).
+\end{equation}
+Hence $s^*$ is a Nash equilibrium of $\Gamma^M$.
+
+\medskip
+\noindent\textbf{Part 2: Nash $\Rightarrow$ ABE.} Let $s^*$ be a Nash equilibrium of $\Gamma^M$. We construct belief systems $(h^*, \tilde{h}^*)$ such that $(s^*, h^*, \tilde{h}^*)$ is an ABE of $\Gamma$.
+
+\medskip
+\noindent\textit{Step 2.1: Construct genuine beliefs.}
+For each human $i \in N_H$, define:
+\begin{align}
+    h_i^{*(1,k)} &= s_k^* \quad \text{for all } k \in N \setminus \{i\} \quad \text{(correct first-order beliefs)}, \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)} = s_i^* \quad \text{for all } k \in N_H \setminus \{i\} \quad \text{(correct second-order beliefs)}.
+\end{align}
+
+\medskip
+\noindent\textit{Step 2.2: Construct attributed beliefs.}
+For each human $i \in N_H$ and AI $j \in N_A$, define:
+\begin{equation}
+    \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i).
+\end{equation}
+This is uniquely determined by the attribution function.
+
+\medskip
+\noindent\textit{Step 2.3: Verify ABE conditions.}
+
+\noindent\textbf{(ABE1) Human Optimality:} Since $s^*$ is a Nash equilibrium of $\Gamma^M$:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} \pi_i(s_i, s_{-i}^*).
+\end{equation}
+When $\psi_i \equiv 0$, we have $U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*) = \pi_i(s_i, s_{-i}^*)$, so:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*). \quad \checkmark
+\end{equation}
+
+\noindent\textbf{(ABE2) AI Optimality:} Since $s^*$ is a Nash equilibrium of $\Gamma^M$:
+\begin{equation}
+    s_j^* \in \arg\max_{s_j \in S_j} u_j(s_j, s_{-j}^*) = \arg\max_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j). \quad \checkmark
+\end{equation}
+
+\noindent\textbf{(ABE3) Genuine Belief Consistency:} By construction in Step 2.1. $\checkmark$
+
+\noindent\textbf{(ABE4) Attribution Consistency:} By construction in Step 2.2. $\checkmark$
+
+\medskip
+\noindent\textit{Step 2.4: Conclusion.}
+All four ABE conditions are satisfied. Hence $(s^*, h^*, \tilde{h}^*)$ is an ABE of $\Gamma$.
+
+\medskip
+\noindent\textbf{Part 3: Uniqueness of strategy profile.}
+The bijection is between \emph{strategy profiles} only. For a given Nash equilibrium $s^*$, the genuine belief system $h^*$ is uniquely determined by (ABE3), and the attributed belief system $\tilde{h}^*$ is uniquely determined by (ABE4). Thus the mapping from Nash equilibria to ABE strategy profiles is injective.
+\end{proof}
+
+\begin{remark}[Role of Belief Conditions]
+When $\psi_i \equiv 0$, the belief conditions (ABE3) and (ABE4) are non-vacuous---they still constrain the belief systems in equilibrium. However, they become strategically irrelevant: beliefs affect neither human nor AI best responses because the belief-dependence channel ($\psi_i$) is shut down. The belief systems exist but play no role in determining equilibrium behavior.
+\end{remark}
+
+\begin{remark}[Interpretation]
+The proposition establishes that psychological payoffs are the sole source of departure from standard Nash analysis. Without belief-dependent preferences ($\psi_i \equiv 0$), the asymmetric cognitive structure of human-AI interaction---anthropomorphism, attribution, attenuated moral emotions---has no behavioral consequences. Material incentives determine Nash equilibria; psychological payoffs introduce the novel ABE phenomena.
+\end{remark}

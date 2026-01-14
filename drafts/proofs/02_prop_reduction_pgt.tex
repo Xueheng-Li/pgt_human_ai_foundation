@@ -1,0 +1,120 @@
+% Proof of Proposition: Reduction to Standard Psychological Game Theory
+% For inclusion in ABE manuscript appendix
+% When N_A = empty, ABE reduces to Psychological Nash Equilibrium
+
+\noindent\textit{Scope clarification}: \citet{battigalli2009dynamic} define SPE for extensive-form psychological games. For static (normal-form) games---the setting of our ABE definition---SPE coincides with PNE of \citet{geanakoplos1989psychological}. We prove that ABE reduces to this static-game equilibrium concept when $N_A = \emptyset$.
+
+\paragraph{PNE Definition.} For a static psychological game with player set $N$, a Psychological Nash Equilibrium consists of $(s^*, h^*)$ satisfying:
+\begin{enumerate}[label=\textbf{(PNE\arabic*)}]
+    \item \textbf{Optimality}: For all $i \in N$,
+    \[
+        s_i^* \in \arg\max_{s_i \in S_i} U_i(s_i, s_{-i}^*, h_i^*)
+    \]
+    where $U_i = \pi_i(s) + \psi_i(s, h_i^{(2)})$ depends on second-order beliefs.
+
+    \item \textbf{Belief Consistency}: For all $i, k \in N$ with $k \neq i$,
+    \begin{align*}
+        h_i^{*(1,k)} &= s_k^* \quad \text{(first-order consistency)} \\
+        h_i^{*(2,k)} &= h_k^{*(1,i)} \quad \text{(second-order consistency)}
+    \end{align*}
+\end{enumerate}
+
+\begin{proof}
+Suppose $N_A = \emptyset$, so $N = N_H$ (all players are human). We show that the ABE conditions reduce exactly to the PNE conditions.
+
+\medskip
+\textbf{Step 1: Vacuous Conditions (ABE2 and ABE4).}
+
+Condition ABE2 requires AI optimality ``for all $j \in N_A$.'' Since $N_A = \emptyset$, this is a universal quantification over an empty set, which is vacuously true. No constraint is imposed.
+
+Similarly, condition ABE4 requires attribution consistency ``for all $i \in N_H$ and $j \in N_A$.'' The inner quantification over $j \in N_A = \emptyset$ makes this vacuously true for every $i$. No constraint is imposed.
+
+\medskip
+\textbf{Step 2: Empty Attributed Belief System.}
+
+The attributed belief system is $\tilde{h}^* = \{\tilde{h}_i^{*(2,j)}\}_{i \in N_H, j \in N_A}$. When $N_A = \emptyset$, this collection is empty: $\tilde{h}^* = \emptyset$.
+
+For each human $i$, the collection of attributed second-order beliefs is:
+\[
+    \tilde{h}_i^{*(2)} = \{\tilde{h}_i^{*(2,j)}\}_{j \in N_A} = \emptyset.
+\]
+
+\medskip
+\textbf{Step 3: Simplification of Psychological Payoffs.}
+
+The psychological payoff functions in ABE take an additive form that separates contributions from genuine beliefs about humans and attributed beliefs about AI (see Definitions~\ref{def:indignation} and \ref{def:guilt}):
+\[
+    \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = \underbrace{\psi_i^H(s, \{h_i^{(2,k)}\}_{k \in N_H \setminus \{i\}})}_{\text{genuine belief terms}} + \underbrace{\psi_i^A(s, \{\tilde{h}_i^{(2,j)}\}_{j \in N_A})}_{\text{attributed belief terms}}
+\]
+When $N_A = \emptyset$, the attributed belief terms vanish (sum over empty set), leaving:
+\[
+    \psi_i(s, h_i^{(2)}, \emptyset) = \psi_i^H(s, \{h_i^{(2,k)}\}_{k \in N_H \setminus \{i\}}) =: \hat{\psi}_i(s, h_i^{(2)})
+\]
+where $\hat{\psi}_i$ depends only on genuine second-order beliefs, exactly as in standard PGT.
+
+\medskip
+\textbf{Step 4: Reduction of Human Utility.}
+
+Human $i$'s utility in ABE is:
+\[
+    U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}).
+\]
+
+By Step 3, when $N_A = \emptyset$:
+\[
+    U_i^H(s, h_i, \emptyset) = \pi_i(s) + \hat{\psi}_i(s, h_i^{(2)}) =: U_i(s, h_i).
+\]
+
+This is exactly the utility function in standard PGT.
+
+\medskip
+\textbf{Step 5: Reduction of ABE1 to PNE1.}
+
+The ABE human optimality condition (ABE1) states:
+\[
+    s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*).
+\]
+
+By Step 4, when $N_A = \emptyset$:
+\[
+    s_i^* \in \arg\max_{s_i \in S_i} U_i(s_i, s_{-i}^*, h_i^*).
+\]
+
+Since $N = N_H$ when $N_A = \emptyset$, this condition applies to all $i \in N$, which is exactly PNE1.
+
+\medskip
+\textbf{Step 6: Reduction of ABE3 to PNE2.}
+
+The ABE genuine belief consistency condition (ABE3) states: for all $i, k \in N_H$ with $k \neq i$,
+\begin{align*}
+    h_i^{*(1,k)} &= s_k^* \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)}.
+\end{align*}
+
+When $N_A = \emptyset$, we have $N_H = N$. Thus, ABE3 becomes: for all $i, k \in N$ with $k \neq i$,
+\begin{align*}
+    h_i^{*(1,k)} &= s_k^* \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)}.
+\end{align*}
+
+This is exactly PNE2.
+
+\medskip
+\textbf{Step 7: Conclusion.}
+
+When $N_A = \emptyset$:
+\begin{itemize}
+    \item ABE2 and ABE4 are vacuously satisfied (Step 1)
+    \item The attributed belief system is empty (Step 2)
+    \item Psychological payoffs depend only on genuine beliefs (Step 3)
+    \item Human utility reduces to standard PGT utility (Step 4)
+    \item ABE1 reduces to PNE1 (Step 5)
+    \item ABE3 reduces to PNE2 (Step 6)
+\end{itemize}
+
+Therefore, $(s^*, h^*, \tilde{h}^*)$ is an ABE if and only if $(s^*, h^*)$ is a PNE. Since PNE for static games coincides with SPE restricted to static games \citep{battigalli2009dynamic}, the result follows.
+\end{proof}
+
+\begin{remark}[Converse Direction]
+The proof establishes a bijection between ABE and PNE when $N_A = \emptyset$. Given any PNE $(s^*, h^*)$, we can construct an ABE $(s^*, h^*, \emptyset)$ by taking the attributed belief system to be empty. Conversely, any ABE $(s^*, h^*, \tilde{h}^*)$ with $N_A = \emptyset$ necessarily has $\tilde{h}^* = \emptyset$, and $(s^*, h^*)$ is a PNE.
+\end{remark}

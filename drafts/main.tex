@@ -1,0 +1,124 @@
+% Attributed Belief Equilibrium in Human-AI Games
+% Target: Econometrica, Journal of Economic Theory
+% Author: Xueheng Li
+% Draft: 2026-01-11
+
+\documentclass[12pt]{extarticle}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{color}
+\usepackage{units}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,bm}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[authoryear]{natbib}
+\usepackage{microtype}
+\usepackage{titlesec}
+\doublespacing
+\usepackage[unicode=true]{hyperref}
+\makeatletter
+\usepackage{enumitem}
+\setlist[enumerate,1]{label=(\roman*)}
+\setlist[enumerate,2]{label=(\alph*)}
+\setlist[enumerate,3]{label=(\arabic*)}
+
+% Theorem environments
+\theoremstyle{definition}
+\newtheorem{defn}{\protect\definitionname}
+\theoremstyle{plain}
+\newtheorem{proposition}{\protect\propositionname}
+\theoremstyle{plain}
+\newtheorem{lemma}{\protect\lemmaname}
+\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{example}{\protect\examplename}
+\usepackage{tikz}
+\newtheorem{property}{Property}
+\newtheorem{claim}{Claim}
+\newtheorem{assumption}{Assumption}
+\makeatother
+\providecommand{\definitionname}{Definition}
+\providecommand{\examplename}{Example}
+\providecommand{\lemmaname}{Lemma}
+\providecommand{\propositionname}{Proposition}
+\newtheorem{remark}{Remark}
+
+% Bibliography style
+\bibliographystyle{apalike}
+
+\begin{document}
+
+\title{Thinking for Machines: Attributed Belief Equilibrium}
+\author{Xueheng Li\thanks{Lingnan College, Sun Yat-sen University. Email: \href{mailto:lixueheng@mail.sysu.edu.cn}{lixueheng@mail.sysu.edu.cn}}}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+We introduce \textit{Attributed Belief Equilibrium} (ABE) to analyse strategic interaction between humans and artificial agents. In these games, humans have belief-dependent preferences---guilt, anger, or reciprocity ---while AI have design-dependent objectives. Humans systematically attribute mental states to AI through anthropomorphism, forming attributed beliefs about what AI expect. These attributed beliefs enter human utility through standard psychological mechanisms but satisfy different consistency conditions than genuine beliefs. We establish existence under regularity conditions, show that different attribution patterns sustain different equilibria, and derive welfare implications for AI design. Over-anthropomorphism improves welfare with prosocial AI but reduces welfare with materialistic AI. The framework provides foundations for analysing cooperation, trust, and coordination in mixed human-AI populations.
+\end{abstract}
+
+\medskip
+\noindent\textbf{Keywords:} psychological games, human-AI interaction, anthropomorphism, equilibrium, cooperation
+
+\medskip
+\noindent\textbf{JEL Codes:} C72, D91, O33
+
+\newpage
+
+% Section files
+\input{sec_introduction}
+\input{sec_framework}
+\input{sec_equilibrium}
+\input{sec_applications}
+\input{sec_welfare}
+\input{sec_conclusion}
+
+\newpage
+\appendix
+\section{Proofs}
+\label{app:proofs}
+
+This appendix contains complete proofs of all results stated in the main text.
+
+\subsection{Proof of Theorem 1 (Existence of ABE)}
+See proof sketch in Section \ref{sec:equilibrium}. \input{proofs/01_thm_existence}
+
+\subsection{Proof of Proposition 1 (Reduction to Standard PGT)}
+\input{proofs/02_prop_reduction_pgt}
+
+\subsection{Proof of Proposition 2 (Reduction to Nash)}
+\input{proofs/03_prop_reduction_nash}
+
+\subsection{Proof of Proposition 3 (Rational Attribution)}
+\input{proofs/04_prop_rational_attribution}
+
+\subsection{Proof of Proposition 4 (Attribution-Dependent Multiplicity)}
+\input{proofs/05_prop_multiplicity}
+
+\subsection{Proof of Proposition 5 (Trust Game ABE)}
+\input{proofs/06_prop_trust_game}
+
+\subsection{Proof of Proposition 6 (Public Goods ABE)}
+\input{proofs/07_prop_public_goods}
+
+\subsection{Proof of Proposition 7 (Coordination ABE)}
+\input{proofs/08_prop_coordination}
+
+\subsection{Proof of Proposition 8 (Welfare Effects of Anthropomorphism)}
+\input{proofs/09_prop_welfare_anthropomorphism}
+
+\subsection{Proof of Proposition 9 (Welfare Effects of Over-Anthropomorphism)}
+\input{proofs/10_prop_welfare_over_anthropomorphism}
+
+\subsection{Proof of Proposition 10 (Optimal AI Design)}
+\input{proofs/11_prop_optimal_design}
+
+\bibliography{../references,../ExportedItems}
+
+\end{document}

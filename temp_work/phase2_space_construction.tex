@@ -1,0 +1,169 @@
+% Phase 2: Space Construction and Belief Computation Mapping
+% Steps 1-2 of the ABE Existence Proof (Theorem 3.1)
+%
+% This file provides publication-quality proofs for the first two steps
+% of the existence theorem. Notation follows sec_framework.tex.
+
+%----------------------------------------------------------------------
+\section*{Step 1: Space Construction}
+%----------------------------------------------------------------------
+
+We establish that the domain for the fixed-point argument is the mixed strategy space $\Sigma$, which has the required topological properties.
+
+\begin{lemma}[Strategy Space Properties]
+\label{lem:strategy-space}
+Let $\Sigma = \prod_{i \in N} \Delta(S_i)$ be the space of mixed strategy profiles. Under Assumption A1, $\Sigma$ is non-empty, compact, and convex.
+\end{lemma}
+
+\begin{proof}
+We verify each property.
+
+\textbf{Non-emptiness.} By A1, each $S_i$ is non-empty. Hence each simplex $\Delta(S_i)$ is non-empty (containing at least the degenerate distributions). The product of non-empty sets is non-empty, so $\Sigma \neq \emptyset$.
+
+\textbf{Compactness.} Fix $i \in N$. Since $|S_i| = m_i < \infty$ by A1, the simplex
+\[
+    \Delta(S_i) = \left\{ \sigma_i \in \mathbb{R}^{m_i} : \sigma_i(s) \geq 0 \ \forall s \in S_i, \quad \sum_{s \in S_i} \sigma_i(s) = 1 \right\}
+\]
+is a closed and bounded subset of $\mathbb{R}^{m_i}$, hence compact by the Heine-Borel theorem. The product $\Sigma = \prod_{i \in N} \Delta(S_i)$ is a finite product of compact spaces. By Tychonoff's theorem (which reduces to a finite product of compact sets in $\mathbb{R}^{\sum_i m_i}$), $\Sigma$ is compact.
+
+\textbf{Convexity.} Fix $i \in N$. The simplex $\Delta(S_i)$ is convex: for any $\sigma_i, \sigma_i' \in \Delta(S_i)$ and $\lambda \in [0,1]$, the convex combination $\lambda \sigma_i + (1-\lambda) \sigma_i'$ satisfies non-negativity and unit sum, hence lies in $\Delta(S_i)$. The product of convex sets is convex: for $\sigma, \sigma' \in \Sigma$ and $\lambda \in [0,1]$, the convex combination $\lambda \sigma + (1-\lambda) \sigma'$ is formed componentwise, and each component lies in the corresponding simplex.
+\end{proof}
+
+\begin{remark}[Dimensionality]
+The space $\Sigma$ has dimension $\dim(\Sigma) = \sum_{i \in N}(|S_i| - 1)$. For a two-player game with binary actions, $\dim(\Sigma) = 2$.
+\end{remark}
+
+\begin{remark}[Why $\Sigma$ Alone Suffices]
+\label{rem:sigma-alone}
+A key simplification of ABE relative to standard psychological game equilibrium: we apply the fixed-point argument to $\Sigma$ alone, not to the product space $\Sigma \times \mathcal{H} \times \tilde{\mathcal{H}}$ of strategies and beliefs. This is possible because:
+\begin{enumerate}
+    \item \textbf{Attributed beliefs are exogenous}: $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ is determined by primitives, independent of the strategy profile $\sigma$.
+    \item \textbf{Genuine beliefs are derived}: In equilibrium, genuine first-order beliefs equal actual strategies ($h_i^{(1,k)} = \sigma_k$), and genuine second-order beliefs satisfy consistency ($h_i^{(2,k)} = h_k^{(1,i)} = \sigma_i$).
+\end{enumerate}
+Both belief systems are thus \emph{functions} of strategies, not independent equilibrium objects. The belief computation mapping (Step 2) formalises this dependence.
+\end{remark}
+
+%----------------------------------------------------------------------
+\section*{Step 2: Belief Computation Mapping}
+%----------------------------------------------------------------------
+
+We define the mapping from strategy profiles to belief systems and establish its continuity.
+
+\subsection*{2.1 Attributed Belief Computation}
+
+\begin{defn}[Attributed Belief Mapping]
+\label{def:kappa-attr}
+For each human $i \in N_H$ and AI $j \in N_A$, define the attributed belief mapping $\kappa_i^{attr,j}: \Sigma \to \Delta(S_i)$ by
+\[
+    \kappa_i^{attr,j}(\sigma) = \phi_i(\theta_j, x_j, \omega_i).
+\]
+The full attributed belief mapping is $\kappa^{attr}: \Sigma \to \tilde{\mathcal{B}}^{(2)}$ where $\tilde{\mathcal{B}}^{(2)} = \prod_{i \in N_H} \prod_{j \in N_A} \Delta(S_i)$.
+\end{defn}
+
+\begin{lemma}[Attributed Beliefs are Constant]
+\label{lem:kappa-attr-constant}
+The mapping $\kappa^{attr}$ is constant in $\sigma$. Hence $\kappa^{attr}$ is trivially continuous.
+\end{lemma}
+
+\begin{proof}
+By Definition \ref{def:kappa-attr}, $\kappa_i^{attr,j}(\sigma) = \phi_i(\theta_j, x_j, \omega_i)$ depends only on the AI's design parameters $\theta_j$, observable signals $x_j$, and the human's anthropomorphism tendency $\omega_i$. None of these depend on the strategy profile $\sigma$. Thus $\kappa^{attr}(\sigma) = \kappa^{attr}(\sigma')$ for all $\sigma, \sigma' \in \Sigma$, establishing constancy.
+
+Constant functions are continuous: for any open set $V \subseteq \tilde{\mathcal{B}}^{(2)}$, the preimage $(\kappa^{attr})^{-1}(V)$ is either $\emptyset$ or $\Sigma$, both of which are open.
+\end{proof}
+
+\begin{remark}[Well-Definedness]
+Lemma \ref{lem:kappa-attr-constant} requires only that $\phi_i(\theta_j, x_j, \omega_i) \in \Delta(S_i)$---that is, the attribution function yields a valid probability distribution. Assumption A2 (continuity of $\phi_i$ in $(\theta_j, x_j)$) is not needed for existence; it becomes relevant for comparative statics.
+\end{remark}
+
+\subsection*{2.2 Genuine Belief Computation}
+
+\begin{defn}[Genuine Belief Mapping]
+\label{def:kappa-gen}
+For each human $i \in N_H$, define the genuine belief mappings as follows.
+
+\textbf{First-order beliefs.} For $k \in N \setminus \{i\}$, define $\kappa_i^{(1,k)}: \Sigma \to \Delta(S_k)$ by
+\[
+    \kappa_i^{(1,k)}(\sigma) = \sigma_k.
+\]
+Human $i$'s first-order belief about $k$'s play equals $k$'s actual mixed strategy.
+
+\textbf{Second-order beliefs.} For $k \in N_H \setminus \{i\}$, define $\kappa_i^{(2,k)}: \Sigma \to \Delta(S_i)$ by
+\[
+    \kappa_i^{(2,k)}(\sigma) = \kappa_k^{(1,i)}(\sigma) = \sigma_i.
+\]
+Human $i$'s second-order belief about what $k$ expected from $i$ equals $i$'s actual mixed strategy. This reflects the equilibrium consistency condition $h_i^{(2,k)} = h_k^{(1,i)}$.
+
+The full genuine belief mapping is $\kappa^{gen}: \Sigma \to \mathcal{B}^{(1)} \times \mathcal{B}^{(2)}$ where $\mathcal{B}^{(1)} = \prod_{i \in N_H} \prod_{k \neq i} \Delta(S_k)$ and $\mathcal{B}^{(2)} = \prod_{i \in N_H} \prod_{k \in N_H \setminus \{i\}} \Delta(S_i)$.
+\end{defn}
+
+\begin{lemma}[Genuine Beliefs are Continuous]
+\label{lem:kappa-gen-continuous}
+The mapping $\kappa^{gen}: \Sigma \to \mathcal{B}^{(1)} \times \mathcal{B}^{(2)}$ is continuous.
+\end{lemma}
+
+\begin{proof}
+Each component of $\kappa^{gen}$ is a coordinate projection:
+\begin{itemize}
+    \item $\kappa_i^{(1,k)}(\sigma) = \sigma_k$ is the projection $\Sigma \to \Delta(S_k)$ onto the $k$-th factor.
+    \item $\kappa_i^{(2,k)}(\sigma) = \sigma_i$ is the projection $\Sigma \to \Delta(S_i)$ onto the $i$-th factor.
+\end{itemize}
+Projection mappings are continuous (the preimage of an open set in a factor is open in the product under the product topology). The product of continuous mappings into a product space is continuous. Hence $\kappa^{gen}$ is continuous.
+\end{proof}
+
+\subsection*{2.3 Combined Belief Mapping}
+
+\begin{defn}[Belief Computation Mapping]
+\label{def:kappa}
+Define the belief computation mapping $\kappa: \Sigma \to \mathcal{B} \times \tilde{\mathcal{B}}$ by
+\[
+    \kappa(\sigma) = \left( \kappa^{gen}(\sigma), \kappa^{attr}(\sigma) \right)
+\]
+where $\mathcal{B} = \mathcal{B}^{(1)} \times \mathcal{B}^{(2)}$ is the genuine belief space and $\tilde{\mathcal{B}} = \tilde{\mathcal{B}}^{(2)}$ is the attributed belief space.
+\end{defn}
+
+\begin{proposition}[Continuity of Belief Computation]
+\label{prop:kappa-continuous}
+The belief computation mapping $\kappa: \Sigma \to \mathcal{B} \times \tilde{\mathcal{B}}$ is continuous.
+\end{proposition}
+
+\begin{proof}
+By Lemma \ref{lem:kappa-attr-constant}, $\kappa^{attr}$ is constant (hence continuous). By Lemma \ref{lem:kappa-gen-continuous}, $\kappa^{gen}$ is continuous. The product of continuous functions is continuous. Hence $\kappa = (\kappa^{gen}, \kappa^{attr})$ is continuous.
+\end{proof}
+
+\subsection*{2.4 Belief Space Structure}
+
+\begin{remark}[Finite-Dimensional Belief Representation]
+\label{rem:finite-dim-beliefs}
+In the general psychological game framework of \citet{battigalli2009dynamic}, second-order beliefs lie in $\Delta(\Delta(S_{-k}))$---distributions over distributions---which is infinite-dimensional. However, for the psychological payoffs in ABE (indignation and guilt), only the marginal belief about the human's own action matters:
+\[
+    h_i^{(2,k)}(s_i) = \text{``probability that } i \text{ believes } k \text{ expected } i \text{ to play } s_i\text{''}
+\]
+This marginal lies in $\Delta(S_i)$, which is finite-dimensional when $S_i$ is finite. Our formulation exploits this simplification.
+\end{remark}
+
+\begin{remark}[Interpretation in Mixed Strategy Equilibrium]
+In a mixed strategy equilibrium $\sigma^*$, the genuine second-order belief $h_i^{(2,k)} = \sigma_i^*$ means that $i$ believes $k$ expected $i$ to play according to the equilibrium mixed strategy $\sigma_i^*$. For any action $s_i \in S_i$, the probability $h_i^{(2,k)}(s_i) = \sigma_i^*(s_i)$ represents the probability that $i$ believes $k$ assigned to $i$ playing $s_i$.
+\end{remark}
+
+%----------------------------------------------------------------------
+\section*{Summary}
+%----------------------------------------------------------------------
+
+Steps 1--2 establish the foundation for the existence proof:
+
+\begin{enumerate}
+    \item \textbf{Strategy space} $\Sigma = \prod_{i \in N} \Delta(S_i)$ is non-empty, compact, and convex (Lemma \ref{lem:strategy-space}).
+
+    \item \textbf{Belief computation} $\kappa: \Sigma \to \mathcal{B} \times \tilde{\mathcal{B}}$ is continuous (Proposition \ref{prop:kappa-continuous}), with:
+    \begin{itemize}
+        \item Attributed beliefs constant: $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$
+        \item Genuine beliefs by projection: $h_i^{(1,k)} = \sigma_k$, $h_i^{(2,k)} = \sigma_i$
+    \end{itemize}
+\end{enumerate}
+
+The key insight: beliefs are functions of strategies, not independent equilibrium variables. This allows the fixed-point argument to operate on $\Sigma$ alone.
+
+\textbf{Assumptions used}: A1 (finiteness of $S_i$) for Lemma \ref{lem:strategy-space}; well-definedness of $\phi_i$ (implied by A2) for Lemma \ref{lem:kappa-attr-constant}.
+
+\vspace{1em}
+\noindent\textit{Continued in Steps 3--4 (Best-Response Properties) and Steps 5--6 (Fixed-Point Application).}

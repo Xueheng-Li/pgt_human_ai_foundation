@@ -1,0 +1,277 @@
+% Phase 2: Fixed-Point Application and Equilibrium Verification
+% Steps 4-6 of ABE Existence Proof
+% Date: 2026-01-12
+
+%==============================================================================
+% STEP 4: PRODUCT CORRESPONDENCE
+%==============================================================================
+
+\subsection*{Step 4: Product Correspondence}
+
+We now combine the individual best-response correspondences into a joint correspondence on the strategy space.
+
+\begin{definition}[Joint Best-Response Correspondence]
+\label{def:joint-br}
+Define the joint best-response correspondence $BR: \Sigma \rightrightarrows \Sigma$ by
+\begin{equation}
+    BR(\sigma) = \prod_{i \in N_H} BR_i^H(\sigma) \times \prod_{j \in N_A} BR_j^A(\sigma)
+\end{equation}
+where for each $\sigma' \in BR(\sigma)$, we have $\sigma'_i \in BR_i^H(\sigma)$ for all $i \in N_H$ and $\sigma'_j \in BR_j^A(\sigma)$ for all $j \in N_A$.
+\end{definition}
+
+\begin{lemma}[Properties of Product Correspondence]
+\label{lem:product-properties}
+The joint best-response correspondence $BR: \Sigma \rightrightarrows \Sigma$ satisfies:
+\begin{enumerate}
+    \item $BR(\sigma)$ is non-empty for all $\sigma \in \Sigma$;
+    \item $BR(\sigma)$ is convex for all $\sigma \in \Sigma$;
+    \item $BR$ is upper hemicontinuous.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We verify each property.
+
+\medskip
+\noindent\textbf{(1) Non-emptiness.}
+The Cartesian product of non-empty sets is non-empty. By Lemma \ref{lem:human-br} and Lemma \ref{lem:ai-br}, each $BR_i^H(\sigma)$ and $BR_j^A(\sigma)$ is non-empty. Therefore,
+\[
+    BR(\sigma) = \prod_{i \in N_H} BR_i^H(\sigma) \times \prod_{j \in N_A} BR_j^A(\sigma) \neq \emptyset.
+\]
+
+\medskip
+\noindent\textbf{(2) Convexity.}
+The Cartesian product of convex sets is convex. Let $\sigma', \sigma'' \in BR(\sigma)$ and $\lambda \in [0,1]$. Define $\bar{\sigma} = \lambda \sigma' + (1-\lambda) \sigma''$, where the convex combination is taken component-wise:
+\[
+    \bar{\sigma}_k = \lambda \sigma'_k + (1-\lambda) \sigma''_k \quad \text{for all } k \in N.
+\]
+For each $i \in N_H$: since $\sigma'_i, \sigma''_i \in BR_i^H(\sigma)$ and $BR_i^H(\sigma)$ is convex (Lemma \ref{lem:human-br}), we have $\bar{\sigma}_i \in BR_i^H(\sigma)$.
+
+For each $j \in N_A$: since $\sigma'_j, \sigma''_j \in BR_j^A(\sigma)$ and $BR_j^A(\sigma)$ is convex (Lemma \ref{lem:ai-br}), we have $\bar{\sigma}_j \in BR_j^A(\sigma)$.
+
+Therefore $\bar{\sigma} \in BR(\sigma)$, establishing convexity.
+
+\medskip
+\noindent\textbf{(3) Upper hemicontinuity.}
+We apply the standard result that the Cartesian product of upper hemicontinuous correspondences is upper hemicontinuous.
+
+\begin{claim}
+Let $F_k: X \rightrightarrows Y_k$ for $k = 1, \ldots, K$ be upper hemicontinuous correspondences with compact values. Then $F: X \rightrightarrows \prod_{k=1}^K Y_k$ defined by $F(x) = \prod_{k=1}^K F_k(x)$ is upper hemicontinuous.
+\end{claim}
+
+\begin{claimproof}
+Let $x^n \to x$ in $X$ and $y^n \to y$ with $y^n \in F(x^n)$. Write $y^n = (y^n_1, \ldots, y^n_K)$ and $y = (y_1, \ldots, y_K)$. Since $y^n \to y$ in the product topology, $y^n_k \to y_k$ for each $k$.
+
+For each $k$: we have $y^n_k \in F_k(x^n)$ and $y^n_k \to y_k$. By upper hemicontinuity of $F_k$, this implies $y_k \in F_k(x)$.
+
+Since $y_k \in F_k(x)$ for all $k$, we have $y \in \prod_{k=1}^K F_k(x) = F(x)$.
+\end{claimproof}
+
+Apply this result with $X = \Sigma$, and the family $\{BR_i^H\}_{i \in N_H} \cup \{BR_j^A\}_{j \in N_A}$. Each correspondence is upper hemicontinuous (Lemmas \ref{lem:human-br} and \ref{lem:ai-br}) and takes values in a compact set ($\Delta(S_k)$ is compact for finite $S_k$). Therefore $BR$ is upper hemicontinuous.
+\end{proof}
+
+%==============================================================================
+% STEP 5: KAKUTANI APPLICATION
+%==============================================================================
+
+\subsection*{Step 5: Application of Kakutani's Fixed-Point Theorem}
+
+We now apply Kakutani's fixed-point theorem to establish existence of a fixed point.
+
+\begin{theorem}[Kakutani's Fixed-Point Theorem]
+\label{thm:kakutani}
+Let $X$ be a non-empty, compact, convex subset of $\mathbb{R}^n$. Let $F: X \rightrightarrows X$ be a correspondence such that:
+\begin{enumerate}
+    \item $F(x)$ is non-empty for all $x \in X$;
+    \item $F(x)$ is convex for all $x \in X$;
+    \item $F$ has a closed graph (equivalently, $F$ is upper hemicontinuous with closed values).
+\end{enumerate}
+Then there exists $x^* \in X$ such that $x^* \in F(x^*)$.
+\end{theorem}
+
+\begin{proposition}[Existence of Fixed Point]
+\label{prop:fixed-point}
+There exists $\sigma^* \in \Sigma$ such that $\sigma^* \in BR(\sigma^*)$.
+\end{proposition}
+
+\begin{proof}
+We verify that the hypotheses of Kakutani's theorem are satisfied.
+
+\medskip
+\noindent\textbf{Condition 1: $\Sigma$ is non-empty.}
+Each strategy space $S_i$ is non-empty by Assumption A1a. Hence $\Delta(S_i) \neq \emptyset$ (it contains all probability distributions over $S_i$, including degenerate distributions). The product $\Sigma = \prod_{i \in N} \Delta(S_i)$ of non-empty sets is non-empty.
+
+\medskip
+\noindent\textbf{Condition 2: $\Sigma$ is compact.}
+Each $S_i$ is finite by A1a, so $|S_i| < \infty$. The simplex $\Delta(S_i)$ can be identified with the standard $(|S_i|-1)$-simplex in $\mathbb{R}^{|S_i|}$:
+\[
+    \Delta(S_i) \cong \left\{ p \in \mathbb{R}^{|S_i|} : p_k \geq 0 \text{ for all } k, \; \sum_{k=1}^{|S_i|} p_k = 1 \right\}.
+\]
+This is a closed (intersection of closed half-spaces and a hyperplane) and bounded (contained in $[0,1]^{|S_i|}$) subset of $\mathbb{R}^{|S_i|}$, hence compact by Heine-Borel.
+
+The product $\Sigma = \prod_{i \in N} \Delta(S_i)$ is a finite product of compact sets in Euclidean space, hence compact by Tychonoff's theorem (or directly by Heine-Borel, since $\Sigma \subset \mathbb{R}^{\sum_i |S_i|}$ is closed and bounded).
+
+\medskip
+\noindent\textbf{Condition 3: $\Sigma$ is convex.}
+Each $\Delta(S_i)$ is convex: for $p, q \in \Delta(S_i)$ and $\lambda \in [0,1]$,
+\[
+    \lambda p + (1-\lambda) q \in \Delta(S_i)
+\]
+since the convex combination preserves non-negativity and normalization.
+
+The product of convex sets is convex: for $\sigma, \tau \in \Sigma$ and $\lambda \in [0,1]$, define $(\lambda \sigma + (1-\lambda)\tau)_i = \lambda \sigma_i + (1-\lambda)\tau_i$. Since each $\sigma_i, \tau_i \in \Delta(S_i)$ and $\Delta(S_i)$ is convex, we have $\lambda \sigma_i + (1-\lambda)\tau_i \in \Delta(S_i)$. Thus $\lambda \sigma + (1-\lambda)\tau \in \Sigma$.
+
+\medskip
+\noindent\textbf{Condition 4: $BR(\sigma)$ is non-empty for all $\sigma$.}
+This is Lemma \ref{lem:product-properties}(1).
+
+\medskip
+\noindent\textbf{Condition 5: $BR(\sigma)$ is convex for all $\sigma$.}
+This is Lemma \ref{lem:product-properties}(2).
+
+\medskip
+\noindent\textbf{Condition 6: $BR$ has a closed graph.}
+By Lemma \ref{lem:product-properties}(3), $BR$ is upper hemicontinuous. Each $BR(\sigma)$ is a closed subset of $\Sigma$ (as $BR(\sigma)$ is the product of closed subsets $BR_k(\sigma) \subseteq \Delta(S_k)$, each of which is closed because it is the argmax of a continuous function over a compact set). An upper hemicontinuous correspondence with closed values has a closed graph.
+
+\medskip
+All conditions of Kakutani's theorem are satisfied. Therefore, there exists $\sigma^* \in \Sigma$ such that $\sigma^* \in BR(\sigma^*)$.
+\end{proof}
+
+%==============================================================================
+% STEP 6: EQUILIBRIUM VERIFICATION
+%==============================================================================
+
+\subsection*{Step 6: Equilibrium Verification}
+
+We now verify that any fixed point of $BR$, together with appropriately constructed beliefs, constitutes an Attributed Belief Equilibrium.
+
+\begin{theorem}[Fixed Point Yields ABE]
+\label{thm:fixed-point-abe}
+Let $\sigma^* \in \Sigma$ satisfy $\sigma^* \in BR(\sigma^*)$. Define the belief systems:
+\begin{align}
+    h_i^{*(1,k)} &= \sigma_k^* \quad \text{for all } i, k \in N_H \\
+    h_i^{*(2,k)} &= \sigma_i^* \quad \text{for all } i, k \in N_H \\
+    \tilde{h}_i^{*(2,j)} &= \phi_i(\theta_j, x_j, \omega_i) \quad \text{for all } i \in N_H, j \in N_A
+\end{align}
+Then $(\sigma^*, h^*, \tilde{h}^*)$ is an Attributed Belief Equilibrium.
+\end{theorem}
+
+\begin{proof}
+We verify each of the four ABE conditions from Definition \ref{def:ABE}.
+
+\medskip
+\noindent\textbf{(ABE1) Human Optimality.}
+Let $i \in N_H$. By definition of $BR_i^H$ and the fixed-point property,
+\[
+    \sigma_i^* \in BR_i^H(\sigma^*) = \arg\max_{\sigma_i \in \Delta(S_i)} \mathbb{E}_{\sigma_{-i}^*}\left[ U_i^H(\sigma_i, \sigma_{-i}^*, h_i^*, \tilde{h}_i^*) \right].
+\]
+Expanding the expected utility:
+\begin{align*}
+    \mathbb{E}_{\sigma_{-i}^*}\left[ U_i^H(\sigma_i, \sigma_{-i}^*, h_i^*, \tilde{h}_i^*) \right]
+    &= \sum_{s \in S} \sigma_i(s_i) \prod_{k \neq i} \sigma_k^*(s_k) \cdot U_i^H(s, h_i^*, \tilde{h}_i^*) \\
+    &= \sum_{s \in S} \sigma_i(s_i) \prod_{k \neq i} \sigma_k^*(s_k) \cdot \left[ \pi_i(s) + \psi_i(s, h_i^{*(2)}, \tilde{h}_i^{*(2)}) \right].
+\end{align*}
+The beliefs $h_i^*$ and $\tilde{h}_i^*$ are computed from $\sigma^*$ as specified. Therefore, $\sigma_i^*$ maximizes human $i$'s expected utility given the equilibrium strategies of others and the induced beliefs. This is precisely condition (ABE1).
+
+\medskip
+\noindent\textbf{(ABE2) AI Optimality.}
+Let $j \in N_A$. By definition of $BR_j^A$ and the fixed-point property,
+\[
+    \sigma_j^* \in BR_j^A(\sigma^*) = \arg\max_{\sigma_j \in \Delta(S_j)} \mathbb{E}_{\sigma_{-j}^*}\left[ U_j^A(\sigma_j, \sigma_{-j}^*; \theta_j) \right].
+\]
+The AI utility $U_j^A(s; \theta_j)$ depends only on the strategy profile and design parameters, not on beliefs. Therefore, $\sigma_j^*$ maximizes AI $j$'s expected utility given others' equilibrium strategies. This is precisely condition (ABE2).
+
+\medskip
+\noindent\textbf{(ABE3) Genuine Belief Consistency.}
+We verify both components of genuine belief consistency for all $i, k \in N_H$.
+
+\emph{First-order consistency:} By construction,
+\[
+    h_i^{*(1,k)} = \sigma_k^*.
+\]
+In mixed strategy equilibrium, first-order beliefs are point masses on the equilibrium mixed strategies. Human $i$'s belief about human $k$'s strategy equals $k$'s actual equilibrium strategy. This satisfies the first-order consistency requirement of (ABE3).
+
+\emph{Second-order consistency:} By construction,
+\[
+    h_i^{*(2,k)} = \sigma_i^*.
+\]
+This represents $i$'s belief about what $k$ expected $i$ to play. We need to verify that this equals $h_k^{*(1,i)}$. Indeed:
+\[
+    h_k^{*(1,i)} = \sigma_i^* = h_i^{*(2,k)}.
+\]
+Thus, $i$'s second-order belief (what $i$ thinks $k$ expected from $i$) equals $k$'s first-order belief about $i$ (what $k$ actually expected from $i$). This satisfies the second-order consistency requirement of (ABE3).
+
+\begin{remark}[Interpretation]
+Second-order consistency captures the idea that in equilibrium, players correctly anticipate how others perceive them. Human $i$ believes that human $k$ expected $i$ to play according to $\sigma_i^*$, which is indeed what $k$ expected (since $k$'s first-order belief about $i$ is $\sigma_i^*$). This mutual consistency of expectations is the hallmark of psychological game equilibrium.
+\end{remark}
+
+\medskip
+\noindent\textbf{(ABE4) Attribution Consistency.}
+Let $i \in N_H$ and $j \in N_A$. By construction,
+\[
+    \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i).
+\]
+This is exactly condition (ABE4): human $i$'s attributed belief about AI $j$'s expectations is determined by the attribution function evaluated at the AI's design parameters $\theta_j$, observable signals $x_j$, and $i$'s anthropomorphism tendency $\omega_i$.
+
+\begin{remark}[Attributed Beliefs Are Exogenous]
+Unlike genuine beliefs, attributed beliefs do not depend on the equilibrium strategy profile $\sigma^*$. They are determined entirely by the exogenous primitives $(\theta_j, x_j, \omega_i)$ and the attribution function $\phi_i$. This is the key simplification that makes ABE existence easier to establish than standard psychological game equilibrium existence: we need not find a fixed point in the space of attributed beliefs.
+\end{remark}
+
+\medskip
+All four ABE conditions are satisfied. Therefore, $(\sigma^*, h^*, \tilde{h}^*)$ is an Attributed Belief Equilibrium.
+\end{proof}
+
+%==============================================================================
+% MAIN THEOREM
+%==============================================================================
+
+\begin{theorem}[Existence of ABE]
+\label{thm:existence-main}
+Under Assumptions A1 (Regularity) and A2 (Attribution Continuity), an Attributed Belief Equilibrium exists in mixed strategies.
+\end{theorem}
+
+\begin{proof}
+The proof proceeds in three stages:
+
+\begin{enumerate}
+    \item \textbf{Space construction} (Steps 1--2): The strategy space $\Sigma = \prod_{i \in N} \Delta(S_i)$ is non-empty, compact, and convex. The belief computation mapping $\kappa: \Sigma \to \mathcal{B} \times \tilde{\mathcal{B}}$ is well-defined and continuous.
+
+    \item \textbf{Correspondence properties} (Steps 3--4): The best-response correspondences $BR_i^H$ and $BR_j^A$ are non-empty, convex-valued, and upper hemicontinuous. Their product $BR: \Sigma \rightrightarrows \Sigma$ inherits these properties.
+
+    \item \textbf{Fixed point and verification} (Steps 5--6): By Kakutani's fixed-point theorem (Proposition \ref{prop:fixed-point}), there exists $\sigma^* \in BR(\sigma^*)$. By Theorem \ref{thm:fixed-point-abe}, this fixed point, together with the induced beliefs, constitutes an ABE.
+\end{enumerate}
+
+Therefore, an ABE exists.
+\end{proof}
+
+\begin{flushright}
+\textbf{Q.E.D.}
+\end{flushright}
+
+%==============================================================================
+% REMARKS
+%==============================================================================
+
+\begin{remark}[Role of Each Assumption]
+The proof uses the assumptions as follows:
+\begin{itemize}
+    \item \textbf{A1a} (finite strategy spaces): Ensures $\Sigma$ is a finite-dimensional compact convex set.
+    \item \textbf{A1c} (payoff continuity): Ensures the objective function in the best-response problem is continuous, enabling application of Berge's Maximum Theorem.
+    \item \textbf{A2} (attribution well-definedness): Ensures attributed beliefs are well-defined elements of $\Delta(S_i)$.
+    \item \textbf{A3} (bounded psychological payoffs): Implied by A1c given compactness; ensures utilities are well-behaved.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Comparison with Standard PGT Existence]
+The ABE existence proof is \emph{structurally simpler} than existence proofs for standard psychological game equilibria (e.g., \citealt{battigalli2009dynamic}). The key difference: in ABE, attributed beliefs are exogenously determined by the attribution function---they are constants, not equilibrium variables. This eliminates the need to find a fixed point in the infinite-dimensional belief space. The fixed-point problem is confined to the finite-dimensional strategy space $\Sigma$, making the argument more transparent.
+\end{remark}
+
+\begin{remark}[Uniqueness]
+The existence theorem does not establish uniqueness. Multiple ABE may exist, particularly when:
+\begin{enumerate}
+    \item The material game has multiple Nash equilibria;
+    \item Psychological payoffs create feedback effects that support multiple self-confirming belief configurations;
+    \item Different attribution functions (across individuals) interact to produce distinct equilibrium outcomes.
+\end{enumerate}
+Proposition \ref{prop:multiplicity} in the main text addresses attribution-dependent multiplicity.
+\end{remark}
