@@ -80,6 +80,7 @@ Three main approaches to specifying $\phi_i$ are:
 \end{enumerate}
 
 \begin{example}[Linear Attribution]
+\label{ex:linear-attribution}
 A simple parametric form is
 \begin{equation}
     \tilde{h}_i^{(2,j)}(C) = \omega_i \cdot \left( \rho_j + \eta \cdot x_j \right)
@@ -168,6 +169,19 @@ captures attribution collapse above threshold $\bar{x}$.
 These alternatives generate distinct predictions. Saturation predicts diminishing marginal effects of $x_A$ at high levels; thresholds predict a discrete drop in $\tilde{h}_i^{(2,A)}$ above $\bar{x}$. Both can be tested by including quadratic or spline terms in regression (\ref{eq:attribution-regression}). In our trust game design, Treatment H ($x_A = 1$) tests whether extreme anthropomorphism triggers uncanny valley effects.
 
 For applications in this paper, we maintain the linear specification. Empirical evidence on anthropomorphism-trust relationships \citep{blut2021understanding} is consistent with linearity over the range of interface manipulations typical in economic experiments. The linear form also yields closed-form equilibria enabling comparative statics.
+
+\subsubsection{Psychological Foundations: Mind Perception Theory}
+\label{sec:mind-perception}
+
+The attribution function $\phi_i$ in Definition~\ref{def:attribution-function} formalizes how humans project mental states onto AI agents. This formalization rests on mind perception psychology. We map this literature to model parameters.
+
+The SEEK framework \citep{epley2007seeing} identifies three determinants of anthropomorphism: \emph{Sociality} (the drive for social connection), \emph{Effectance} (the motivation to understand and predict behavior), and \emph{Elicited agent knowledge} (accessibility of human-related concepts). Sociality and effectance are dispositional, corresponding to individual variation in $\omega_i$. Elicited agent knowledge is situational: humanlike features such as voice, name, or conversational style activate human schemas, increasing attribution weight. When AI uses natural language, anthropocentric knowledge becomes accessible, amplifying the effect of $x_j$ on $\phi_i$.
+
+A second body of work decomposes mind perception into two orthogonal dimensions \citep{gray2007dimensions,waytz2010causes}. The \emph{Agency} dimension captures perceived capacity for planning, self-control, and intentional action; the \emph{Experience} dimension captures perceived capacity for feeling, suffering, and subjective states. AI agents score high on agency but low on experience. This asymmetry maps to our two mechanisms. Attribution ($\phi_i$) is triggered by perceived agency: when AI appears to deliberate and choose, humans infer beliefs and intentions. Attenuation ($\lambda_i^{GUILT}, \lambda_i^{IND}$) is driven by low perceived experience: knowing that AI cannot truly suffer reduces guilt sensitivity. The two dimensions operate independently, explaining why the same human can both attribute beliefs to AI and feel reduced guilt exploiting it.
+
+The SEEK framework incorporates a dual-process interpretation. Anthropomorphism operates as a System~1 response: humans automatically use self-knowledge as a template for reasoning about any agent. System~2 corrects this inference when people have time, motivation, and explicit knowledge that the target differs from humans. Correction is effortful and incomplete \citep{epley2007seeing}. The attribution function captures this: $\omega_i$ reflects the strength of automatic anthropomorphism, while signals $x_j$ modulate the degree of correction. Under cognitive load, correction diminishes and $\phi_i$ increases. Even users who know AI lacks mental states exhibit residual attribution because System~2 correction is incomplete.
+
+This psychological foundation grounds our functional form choices. The linear specification in Example~\ref{ex:linear-attribution} reflects the SEEK prediction that attribution increases monotonically in both dispositional tendency ($\omega_i$) and situational triggers ($x_j$). The two-dimensional structure of mind perception justifies treating attribution and attenuation as separate mechanisms with distinct antecedents. These foundations link the model to empirical predictions in Section~\ref{sec:empirical-implementation}: regression estimates of $\omega_i$ correspond to validated individual difference measures \citep{waytz2010who}, and experimental variation in $x_j$ manipulates the situational triggers that SEEK identifies as determinants of attribution.
 
 \subsection{Psychological Payoffs}
 
