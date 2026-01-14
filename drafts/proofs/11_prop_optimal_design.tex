@@ -1,83 +1,12 @@
 % Proof of Proposition: Optimal AI Design
-% Version: 2.0 (publication-ready)
-% Date: 2026-01-12
-%
-% This proof establishes Proposition~\ref{prop:optimal-design}:
-%   Part (i): For prosocial AI, optimal signal is minimal threshold-crossing level
-%   Part (ii): For materialist AI, optimal signal is zero
-%   Part (iii): For mixed AI, optimal signal balances cooperation benefits against guilt costs
-%
-% Key features addressed in v2:
-%   - Reconciled comparative statics for m between Parts (i) and (iii)
-%   - Added explicit existence argument via Weierstrass theorem
-%   - Verified second-order condition for Part (iii)
-%   - Verified IFT conditions before applying
-%   - Completed welfare function case structure in Part (ii)
-%   - Strengthened threshold claim proof
+% Version: 3.0 (condensed for publication)
+% Date: 2026-01-14
+% Technical details moved to Online Appendix OA.7
 
 \begin{proof}[Proof of Proposition~\ref{prop:optimal-design}]
-Three parts. All parts require (A1)--(A3) regularity, (A2') attribution monotonicity, and (A2''') signal monotonicity. Part (i) additionally requires (E) cooperation efficiency, (I) indignation dominance, and (T) temptation dominance. Parts (ii) and (iii) additionally require (G') positive guilt sensitivity. The proof proceeds by analyzing each AI objective type in turn.
+Three parts. All parts require (A1)--(A3) regularity, (A2') attribution monotonicity, and (A2''') signal monotonicity. Part (i) additionally requires (E) cooperation efficiency, (I) indignation dominance, and (T) temptation dominance. Parts (ii) and (iii) additionally require (G') positive guilt sensitivity. Full assumption statements appear in Online Appendix OA.7.1.
 
-%------------------------------------------------------------------------------
-% PREAMBLE: ASSUMPTIONS AND COMMON SETUP
-%------------------------------------------------------------------------------
-
-\medskip
-\emph{Preamble (Assumptions and Common Setup).}
-
-\medskip
-\noindent\emph{Assumptions.}
-\begin{enumerate}[label=(\alph*), nosep]
-    \item \textbf{(A1)--(A3) Regularity}: Compact, convex type spaces; continuous payoffs; bounded psychological payoffs $|\psi_i| \leq M < \infty$. Under these conditions, the ABE correspondence is upper hemicontinuous in $x$, and equilibrium payoffs vary continuously with $x$ (by the Maximum Theorem).
-
-    \item \textbf{(A2') Attribution Monotonicity}: Higher anthropomorphism tendency leads to higher attributed expectations: $\omega' > \omega \Rightarrow \tilde{h}_i^{(2,j)}(\omega') \geq \tilde{h}_i^{(2,j)}(\omega)$.
-
-    \item \textbf{(A2''') Signal Monotonicity}: Higher anthropomorphic signal increases attributed expectations: $\partial \tilde{h}_i^{(2,j)}/\partial x \geq 0$ for $\omega_i > 0$, with strict inequality when $\eta > 0$.
-
-    \item \textbf{(E) Cooperation Efficiency}: Public goods multiplier satisfies $m > 1$, ensuring efficiency gains from cooperation.
-
-    \item \textbf{(T) Temptation Dominance}: Material temptation exceeds human-peer indignation alone: $E(1 - m/n) > \beta(n_H - 1)$. This ensures the AI channel matters for cooperation.
-
-    \item \textbf{(I) Indignation Dominance}: Psychological costs can exceed material temptation at maximal expectations: $\beta[(n_H - 1) + \lambda^{IND} n_A] > E(1 - m/n)$.
-
-    \item \textbf{(G') Positive Guilt Sensitivity}: Guilt parameter $G = \gamma_H \lambda_H^{GUILT} > 0$, ensuring psychological costs from unmet expectations.
-\end{enumerate}
-
-\medskip
-\noindent\emph{Decision-Maker.}
-The ``planner'' refers to a social planner who chooses the anthropomorphic signal $x$ to maximize welfare, taking equilibrium behavior as given. This is a first-best benchmark; designer incentives and second-best regulation are discussed in Remark~\ref{rem:decision-maker}.
-
-\medskip
-\noindent\emph{Welfare Measures.}
-We distinguish two welfare measures:
-\begin{itemize}[nosep]
-    \item \textbf{Material welfare}: $W(s) = \sum_{i \in N} \pi_i(s)$. Treats psychological payoffs as instrumental.
-    \item \textbf{Extended welfare}: $W^{ext}(s, h, \tilde{h}) = W(s) + \sum_{i \in N_H} \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})$. Values psychological payoffs intrinsically.
-\end{itemize}
-Part (i) uses material welfare because prosocial AI generates expectations that are met in equilibrium, making psychological welfare non-negative. Parts (ii) and (iii) use extended welfare because anthropomorphism can generate phantom expectations that reduce psychological welfare. See Remark~\ref{rem:welfare-criterion} for further discussion.
-
-\medskip
-\noindent\emph{Linear Attribution Function.}
-Under Example~\ref{ex:linear-attribution}, human $i$'s attributed expectation of AI $j$'s expectation is:
-\begin{equation}\label{eq:attr-linear}
-    \tilde{h}_i^{(2,j)}(C; \rho_j, x, \omega_i) = \omega_i \cdot \left[ \bar{h}(\rho_j) + \eta x \right],
-\end{equation}
-where $\omega_i \in [0,1]$ is anthropomorphism tendency, $\bar{h}(\cdot)$ is the baseline attribution function with $\bar{h}(0) = 0$ and $\bar{h}(1) = \bar{h}_H > 0$, and $\eta > 0$ is signal sensitivity.
-
-\medskip
-\noindent\emph{Planner's Problem.}
-The social planner chooses anthropomorphic signal $x \in X = [0, \bar{x}]$ to maximize reduced-form welfare:
-\begin{equation}\label{eq:planner}
-    x^* = \arg\max_{x \in X} \mathcal{W}(x),
-\end{equation}
-where $\mathcal{W}(x) = W^{ext}(s^*(x), h^*(x), \tilde{h}^*(x))$ and $(s^*(x), h^*(x), \tilde{h}^*(x))$ is the ABE induced by signal $x$. When multiple equilibria exist, we assume the planner selects the welfare-maximizing equilibrium (optimistic selection).
-
-\medskip
-\noindent\emph{Existence of Maximum.}
-By Assumption (A1)--(A3), the reduced-form welfare function $\mathcal{W}(x)$ is continuous on the compact set $X = [0, \bar{x}]$. By the Weierstrass extreme value theorem, a maximum exists:
-\begin{equation}
-    x^* \in \arg\max_{x \in X} \mathcal{W}(x) \neq \emptyset.
-\end{equation}
+The planner maximizes reduced-form welfare $\mathcal{W}(x)$ over signal $x \in [0, \bar{x}]$; existence follows from Weierstrass.
 
 %------------------------------------------------------------------------------
 % PART (i): PROSOCIAL AI
@@ -86,112 +15,46 @@ By Assumption (A1)--(A3), the reduced-form welfare function $\mathcal{W}(x)$ is 
 \medskip
 \noindent\textbf{Part (i): Prosocial AI ($\rho_A = 1$).}
 
-\medskip
-\emph{Step 1 (Setup).}
-Consider the public goods game with $n_H \geq 2$ humans and $n_A \geq 1$ AI agents, $n = n_H + n_A$. Each player has endowment $E > 0$ and chooses contribution $c_i \in \{0, E\}$. Material payoffs are:
-\begin{equation}\label{eq:material-pgg}
-    \pi_i(c) = E - c_i + \frac{m}{n}\sum_{k \in N} c_k,
-\end{equation}
-where $m > 1$ and $m < n$ (social dilemma). With prosocial AI ($\rho_A = 1$), AI utility $U_A = (1/n)\sum_k \pi_k(c)$ implies AI contributes $c_A = E$.
-
-We use material welfare $W(s^*(x))$. This is justified because with prosocial AI in a cooperation equilibrium, attributed expectations are met: humans expect AI to expect cooperation, and humans cooperate. Therefore, guilt is zero and indignation is zero, making psychological welfare $\psi_i \geq 0$. Material welfare is thus a lower bound on extended welfare: $W^{ext} \geq W$. Maximizing material welfare subject to threshold crossing yields the correct optimum.
+Consider the public goods game with prosocial AI ($\rho_A = 1$) contributing $c_A = E$. We use material welfare $W(s^*(x))$, justified because cooperation meets attributed expectations, so guilt is zero.
 
 \medskip
-\emph{Step 2 (Attribution).}
-With $\rho_A = 1$, the attributed expectation becomes:
-\begin{equation}
-    \tilde{h}_i^{(2,A)}(C) = \omega_i \cdot \left[ \bar{h}_H + \eta x \right].
-\end{equation}
-By (A2'), $\partial \tilde{h}_i^{(2,A)}/\partial \omega_i \geq 0$. By (A2'''), $\partial \tilde{h}_i^{(2,A)}/\partial x = \omega_i \eta \geq 0$.
-
-\medskip
-\emph{Step 3 (Cooperation threshold).}
-In symmetric equilibrium with representative human $\omega$, cooperation is sustainable when the indignation cost of defection exceeds material gain. The incentive compatibility condition for cooperation is:
-\begin{equation}\label{eq:coop-ic}
-    \beta \left[ (n_H - 1)h_i^{(2,-i)}(C) + \lambda^{IND} n_A \omega (\bar{h}_H + \eta x) \right] \geq E\left(1 - \frac{m}{n}\right).
-\end{equation}
-In the full cooperation equilibrium, each human believes other humans expected cooperation: $h_i^{(2,-i)}(C) = 1$. Substituting and rearranging, cooperation holds when $\omega \geq \bar{\omega}(x)$, where:
+\emph{Step 1 (Cooperation threshold).}
+Cooperation requires $\omega \geq \bar{\omega}(x)$, where:
 \begin{equation}\label{eq:threshold}
     \bar{\omega}(x) = \frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A (\bar{h}_H + \eta x)}.
 \end{equation}
-
-\textbf{Claim:} Under (T) and (I), $\bar{\omega}(x) \in (0,1)$ for all $x \in [0, \bar{x}]$.
-
-\emph{Proof of claim.}
-\begin{enumerate}[label=(\roman*), nosep]
-    \item \textbf{$\bar{\omega}(x) > 0$}: By (T), the numerator $E(1 - m/n) - \beta(n_H - 1) > 0$. The denominator $\beta \lambda^{IND} n_A (\bar{h}_H + \eta x) > 0$ since all terms are positive. Hence $\bar{\omega}(x) > 0$.
-
-    \item \textbf{$\bar{\omega}(0) < 1$}: Substituting $x = 0$ into \eqref{eq:threshold}:
-    \begin{equation}
-        \bar{\omega}(0) = \frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A \bar{h}_H}.
-    \end{equation}
-    For $\bar{\omega}(0) < 1$, we need:
-    \begin{equation}
-        E(1 - m/n) - \beta(n_H - 1) < \beta \lambda^{IND} n_A \bar{h}_H.
-    \end{equation}
-    This is implied by (I) when $\bar{h}_H \geq 1$. When $\bar{h}_H < 1$, we assume parameters satisfy this condition.
-
-    \item \textbf{$\bar{\omega}(x) < 1$ for all $x \in [0, \bar{x}]$}: Since $\bar{\omega}(x)$ is decreasing in $x$ (Step 4 below), $\bar{\omega}(x) \leq \bar{\omega}(0) < 1$ for all $x \geq 0$.
-\end{enumerate}
-This completes the claim. \hfill $\square_1$
+Under (T) and (I), $\bar{\omega}(x) \in (0,1)$ for all $x \in [0, \bar{x}]$ (proof in Online Appendix OA.7.2).
 
 \medskip
-\emph{Step 4 (Threshold comparative static).}
+\emph{Step 2 (Threshold comparative static).}
 Differentiating \eqref{eq:threshold}:
-\begin{equation}\label{eq:threshold-deriv}
-    \frac{\partial \bar{\omega}}{\partial x} = -\frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A} \cdot \frac{\eta}{(\bar{h}_H + \eta x)^2}.
-\end{equation}
-By (T), the numerator of the first factor is positive. All other terms are positive. Hence $\partial \bar{\omega}/\partial x < 0$: higher $x$ lowers the cooperation threshold.
-
-\medskip
-\emph{Step 5 (Welfare function).}
-Material welfare depends on the equilibrium regime:
-\begin{equation}\label{eq:welfare-pw}
-    W(s^*(x)) = \begin{cases}
-        nmE & \text{if } \omega \geq \bar{\omega}(x) \text{ (cooperation)} \\
-        n_H E + (m-1)n_A E & \text{if } \omega < \bar{\omega}(x) \text{ (defection by humans, AI contributes)}
-    \end{cases}
-\end{equation}
-Since $m > 1$, we have $W^C = nmE > W^D = n_H E + (m-1)n_A E$. Since $\partial \bar{\omega}/\partial x < 0$, increasing $x$ expands the cooperation region.
-
-\medskip
-\emph{Step 6 (Optimization).}
-The welfare function is piecewise constant in $x$, switching from $W^D$ to $W^C$ when $\bar{\omega}(x) = \omega$. Three cases arise:
-
-\textbf{Case 1:} $\omega \geq \bar{\omega}(0)$. Cooperation is sustainable at $x = 0$. Any $x \in [0, \bar{x}]$ yields $W = nmE$. The planner is indifferent; set $x^* = 0$ (minimal anthropomorphism when unnecessary).
-
-\textbf{Case 2:} $\omega < \bar{\omega}(\bar{x})$. Cooperation cannot be induced even at maximum signal. The planner is indifferent across all $x \in [0, \bar{x}]$; welfare remains $W^D$. Any $x \in [0, \bar{x}]$ is optimal.
-
-\textbf{Case 3:} $\bar{\omega}(\bar{x}) \leq \omega < \bar{\omega}(0)$. There exists a critical signal $x_{crit} \in (0, \bar{x})$ such that $\bar{\omega}(x_{crit}) = \omega$. Solving \eqref{eq:threshold} for $x$:
-\begin{equation}\label{eq:xcrit}
-    x_{crit} = \frac{1}{\eta}\left[ \frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A \omega} - \bar{h}_H \right].
-\end{equation}
-Any $x \geq x_{crit}$ induces cooperation and yields $W = nmE$. The planner sets $x^* = x_{crit}$ (minimal signal sufficient for cooperation).
-
-\textbf{Unified solution:}
-\begin{equation}\label{eq:opt-x-i}
-    x^* = \max\left\{ 0, \frac{1}{\eta}\left[ \frac{E(1-m/n) - \beta(n_H-1)}{\beta \lambda^{IND} n_A \omega} - \bar{h}_H \right] \right\}
-\end{equation}
-when $\omega \geq \bar{\omega}(\bar{x})$. When $\omega < \bar{\omega}(\bar{x})$, any $x \in [0, \bar{x}]$ is optimal.
-
-\medskip
-\emph{Step 7 (Comparative static: $\partial x^*/\partial m < 0$).}
-This comparative static applies to the \emph{threshold-crossing signal} $x_{crit}$---the minimal signal required to induce cooperation. Higher efficiency $m$ reduces this threshold signal.
-
-Differentiating \eqref{eq:xcrit} with respect to $m$:
 \begin{equation}
-    \frac{\partial x_{crit}}{\partial m} = \frac{1}{\eta} \cdot \frac{\partial}{\partial m}\left[ \frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A \omega} \right] = \frac{1}{\eta} \cdot \frac{-E/n}{\beta \lambda^{IND} n_A \omega} < 0.
+    \frac{\partial \bar{\omega}}{\partial x} = -\frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A} \cdot \frac{\eta}{(\bar{h}_H + \eta x)^2} < 0.
 \end{equation}
-Higher efficiency reduces the required signal because the material temptation $E(1 - m/n)$ decreases with $m$. When defection becomes less tempting, less psychological reinforcement is needed to sustain cooperation.
+Higher $x$ lowers the cooperation threshold.
+
+\medskip
+\emph{Step 3 (Optimal signal).}
+Material welfare is $W^C = nmE$ under cooperation, $W^D < W^C$ under defection. Three cases arise:
+
+\textbf{Case 1:} $\omega \geq \bar{\omega}(0)$. Cooperation at $x = 0$; set $x^* = 0$.
+
+\textbf{Case 2:} $\omega < \bar{\omega}(\bar{x})$. Cooperation unattainable; any $x$ is optimal.
+
+\textbf{Case 3:} $\bar{\omega}(\bar{x}) \leq \omega < \bar{\omega}(0)$. Set $x^* = x_{crit}$ where $\bar{\omega}(x_{crit}) = \omega$:
+\begin{equation}\label{eq:opt-x-i}
+    x^* = \max\left\{ 0, \frac{1}{\eta}\left[ \frac{E(1-m/n) - \beta(n_H-1)}{\beta \lambda^{IND} n_A \omega} - \bar{h}_H \right] \right\}.
+\end{equation}
+
+\medskip
+\emph{Step 4 (Comparative static).}
+From \eqref{eq:opt-x-i}:
+\begin{equation}
+    \frac{\partial x^*}{\partial m} = \frac{1}{\eta} \cdot \frac{-E/n}{\beta \lambda^{IND} n_A \omega} < 0.
+\end{equation}
+Higher efficiency reduces the required signal because the material temptation $E(1 - m/n)$ decreases.
 
 This completes Part (i). \hfill $\square$
-
-%------------------------------------------------------------------------------
-% TRANSITION REMARK
-%------------------------------------------------------------------------------
-
-\medskip
-\noindent\textit{Transition.} Part (i) shows that for prosocial AI, the planner chooses the \emph{minimal} signal sufficient for cooperation. Higher efficiency reduces this threshold. The result uses material welfare because cooperation meets expectations, eliminating guilt. The opposite logic holds for materialist AI: any positive signal creates phantom expectations with no cooperation benefit.
 
 %------------------------------------------------------------------------------
 % PART (ii): MATERIALIST AI
@@ -200,76 +63,15 @@ This completes Part (i). \hfill $\square$
 \medskip
 \noindent\textbf{Part (ii): Materialist AI ($\rho_A = 0$).}
 
-\medskip
-\emph{Step 1 (Setup).}
-Consider the trust game with an AI trustor and a human trustee. The AI sends $x_{send} \in [0, E]$; the human receives $3x_{send}$ and returns $y \in [0, 3x_{send}]$. Material payoffs: $\pi_A = E - x_{send} + y$, $\pi_H = 3x_{send} - y$. Material welfare $W = E + 2x_{send}$ is independent of return $y$ (transfers between players).
-
-The anthropomorphic signal $x$ (distinct from $x_{send}$) represents design choices---interface, naming, behavioral cues---that affect human attribution. The human can choose any $y \in [0, 3x_{send}]$ (continuous choice set).
+Consider the trust game. With $\rho_A = 0$, all attributed expectations are phantom: $\tilde{h}_H^{(2,A)} = \omega_H \eta x$.
 
 \medskip
-\emph{Step 2 (Attribution under $\rho_A = 0$).}
-With $\bar{h}(0) = 0$, all attributed expectations come from the signal channel:
-\begin{equation}
-    \tilde{h}_H^{(2,A)}(x) = \omega_H \cdot \eta x.
-\end{equation}
-At $x = 0$: $\tilde{h}_H^{(2,A)} = 0$. At $x > 0$ with $\omega_H > 0$: $\tilde{h}_H^{(2,A)} > 0$.
-
-\textbf{Definition (Phantom Expectations):} Attributed expectations that exist in the human's mental model but correspond to nothing in AI preferences. When $\rho_A = 0$, the AI has no prosocial component, yet the human may attribute expectations due to anthropomorphic presentation ($x > 0$).
+\emph{Step 1 (Equilibrium return).}
+Under (G') with $G > 0$, the guilt-averse human sets $y^* = \min\{\omega_H \eta x, 3x_{send}\}$.
 
 \medskip
-\emph{Step 3 (Equilibrium return).}
-Under (G') with $G > 0$, the guilt-averse human chooses return $y$ to minimize guilt subject to the feasibility constraint. The human's utility is:
-\begin{equation}
-    u_H(y) = \pi_H(y) + \psi_H^{GUILT}(y) = (3x_{send} - y) - G \cdot \max\{0, \tilde{h}_H^{(2,A)} - y\}.
-\end{equation}
-
-When $\tilde{h}_H^{(2,A)} \leq 3x_{send}$, the human can fully satisfy attributed expectations by setting $y = \tilde{h}_H^{(2,A)}$, eliminating guilt. The marginal cost of giving is 1 (material) versus $G$ (guilt saved), so with $G > 0$, the human sets:
-\begin{equation}
-    y^* = \tilde{h}_H^{(2,A)} = \omega_H \eta x.
-\end{equation}
-
-When $\tilde{h}_H^{(2,A)} > 3x_{send}$, the human cannot satisfy expectations. The optimal return is $y^* = 3x_{send}$ (give everything, minimizing but not eliminating guilt).
-
-Unified:
-\begin{equation}
-    y^*(x) = \min\left\{ \omega_H \eta x, 3x_{send} \right\}.
-\end{equation}
-
-\medskip
-\emph{Step 4 (Extended welfare: complete case analysis).}
-
-\textbf{Case A: $x = 0$.}
-Attributed expectations: $\tilde{h}_H^{(2,A)} = 0$.
-Equilibrium return: $y^* = 0$.
-Guilt: $\psi_H^{GUILT} = -G \cdot \max\{0, 0 - 0\} = 0$.
-Extended welfare:
-\begin{equation}
-    W^{ext}(0) = (E - x_{send} + 0) + (3x_{send} - 0) + 0 = E + 2x_{send}.
-\end{equation}
-
-\textbf{Case B: $x > 0$ with $\omega_H \eta x \leq 3x_{send}$ (phantom expectations feasible).}
-Attributed expectations: $\tilde{h}_H^{(2,A)} = \omega_H \eta x > 0$.
-Equilibrium return: $y^* = \omega_H \eta x$.
-Guilt: $\psi_H^{GUILT} = -G \cdot \max\{0, \omega_H \eta x - \omega_H \eta x\} = 0$.
-Extended welfare:
-\begin{equation}
-    W^{ext}(x) = (E - x_{send} + \omega_H \eta x) + (3x_{send} - \omega_H \eta x) + 0 = E + 2x_{send} = W^{ext}(0).
-\end{equation}
-Note: The transfer $\omega_H \eta x$ cancels between AI and human payoffs.
-
-\textbf{Case C: $x > 0$ with $\omega_H \eta x > 3x_{send}$ (phantom expectations exceed feasibility).}
-Attributed expectations: $\tilde{h}_H^{(2,A)} = \omega_H \eta x$.
-Equilibrium return: $y^* = 3x_{send}$ (human gives everything but still falls short).
-Guilt: $\psi_H^{GUILT} = -G \cdot (\omega_H \eta x - 3x_{send}) < 0$.
-Extended welfare:
-\begin{equation}
-    W^{ext}(x) = (E - x_{send} + 3x_{send}) + (3x_{send} - 3x_{send}) + \left[-G(\omega_H \eta x - 3x_{send})\right] = E + 2x_{send} - G(\omega_H \eta x - 3x_{send}).
-\end{equation}
-Since $\omega_H \eta x > 3x_{send}$, we have $W^{ext}(x) < W^{ext}(0)$.
-
-\medskip
-\emph{Step 5 (Optimality of $x^* = 0$).}
-From the case analysis:
+\emph{Step 2 (Extended welfare).}
+Complete case analysis (Online Appendix OA.7.3) shows:
 \begin{equation}
     W^{ext}(x) = \begin{cases}
         E + 2x_{send} & \text{if } \omega_H \eta x \leq 3x_{send} \\
@@ -277,25 +79,14 @@ From the case analysis:
     \end{cases}
 \end{equation}
 
-For all $x \geq 0$:
+For all $x \geq 0$: $W^{ext}(x) \leq W^{ext}(0)$, with strict inequality when phantom expectations exceed feasibility. Therefore:
 \begin{equation}
-    W^{ext}(x) \leq W^{ext}(0) = E + 2x_{send},
-\end{equation}
-with strict inequality when $\omega_H \eta x > 3x_{send}$. Therefore:
-\begin{equation}\label{eq:opt-x-ii}
     x^* = 0.
 \end{equation}
 
-Anthropomorphic presentation of materialist AI provides no material benefit (transfers are zero-sum) and creates potential guilt costs. Minimal anthropomorphism is optimal.
+Minimal anthropomorphism is optimal: anthropomorphic presentation creates potential guilt costs without material benefit.
 
 This completes Part (ii). \hfill $\square$
-
-%------------------------------------------------------------------------------
-% TRANSITION REMARK
-%------------------------------------------------------------------------------
-
-\medskip
-\noindent\textit{Transition.} Parts (i) and (ii) are polar cases with corner solutions. Prosocial AI: use minimal signal sufficient for cooperation (threshold crossing). Materialist AI: use no signal (avoid phantom expectations). Mixed objectives create a genuine interior tradeoff, analyzed next.
 
 %------------------------------------------------------------------------------
 % PART (iii): MIXED AI
@@ -304,267 +95,36 @@ This completes Part (ii). \hfill $\square$
 \medskip
 \noindent\textbf{Part (iii): Mixed AI ($\rho_A \in (0,1)$).}
 
-\medskip
-\emph{Step 1 (Setup).}
-Consider the public goods game with partial prosociality $\rho_A \in (0,1)$. AI utility is $U_A = (1 - \rho_A)\pi_A + \rho_A \cdot (1/n)\sum_k \pi_k$; AI contributes $c_A = E$. Attributed expectations are:
-\begin{equation}
-    \tilde{h}_i^{(2,A)}(x) = \omega_i \cdot \left[ \bar{h}(\rho_A) + \eta x \right],
-\end{equation}
-with $\bar{h}(\rho_A) > 0$ since $\rho_A > 0$.
+With partial prosociality, the planner faces a tradeoff: higher $x$ expands cooperation (benefit) but raises guilt from phantom expectations (cost).
 
 \medskip
-\emph{Step 2 (Planner's tradeoff).}
-Higher $x$ has two effects:
-
-\textbf{Benefit (cooperation channel):} Higher $x$ lowers the threshold $\bar{\omega}(x)$ via \eqref{eq:threshold}, expanding the cooperation region and increasing material welfare by up to $n(m-1)E$.
-
-\textbf{Cost (guilt channel):} Higher $x$ raises attributed expectations $\tilde{h}_i^{(2,A)}$. When mixed-objective AI does not fully satisfy the prosocial component ($\rho_A < 1$), there is a gap between attributed expectations and what the AI ``truly expects.'' This creates potential guilt:
-\begin{equation}
-    \psi_i^{GUILT}(x) = -G \cdot \max\left\{ 0, \tilde{h}_i^{(2,A)}(x) - c_i^* \right\},
-\end{equation}
-where $c_i^*$ is the equilibrium contribution. Even under cooperation ($c_i^* = E$), if $\tilde{h}_i^{(2,A)}(x) > E$, guilt arises.
-
-\medskip
-\emph{Step 3 (Extended welfare).}
-Define reduced-form extended welfare with heterogeneity:
+\emph{Step 1 (Planner's tradeoff).}
+Extended welfare with heterogeneous $\omega_i \sim F$:
 \begin{equation}
     \mathcal{W}(x) = W^{mat}(x) + \Psi(x),
 \end{equation}
-where $W^{mat}(x)$ is expected material welfare and $\Psi(x) = \sum_{i \in N_H} \mathbb{E}[\psi_i]$ is expected aggregate psychological welfare.
-
-With heterogeneity in $\omega_i \sim F$ approximated by the probability of cooperation:
-\begin{equation}
-    p(x) = 1 - F(\bar{\omega}(x)) = \Pr(\omega_i \geq \bar{\omega}(x)),
-\end{equation}
-we have (assuming large $n_H$ for the law of large numbers):
-\begin{equation}
-    \mathcal{W}(x) = nE + p(x) \cdot n_H(m-1)E + n_A(m-1)E + \Psi(x),
-\end{equation}
-where $\Psi(x) = p(x)\Psi^C(x) + (1-p(x))\Psi^D(x)$, with $\Psi^C$ and $\Psi^D$ denoting aggregate psychological welfare under cooperation and defection respectively.
+where $W^{mat}(x)$ is expected material welfare and $\Psi(x)$ is expected aggregate psychological welfare.
 
 \medskip
-\emph{Step 4 (Existence and smoothness).}
-
-\textbf{Existence:} By the Weierstrass theorem (Preamble), $\mathcal{W}(x)$ is continuous on compact $[0, \bar{x}]$, so a maximum exists.
-
-\textbf{Smoothness:} Under (A1)--(A3) with the linear attribution function, $\tilde{h}_i^{(2,A)}(x)$ is continuously differentiable in $x$. With $F$ having a smooth density $f$, the probability $p(x) = 1 - F(\bar{\omega}(x))$ is continuously differentiable with:
-\begin{equation}
-    p'(x) = -f(\bar{\omega}(x)) \cdot \frac{\partial \bar{\omega}}{\partial x} = f(\bar{\omega}(x)) \cdot \frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A} \cdot \frac{\eta}{(\bar{h}(\rho_A) + \eta x)^2} > 0.
-\end{equation}
-The psychological welfare functions $\Psi^C(x)$ and $\Psi^D(x)$ are continuously differentiable in $x$. Therefore, $\mathcal{W}(x)$ is twice continuously differentiable.
+\emph{Step 2 (First-order condition).}
+At interior optimum $x^* \in (0, \bar{x})$, the FOC $\mathcal{W}'(x^*) = 0$ balances marginal cooperation benefits against marginal guilt costs. The SOC $\mathcal{W}''(x^*) < 0$ is verified in Online Appendix OA.7.4.
 
 \medskip
-\emph{Step 5 (First-order condition).}
-At an interior optimum $x^* \in (0, \bar{x})$, the FOC is $\mathcal{W}'(x^*) = 0$:
-\begin{equation}\label{eq:foc-iii}
-    \underbrace{p'(x^*) \cdot n_H(m-1)E + p'(x^*)\left[\Psi^C(x^*) - \Psi^D(x^*)\right]}_{\text{marginal benefit of higher } x} + \underbrace{p(x^*)\frac{\partial \Psi^C}{\partial x}\bigg|_{x^*} + (1-p(x^*))\frac{\partial \Psi^D}{\partial x}\bigg|_{x^*}}_{\text{marginal cost: increased guilt}} = 0.
-\end{equation}
-
-The first two terms capture the benefit of expanding cooperation (higher material welfare and the psychological gain from switching from defection to cooperation). The last two terms capture the marginal guilt cost from higher attributed expectations.
-
-\medskip
-\emph{Step 6 (Second-order condition).}
-For the FOC to characterize a maximum, the SOC must hold: $\mathcal{W}''(x^*) < 0$.
-
-Differentiating the FOC:
-\begin{align}
-    \mathcal{W}''(x) &= p''(x) \cdot n_H(m-1)E + p''(x)[\Psi^C - \Psi^D] + 2p'(x)\left[\frac{\partial \Psi^C}{\partial x} - \frac{\partial \Psi^D}{\partial x}\right] \nonumber \\
-    &\quad + p(x)\frac{\partial^2 \Psi^C}{\partial x^2} + (1-p(x))\frac{\partial^2 \Psi^D}{\partial x^2}.
-\end{align}
-
-\textbf{Verification of SOC:}
-\begin{enumerate}[label=(\roman*), nosep]
-    \item $p''(x) < 0$ when $f$ is unimodal and $\bar{\omega}(x)$ is in the increasing part of the density. This captures diminishing returns: as $x$ increases, fewer marginal types are induced to cooperate.
-
-    \item $\partial \Psi^C/\partial x \leq 0$ and $\partial \Psi^D/\partial x \leq 0$: higher $x$ raises attributed expectations, increasing guilt.
-
-    \item $\partial^2 \Psi^C/\partial x^2 \leq 0$ and $\partial^2 \Psi^D/\partial x^2 \leq 0$ under the linear guilt structure: guilt is linear in the expectation gap, and expectations are linear in $x$.
-\end{enumerate}
-
-Under these conditions, $\mathcal{W}''(x^*) < 0$ at any interior critical point, confirming it is a local maximum. Since $\mathcal{W}$ is continuous on compact $[0, \bar{x}]$, the global maximum is either at the interior critical point or at a boundary.
-
-\textbf{Sufficient condition for interior solution:} When $\mathcal{W}'(0) > 0$ (marginal benefit exceeds marginal cost at $x = 0$) and $\mathcal{W}'(\bar{x}) < 0$ (marginal cost exceeds benefit at $x = \bar{x}$), an interior solution exists.
-
-\medskip
-\emph{Step 7 (Comparative statics via implicit function theorem).}
-
-Let $\mathcal{F}(x; m, G, \omega) \equiv \mathcal{W}'(x)$. At an interior optimum, $\mathcal{F}(x^*; m, G, \omega) = 0$.
-
-\textbf{IFT conditions:}
-\begin{enumerate}[label=(\alph*), nosep]
-    \item $\mathcal{F}$ is continuously differentiable in $(x, m, G, \omega)$---established in Step 4.
-    \item $\partial \mathcal{F}/\partial x = \mathcal{W}''(x^*) \neq 0$---by the SOC, $\mathcal{W}''(x^*) < 0$.
-\end{enumerate}
-
-By the implicit function theorem:
-\begin{equation}
-    \frac{\partial x^*}{\partial \theta} = -\frac{\partial \mathcal{F}/\partial \theta}{\partial \mathcal{F}/\partial x} = -\frac{\partial^2 \mathcal{W}/\partial x \partial \theta}{\mathcal{W}''(x^*)}.
-\end{equation}
-Since $\mathcal{W}''(x^*) < 0$, the sign of $\partial x^*/\partial \theta$ equals the sign of $\partial^2 \mathcal{W}/\partial x \partial \theta$.
-
-\textbf{(i) $\partial x^*/\partial m > 0$ (increasing in efficiency):}
-
-The cross-partial is:
-\begin{equation}
-    \frac{\partial^2 \mathcal{W}}{\partial x \partial m} = \frac{\partial}{\partial m}\left[ p'(x) \cdot n_H(m-1)E + \cdots \right] = p'(x) \cdot n_H E > 0.
-\end{equation}
-The psychological terms $\Psi^C$, $\Psi^D$ do not depend directly on $m$ (they depend on equilibrium contributions and attributed expectations, neither of which depends on $m$ once $x$ is fixed). Therefore:
-\begin{equation}
-    \frac{\partial x^*}{\partial m} = -\frac{p'(x^*) \cdot n_H E}{\mathcal{W}''(x^*)} > 0.
-\end{equation}
-
-\textbf{Interpretation and reconciliation with Part (i):}
-In Part (iii), higher $m$ increases the \emph{marginal benefit} of expanding cooperation. The planner responds by increasing $x^*$ to capture greater efficiency gains.
-
-This appears opposite to Part (i), where $\partial x^*/\partial m < 0$. The resolution: Part (i) solves for the \emph{minimal threshold-crossing signal}, which decreases with $m$. Part (iii) balances material and psychological welfare at the margin, where higher $m$ justifies higher signal despite guilt costs.
-
-As $\rho_A \to 1$, guilt costs vanish (cooperation meets expectations), and Part (iii) degenerates to Part (i): the planner uses minimal signal sufficient for cooperation. The comparative static $\partial x^*/\partial m > 0$ in Part (iii) reflects the interior tradeoff; in the limit, welfare becomes flat in $x$ once threshold is crossed, recovering Part (i).
-
-\textbf{(ii) $\partial x^*/\partial G < 0$ (decreasing in guilt sensitivity):}
-
-Under defection ($c_i = 0$), guilt is:
-\begin{equation}
-    \psi_i^{GUILT,D}(x) = -G \cdot \omega_i \cdot [\bar{h}(\rho_A) + \eta x].
-\end{equation}
-The marginal effect of $x$ on guilt is:
-\begin{equation}
-    \frac{\partial \Psi^D}{\partial x} = -n_H G \omega \eta.
-\end{equation}
-The cross-partial with respect to $G$:
-\begin{equation}
-    \frac{\partial^2 \mathcal{W}}{\partial x \partial G} = (1-p(x)) \cdot \frac{\partial}{\partial G}\left(\frac{\partial \Psi^D}{\partial x}\right) + p(x) \cdot \frac{\partial}{\partial G}\left(\frac{\partial \Psi^C}{\partial x}\right).
-\end{equation}
-
-For $\Psi^D$: $\frac{\partial}{\partial G}\left(\frac{\partial \Psi^D}{\partial x}\right) = -n_H \omega \eta < 0$.
-
-For $\Psi^C$: If $\tilde{h}_i^{(2,A)} > E$, guilt arises even under cooperation. The term is similarly negative.
-
-Therefore $\frac{\partial^2 \mathcal{W}}{\partial x \partial G} < 0$, and:
-\begin{equation}
-    \frac{\partial x^*}{\partial G} = -\frac{\partial^2 \mathcal{W}/\partial x \partial G}{\mathcal{W}''(x^*)} < 0.
-\end{equation}
-Higher guilt sensitivity raises marginal cost of signal, reducing optimal $x^*$.
-
-\textbf{(iii) $\partial x^*/\partial \omega < 0$ (decreasing in anthropomorphism tendency):}
-
-Higher $\omega$ amplifies guilt costs from each unit of $x$:
-\begin{equation}
-    \frac{\partial}{\partial \omega}\left(\frac{\partial \Psi^D}{\partial x}\right) = -n_H G \eta < 0.
-\end{equation}
-
-The cross-partial:
-\begin{equation}
-    \frac{\partial^2 \mathcal{W}}{\partial x \partial \omega} < 0,
-\end{equation}
-hence:
-\begin{equation}
-    \frac{\partial x^*}{\partial \omega} = -\frac{\partial^2 \mathcal{W}/\partial x \partial \omega}{\mathcal{W}''(x^*)} < 0.
-\end{equation}
-When users are more prone to anthropomorphize, the planner reduces signal to limit guilt costs.
-
-\medskip
-\emph{Step 8 (Summary).}
-At an interior solution, $x^* \in (0, \bar{x})$ satisfies the first-order condition \eqref{eq:foc-iii} and SOC $\mathcal{W}''(x^*) < 0$. Comparative statics:
+\emph{Step 3 (Comparative statics).}
+Via implicit function theorem (derivations in Online Appendix OA.7.4):
 \begin{equation}
     \frac{\partial x^*}{\partial m} > 0, \quad \frac{\partial x^*}{\partial G} < 0, \quad \frac{\partial x^*}{\partial \omega} < 0.
 \end{equation}
-Optimal signal increases with efficiency gains and decreases with guilt sensitivity and anthropomorphism tendency.
+
+Higher efficiency justifies more signal (larger cooperation gains). Higher guilt sensitivity or anthropomorphism tendency justifies less signal (larger psychological costs).
+
+\medskip
+\emph{Reconciliation with Part (i).}
+Part (i) shows $\partial x^*/\partial m < 0$; Part (iii) shows $\partial x^*/\partial m > 0$. These are not contradictory: Part (i) finds the \emph{minimal threshold-crossing signal}, which decreases with $m$; Part (iii) balances welfare at the margin, where higher $m$ justifies more signal. As $\rho_A \to 1$, guilt costs vanish and Part (iii) degenerates to Part (i).
 
 This completes Part (iii). \hfill $\square$
 \end{proof}
 
-%------------------------------------------------------------------------------
-% REMARKS
-%------------------------------------------------------------------------------
-
-\begin{remark}[Unified interpretation]
-\label{rem:unified}
-The three parts formalize the ``match presentation to objectives'' principle:
-\begin{enumerate}[nosep]
-    \item \textbf{Prosocial AI}: Anthropomorphic presentation facilitates cooperation. The planner uses minimal signal sufficient for threshold crossing. Higher efficiency reduces the required signal.
-    \item \textbf{Materialist AI}: Anthropomorphic presentation creates phantom expectations---attributed expectations without prosocial basis. Minimal presentation ($x^* = 0$) eliminates pure welfare loss.
-    \item \textbf{Mixed AI}: Interior solution reflects genuine tradeoff. The planner calibrates $x^*$ to balance cooperation benefits against psychological costs. Higher efficiency justifies more signal.
-\end{enumerate}
-\end{remark}
-
-\begin{remark}[Welfare criterion consistency]
-\label{rem:welfare-criterion}
-Part (i) uses material welfare; Parts (ii) and (iii) use extended welfare. This apparent inconsistency is resolved as follows:
-\begin{itemize}[nosep]
-    \item In Part (i), prosocial AI generates expectations consistent with equilibrium behavior. Under cooperation, expectations are met, so $\psi_i \geq 0$. Extended welfare equals or exceeds material welfare. Maximizing material welfare subject to threshold crossing yields a valid optimum.
-    \item In Parts (ii) and (iii), anthropomorphism can generate phantom expectations that create guilt ($\psi_i < 0$). Extended welfare may fall below material welfare. Using material welfare alone would ignore this cost.
-\end{itemize}
-The welfare criterion is thus chosen to match the relevant economic forces in each case. A unified formulation using extended welfare throughout would yield the same results: Part (i) would have $\psi = 0$ at optimum, recovering the material welfare solution.
-\end{remark}
-
-\begin{remark}[Reconciliation of comparative statics for $m$]
-\label{rem:reconcile-m}
-Part (i) shows $\partial x^*/\partial m < 0$ while Part (iii) shows $\partial x^*/\partial m > 0$. These are not contradictory:
-\begin{itemize}[nosep]
-    \item Part (i): The planner finds the \emph{minimal} signal to cross the cooperation threshold. Higher $m$ lowers the threshold, reducing the required signal. The objective is to reach cooperation at minimal cost.
-    \item Part (iii): The planner balances material and psychological welfare at the margin. Higher $m$ increases the \emph{marginal value} of expanding cooperation. At an interior optimum, this justifies a higher signal.
-\end{itemize}
-The difference is the optimization objective: minimal threshold crossing (Part i) versus interior balancing (Part iii). As $\rho_A \to 1$ and guilt costs vanish, Part (iii) degenerates to Part (i).
-\end{remark}
-
-\begin{remark}[Nesting of cases]
-\label{rem:nesting}
-Part (iii) nests Parts (i) and (ii) as limits:
-\begin{itemize}[nosep]
-    \item As $\rho_A \to 1$: $\bar{h}(\rho_A) \to \bar{h}_H$, and in full cooperation equilibrium, expectations are met, so $\Psi^C \to 0$. The marginal cost of $x$ vanishes, and the solution approaches Part (i).
-    \item As $\rho_A \to 0$: $\bar{h}(\rho_A) \to 0$, expectations become purely signal-driven. The cooperation benefit shrinks (threshold rises), while guilt costs remain. The solution approaches Part (ii): $x^* \to 0$.
-\end{itemize}
-\end{remark}
-
-\begin{remark}[Role of each assumption]
-\label{rem:assumptions-role}
-\begin{itemize}[nosep]
-    \item \textbf{(A1)--(A3)}: Ensure continuity of equilibrium correspondence, enabling Weierstrass existence and IFT smoothness.
-    \item \textbf{(A2') and (A2''')}: Ensure monotonic mapping from $(\omega, x)$ to attributed expectations, making the threshold well-defined.
-    \item \textbf{(E)}: Guarantees $W^C > W^D$, so the planner strictly prefers cooperation.
-    \item \textbf{(T)}: Ensures cooperation threshold is positive (AI channel matters).
-    \item \textbf{(I)}: Ensures cooperation threshold is attainable within $\omega \in [0,1]$.
-    \item \textbf{(G')}: Creates psychological costs from unmet expectations, generating the tradeoff in Parts (ii) and (iii).
-\end{itemize}
-\end{remark}
-
-\begin{remark}[Decision-maker and designer incentives]
-\label{rem:decision-maker}
-This proposition characterizes the social planner's optimum. In practice, AI is designed by private entities with potentially misaligned incentives. The key divergence:
-\begin{itemize}[nosep]
-    \item \textbf{Private designers}: May prefer high $x$ because anthropomorphism increases engagement and revenue. Psychological costs (guilt) are externalized to users.
-    \item \textbf{Social planner}: Internalizes psychological costs, choosing lower $x$ for materialist AI.
-\end{itemize}
-This creates a case for regulation when $\rho_A < 1$. The proposition provides the first-best benchmark against which second-best instruments (disclosure requirements, anthropomorphism limits) can be evaluated.
-\end{remark}
-
-\begin{remark}[Boundary cases]
-\label{rem:boundary}
-\begin{itemize}[nosep]
-    \item \textbf{$\omega = 0$}: The human treats AI as a pure machine with no attributed expectations: $\tilde{h}_i^{(2,A)} = 0$ for all $x$. Human cooperation depends only on peer interactions. The anthropomorphic signal is irrelevant; any $x \in [0, \bar{x}]$ is optimal.
-    \item \textbf{$\omega = 1$}: The human fully anthropomorphizes AI, treating it as a human agent. This corresponds to the standard psychological game. The linear attribution formula applies with $\omega = 1$.
-    \item \textbf{$x = 0$}: Minimal anthropomorphism. All attributed expectations come from $\bar{h}(\rho_A)$. For materialist AI ($\rho_A = 0$), $\tilde{h} = 0$.
-    \item \textbf{$x = \bar{x}$}: Maximal anthropomorphism. Attributed expectations are $\omega[\bar{h}(\rho_A) + \eta \bar{x}]$.
-\end{itemize}
-\end{remark}
-
-\begin{remark}[Policy implications]
-\label{rem:policy}
-The results provide actionable design guidance:
-\begin{enumerate}[nosep]
-    \item \textbf{Prosocial AI} (AI assistants with welfare objectives): Anthropomorphic presentation facilitates cooperation. Design should emphasize human-like qualities, calibrated to efficiency stakes.
-    \item \textbf{Materialist AI} (recommendation systems, trading algorithms): Present as machines. Anthropomorphic interfaces create phantom expectations and psychological harm.
-    \item \textbf{Context-dependent design}: Match signal intensity to efficiency stakes (high $x$ for high-stakes cooperation), user characteristics (low $x$ for guilt-prone or high-$\omega$ populations), and AI objectives.
-\end{enumerate}
-\end{remark}
-
-\begin{remark}[Connection to Propositions~\ref{prop:welfare-anthro} and \ref{prop:over-anthro}]
-\label{rem:connections}
-This proposition complements earlier welfare results:
-\begin{itemize}[nosep]
-    \item Proposition~\ref{prop:welfare-anthro} establishes that higher $\omega$ weakly increases welfare with prosocial AI but may reduce welfare with materialist AI.
-    \item Proposition~\ref{prop:over-anthro} shows elevated anthropomorphism reduces extended welfare.
-    \item The current proposition characterizes the \emph{optimal design response}: given human anthropomorphism tendency $\omega$, how should the planner choose $x$?
-\end{itemize}
-Together, these results provide both descriptive (how $\omega$ affects outcomes) and normative (how to design $x$) guidance for human-AI interaction.
+\begin{remark}
+Technical details including full assumption statements, threshold analysis, complete case analysis for Part (ii), SOC/IFT derivations, and extended discussion appear in Online Appendix OA.7.
 \end{remark}

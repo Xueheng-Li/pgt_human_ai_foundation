@@ -1,0 +1,991 @@
+% Supplementary Appendix: Thinking about Machines
+% Online Appendix containing technical details, routine calculations, and extended discussions
+% Date: 2026-01-14
+
+\documentclass[12pt]{article}
+
+% Standard packages
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Common notation
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Online Appendix: Thinking about Machines\\[0.5em]
+\large Attributed Belief Equilibrium in Human-AI Interaction}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+
+This supplementary appendix contains technical details, routine calculations, and extended discussions supporting the main text proofs. Section references (OA.1, OA.2, etc.) correspond to references in the main appendix.
+
+%==============================================================================
+% SECTION OA.1: EXISTENCE THEOREM DETAILS
+%==============================================================================
+
+\section{Theorem 1: Existence of ABE}\label{oa:existence}
+
+\subsection{OA.1.1: Lemma A.1 (Boundedness) --- Proof}\label{oa:existence-lemma}
+
+\begin{proof}[Proof of Lemma A.1]
+We establish boundedness by showing that $\psi_i$ is a continuous function on a compact domain.
+
+\medskip
+\noindent\textit{Step 1: Compactness of the strategy domain.}
+By A1a (finite strategy spaces), each strategy space $S_i$ is finite. Hence the strategy profile space $S = \prod_{i \in N} S_i$ is finite and therefore compact in the discrete topology.
+
+\medskip
+\noindent\textit{Step 2: Compactness of the belief domains.}
+For genuine second-order beliefs, $h_i^{(2,k)} \in \Delta(\Delta(S_{-k}))$ for each $k \neq i$. Since $S_{-k}$ is finite by A1a, the simplex $\Delta(S_{-k})$ is a compact subset of $\mathbb{R}^{|S_{-k}|}$. By Prohorov's theorem, the space of probability distributions over this compact simplex, $\Delta(\Delta(S_{-k}))$, is compact in the weak* topology. Since we work in finite dimensions, weak* convergence coincides with Euclidean convergence. Thus $\mathcal{H}_i^{(2)} = \prod_{k \neq i} \Delta(\Delta(S_{-k}))$ is compact as a finite product of compact spaces.
+
+For attributed beliefs, $\tilde{h}_i^{(2,j)} \in \Delta(S_i)$ for each AI agent $j \in N_A$. Since $S_i$ is finite, $\Delta(S_i)$ is a compact simplex. Thus $\tilde{\mathcal{H}}_i^{(2)} = \prod_{j \in N_A} \Delta(S_i)$ is compact.
+
+\medskip
+\noindent\textit{Step 3: Boundedness for fixed type.}
+For fixed type $t_i = (\beta_i, \gamma_i, \omega_i, \lambda_i^{IND}, \lambda_i^{GUILT}, \ldots) \in T_i$, the psychological payoff function $\psi_i(\cdot; t_i): S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)} \to \mathbb{R}$ is continuous. For the indignation component:
+\[
+    \psi_i^{IND}(s, h_i^{(2)}, \tilde{h}_i^{(2)}; t_i) = -\beta_i \cdot \mathbf{1}_{s_i = D} \cdot \left[ \sum_{k \in N_H} h_i^{(2,k)}(C) + \lambda_i^{IND} \sum_{j \in N_A} \tilde{h}_i^{(2,j)}(C) \right]
+\]
+This is linear in the belief arguments, hence continuous. Since $S$ is finite, continuity in $s$ is automatic. By A1c (continuous payoffs), $\psi_i$ is continuous in all arguments. The domain $S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)}$ is compact. By the Weierstrass extreme value theorem, $|\psi_i(\cdot; t_i)| \leq M(t_i)$ for some $M(t_i) < \infty$.
+
+\medskip
+\noindent\textit{Step 4: Uniform boundedness over types.}
+By A1b (compact type spaces), $T_i$ is compact. Since $\psi_i$ is jointly continuous in $(s, h_i^{(2)}, \tilde{h}_i^{(2)}, t_i)$ by A1c, and the product space $(S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)}) \times T_i$ is compact, another application of Weierstrass gives uniform boundedness: $|\psi_i| \leq M_i$ for some $M_i < \infty$. Taking $M = \max_{i \in N_H} M_i$ yields the global bound.
+\end{proof}
+
+\begin{remark}
+Lemma A.1 shows that Assumption A3 (Bounded Psychological Payoffs) follows from A1 and A2. The boundedness arises from three sources: finiteness of strategy spaces (A1a), compactness of type spaces (A1b), and beliefs lying in compact simplices.
+\end{remark}
+
+\subsection{OA.1.2: Topology and Measure Theory Details}\label{oa:existence-topology}
+
+\noindent\textbf{Strategy space topology.}
+We equip each $\Delta(S_i)$ with the Euclidean (relative) topology inherited from $\mathbb{R}^{n_i}$, and $\Sigma$ with the product topology. Each $\Delta(S_i)$ is compact (closed and bounded in $\mathbb{R}^{n_i}$). By Tychonoff's theorem, the finite product $\Sigma$ is compact. Moreover, $\Sigma$ is convex since it is a product of convex sets.
+
+\medskip
+\noindent\textbf{Attribution approaches.}
+The framework admits three attribution approaches:
+\begin{enumerate}
+    \item[(i)] \emph{Signal-based attribution}: $\phi_i^{sig}(\theta_j, x_j, \omega_i) = g(x_j, \omega_i)$ depends only on observable AI signals $x_j$ and anthropomorphism tendency $\omega_i$.
+
+    \item[(ii)] \emph{Dispositional attribution}: $\phi_i^{disp}(\theta_j, x_j, \omega_i) = \omega_i \cdot \bar{h} + (1-\omega_i) \cdot \underline{h}$ depends only on $\omega_i$ and fixed reference distributions $\bar{h}, \underline{h} \in \Delta(S_i)$.
+
+    \item[(iii)] \emph{Behavioral attribution}: $\phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i) = g(\sigma_j, \omega_i)$ depends on AI's observed strategy $\sigma_j$, creating a feedback loop between attributed beliefs and equilibrium play.
+\end{enumerate}
+
+Under signal-based or dispositional attribution (Cases (i) and (ii)), the attribution function takes the form $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ where the arguments $(\theta_j, x_j, \omega_i)$ are exogenous parameters---AI design, observable signals, and human traits---none of which depend on equilibrium strategies $\sigma$. Therefore, $\tilde{h}_i^{(2,j)}$ is a \emph{constant} (independent of $\sigma$), determined before the game is played.
+
+\medskip
+\noindent\textbf{Attribution validity.}
+By A2 (Attribution Continuity), the attribution function maps to valid probability distributions: $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$. For the linear specification $\tilde{h}_i^{(2,j)}(C) = \omega_i(\rho_j + \eta x_j)$, validity requires the parameter restriction $\rho_j + \eta x_j \leq 1$. Under this restriction, since $\omega_i \in [0,1]$, we have $\tilde{h}_i^{(2,j)}(C) \in [0,1]$ and thus $\tilde{h}_i^{(2,j)} \in \Delta(S_i)$. Alternative specifications (truncation, logistic) satisfy validity without parameter restrictions.
+
+\subsection{OA.1.3: Remarks on Extensions}\label{oa:existence-remarks}
+
+\begin{remark}[Behavioral Attribution: Future Extension]
+\label{rem:behavioral-supp}
+Case (iii)---behavioral attribution---creates a feedback loop: $\tilde{h}_i^{(2,j)}(\sigma) = \phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends on AI's equilibrium strategy $\sigma_j$, which itself depends on other players' strategies.
+
+Extending Theorem 1 to behavioral attribution requires additional analysis. The key complication: when $\tilde{h}_i^{(2,j)}$ depends on $\sigma_j$, the objective function $U_i^H(s, h_i(\sigma), \tilde{h}_i(\sigma))$ is no longer separable between genuine and attributed beliefs. Verifying convexity of $BR_i^H(\sigma)$ requires additional assumptions ensuring that the composite $\phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends only on $\sigma_j$ (not on the full profile $\sigma$) and that linearity is preserved.
+
+We conjecture that existence holds under the additional assumption:
+\begin{quote}
+    \textbf{(A2')} \emph{Behavioral attribution continuity}: $\phi_i^{beh}$ is continuous in $\sigma_j \in \Delta(S_j)$ for fixed $(\theta_j, x_j, \omega_i)$, and depends only on $\sigma_j$, not on other players' strategies.
+\end{quote}
+A complete treatment of behavioral attribution is deferred to future work.
+\end{remark}
+
+\begin{remark}[Role of Assumptions]
+\label{rem:assumptions-supp}
+The proof uses the following assumptions:
+\begin{itemize}
+    \item A1a (finite strategy spaces): for compactness of $\Sigma$ and well-defined best responses;
+    \item A1b (compact type spaces): for uniform boundedness in Lemma A.1;
+    \item A1c (continuous payoffs): for Berge's Maximum Theorem and upper hemicontinuity of $BR$;
+    \item A2 (attribution continuity and validity): for attributed beliefs to be valid probability distributions in $\Delta(S_i)$ and continuous in parameters.
+\end{itemize}
+Lemma A.1 shows that A3 (bounded psychological payoffs) is implied by A1--A2, hence redundant as a separate assumption.
+\end{remark}
+
+\begin{remark}[Comparison with Standard PGT]
+\label{rem:comparison-supp}
+The ABE existence argument is structurally simpler than existence proofs for standard psychological game equilibria (Battigalli and Dufwenberg, 2009). Attributed beliefs are exogenously determined---constants, not equilibrium variables. The fixed-point problem is confined to the finite-dimensional space $\Sigma$, not the infinite-dimensional belief space. This simplification arises because AI agents lack genuine mental states, so there is no belief consistency requirement linking attributed beliefs to AI ``expectations.''
+\end{remark}
+
+\begin{remark}[Topology and Generalizations]
+\label{rem:topology-supp}
+Our restriction to finite strategy spaces ensures that the standard Euclidean topology on simplices coincides with the weak* topology on probability measures. This equivalence, which fails in infinite dimensions, allows us to invoke Kakutani's fixed-point theorem in its classical finite-dimensional form. Extensions to infinite strategy spaces would require the weak* topology to preserve compactness via the Banach-Alaoglu theorem; see Aliprantis and Border (2006) for a comprehensive treatment.
+\end{remark}
+
+%==============================================================================
+% SECTION OA.2: REDUCTION PROPOSITIONS
+%==============================================================================
+
+\section{Propositions 2--4: Reduction Results}\label{oa:reductions}
+
+\subsection{OA.2.1: Proposition 1 (Reduction to PGT) --- Detailed Steps}\label{oa:reduction-pgt}
+
+\noindent\textbf{Step 3: Simplification of Psychological Payoffs.}
+
+The psychological payoff functions in ABE take an additive form that separates contributions from genuine beliefs about humans and attributed beliefs about AI:
+\[
+    \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = \underbrace{\psi_i^H(s, \{h_i^{(2,k)}\}_{k \in N_H \setminus \{i\}})}_{\text{genuine belief terms}} + \underbrace{\psi_i^A(s, \{\tilde{h}_i^{(2,j)}\}_{j \in N_A})}_{\text{attributed belief terms}}
+\]
+When $N_A = \emptyset$, the attributed belief terms vanish (sum over empty set), leaving:
+\[
+    \psi_i(s, h_i^{(2)}, \emptyset) = \psi_i^H(s, \{h_i^{(2,k)}\}_{k \in N_H \setminus \{i\}}) =: \hat{\psi}_i(s, h_i^{(2)})
+\]
+where $\hat{\psi}_i$ depends only on genuine second-order beliefs, exactly as in standard PGT.
+
+\medskip
+\noindent\textbf{Step 4: Reduction of Human Utility.}
+
+Human $i$'s utility in ABE is:
+\[
+    U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}).
+\]
+
+By Step 3, when $N_A = \emptyset$:
+\[
+    U_i^H(s, h_i, \emptyset) = \pi_i(s) + \hat{\psi}_i(s, h_i^{(2)}) =: U_i(s, h_i).
+\]
+
+This is exactly the utility function in standard PGT.
+
+\medskip
+\noindent\textbf{Step 5: Reduction of ABE1 to PNE1.}
+
+The ABE human optimality condition (ABE1) states:
+\[
+    s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*).
+\]
+
+By Step 4, when $N_A = \emptyset$:
+\[
+    s_i^* \in \arg\max_{s_i \in S_i} U_i(s_i, s_{-i}^*, h_i^*).
+\]
+
+Since $N = N_H$ when $N_A = \emptyset$, this condition applies to all $i \in N$, which is exactly PNE1.
+
+\medskip
+\noindent\textbf{Step 6: Reduction of ABE3 to PNE2.}
+
+The ABE genuine belief consistency condition (ABE3) states: for all $i, k \in N_H$ with $k \neq i$,
+\begin{align*}
+    h_i^{*(1,k)} &= s_k^* \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)}.
+\end{align*}
+
+When $N_A = \emptyset$, we have $N_H = N$. Thus, ABE3 becomes: for all $i, k \in N$ with $k \neq i$,
+\begin{align*}
+    h_i^{*(1,k)} &= s_k^* \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)}.
+\end{align*}
+
+This is exactly PNE2.
+
+\begin{remark}[Converse Direction]
+The proof establishes a bijection between ABE and PNE when $N_A = \emptyset$. Given any PNE $(s^*, h^*)$, we can construct an ABE $(s^*, h^*, \emptyset)$ by taking the attributed belief system to be empty. Conversely, any ABE $(s^*, h^*, \tilde{h}^*)$ with $N_A = \emptyset$ necessarily has $\tilde{h}^* = \emptyset$, and $(s^*, h^*)$ is a PNE.
+\end{remark}
+
+\subsection{OA.2.2: Proposition 2 (Reduction to Nash) --- Detailed Steps}\label{oa:reduction-nash}
+
+\noindent\textbf{Steps 1.1--1.3: Detailed Algebra.}
+
+\emph{Step 1.1: Human utility reduction.}
+When $\psi_i \equiv 0$, the human utility function becomes:
+\begin{equation}
+    U_i^H(s, h_i, \tilde{h}_i) = \pi_i(s) + \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}) = \pi_i(s) + 0 = \pi_i(s).
+\end{equation}
+Thus human utility equals material payoff and is \emph{independent of beliefs} $(h_i, \tilde{h}_i)$.
+
+\emph{Step 1.2: Human optimality implies Nash best response.}
+By ABE condition (ABE1), for each human $i \in N_H$:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*).
+\end{equation}
+Substituting from Step 1.1:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} \pi_i(s_i, s_{-i}^*) = \arg\max_{s_i \in S_i} u_i(s_i, s_{-i}^*).
+\end{equation}
+This is exactly the Nash best-response condition for player $i$ in $\Gamma^M$.
+
+\emph{Step 1.3: AI optimality is Nash best response.}
+By ABE condition (ABE2), for each AI $j \in N_A$:
+\begin{equation}
+    s_j^* \in \arg\max_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j) = \arg\max_{s_j \in S_j} u_j(s_j, s_{-j}^*).
+\end{equation}
+This is exactly the Nash best-response condition for player $j$ in $\Gamma^M$.
+
+\medskip
+\noindent\textbf{Steps 2.1--2.3: Verification Details.}
+
+\emph{Step 2.1: Construct genuine beliefs.}
+For each human $i \in N_H$, define:
+\begin{align}
+    h_i^{*(1,k)} &= s_k^* \quad \text{for all } k \in N \setminus \{i\} \quad \text{(correct first-order beliefs)}, \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)} = s_i^* \quad \text{for all } k \in N_H \setminus \{i\} \quad \text{(correct second-order beliefs)}.
+\end{align}
+
+\emph{Step 2.2: Construct attributed beliefs.}
+For each human $i \in N_H$ and AI $j \in N_A$, define:
+\begin{equation}
+    \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i).
+\end{equation}
+This is uniquely determined by the attribution function.
+
+\emph{Step 2.3: Verify ABE conditions.}
+
+\noindent\textbf{(ABE1) Human Optimality:} Since $s^*$ is a Nash equilibrium of $\Gamma^M$:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} \pi_i(s_i, s_{-i}^*).
+\end{equation}
+When $\psi_i \equiv 0$, we have $U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*) = \pi_i(s_i, s_{-i}^*)$, so:
+\begin{equation}
+    s_i^* \in \arg\max_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*). \quad \checkmark
+\end{equation}
+
+\noindent\textbf{(ABE2) AI Optimality:} Since $s^*$ is a Nash equilibrium of $\Gamma^M$:
+\begin{equation}
+    s_j^* \in \arg\max_{s_j \in S_j} u_j(s_j, s_{-j}^*) = \arg\max_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j). \quad \checkmark
+\end{equation}
+
+\noindent\textbf{(ABE3) Genuine Belief Consistency:} By construction in Step 2.1. $\checkmark$
+
+\noindent\textbf{(ABE4) Attribution Consistency:} By construction in Step 2.2. $\checkmark$
+
+\begin{remark}[Role of Belief Conditions]
+When $\psi_i \equiv 0$, the belief conditions (ABE3) and (ABE4) are non-vacuous---they still constrain the belief systems in equilibrium. However, they become strategically irrelevant: beliefs affect neither human nor AI best responses because the belief-dependence channel ($\psi_i$) is shut down. The belief systems exist but play no role in determining equilibrium behavior.
+\end{remark}
+
+\begin{remark}[Interpretation]
+The proposition establishes that psychological payoffs are the sole source of departure from standard Nash analysis. Without belief-dependent preferences ($\psi_i \equiv 0$), the asymmetric cognitive structure of human-AI interaction---anthropomorphism, attribution, attenuated moral emotions---has no behavioral consequences. Material incentives determine Nash equilibria; psychological payoffs introduce the novel ABE phenomena.
+\end{remark}
+
+\subsection{OA.2.3: Proposition 3 (Rational Attribution) --- Belief Characterization}\label{oa:rational-attribution}
+
+\begin{remark}[Equilibrium-Dependence]
+The Bayesian game construction uses the candidate equilibrium $\sigma^*$ in the payoff function. This is not circular because we construct $\Gamma^B$ for a \emph{given} candidate $\sigma^*$ and then verify that $\sigma^*$ is indeed a BNE of the resulting game. The equivalence shows that existence of such equilibria coincides across frameworks.
+\end{remark}
+
+\noindent\textbf{Step 1: Characterize equilibrium beliefs under RAE (Detailed).}
+
+By the ABE belief consistency conditions (ABE3):
+\begin{align}
+    h_i^{*(1,k)} &= \sigma_k^* \quad \text{(first-order beliefs match equilibrium play)} \\
+    h_i^{*(2,k)} &= h_k^{*(1,i)} = \sigma_i^* \quad \text{(second-order beliefs: $k$ expects $i$ to play $\sigma_i^*$)}
+\end{align}
+The second equality uses ABE3 twice: first, second-order consistency $h_i^{*(2,k)} = h_k^{*(1,i)}$; second, first-order consistency $h_k^{*(1,i)} = \sigma_i^*$.
+
+By attribution consistency (ABE4) and RAE:
+\begin{equation}
+    \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*
+\end{equation}
+The last equality is the RAE condition.
+
+Therefore, under RAE, all second-order beliefs---both genuine ($h_i^{*(2,k)}$) and attributed ($\tilde{h}_i^{*(2,j)}$)---equal the equilibrium strategy $\sigma_i^*$.
+
+\subsection{OA.2.4: Proposition 5 (Attribution-Dependent Multiplicity) --- Sufficient Conditions}\label{oa:multiplicity}
+
+\noindent\textbf{Sufficient Conditions for Attribution-Dependent Multiplicity.}
+
+For a psychological game $\Gamma$ with at least one human ($n_H \geq 1$) and one AI ($n_A \geq 1$), attribution-dependent multiplicity occurs if, for some human $i \in N_H$ and AI $j \in N_A$:
+\begin{enumerate}
+    \item[(i)] \textbf{Belief-dependent payoffs}: $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$ for some strategy profile.
+    \item[(ii)] \textbf{Distinct attributions}: $\phi_i(\theta_j, x_j, \omega_i) \neq \phi'_i(\theta_j, x_j, \omega_i)$ for some configuration.
+    \item[(iii)] \textbf{Best-response separation}: The change in attributed beliefs shifts equilibrium strategies: $s_i^*[\phi] \neq s_i^*[\phi']$.
+\end{enumerate}
+
+%==============================================================================
+% SECTION OA.5: APPLICATION PROOFS
+%==============================================================================
+
+\section{Application Proofs: Technical Details}\label{oa:applications}
+
+\subsection{OA.5.1: Trust Game --- Remarks and Extended Analysis}\label{oa:trust}
+
+\begin{remark}[The knife-edge case $G = 1$]
+\label{rem:G-equals-one-supp}
+When $G = \gamma_H \lambda_H^{GUILT} = 1$, the marginal utility $\partial U_H / \partial y = 0$ for all $y < \tilde{h}$. The human is indifferent over $[0, \min\{\tilde{h}, 3x\}]$, so the optimal return is not unique. In this case, $y^* = \min\{\tilde{h}, 3x\}$ is the Pareto-best selection for the AI; other equilibrium selection criteria (e.g., trembling-hand perfection) may yield different predictions. The strict condition $G > 1$ ensures uniqueness.
+\end{remark}
+
+\begin{remark}[The case $G < 1$]
+\label{rem:low-guilt-supp}
+When $G = \gamma_H \lambda_H^{GUILT} < 1$, the marginal utility $\partial U_H / \partial y = G - 1 < 0$ for all $y < \tilde{h}$. The human's utility is strictly decreasing on $[0, 3x]$, so $y^* = 0$ regardless of attributed expectations. In this regime, anthropomorphism has no effect on equilibrium returns: psychological sensitivity is too weak to overcome material self-interest. The condition $G > 1$ is therefore necessary for attributed beliefs to influence behavior.
+\end{remark}
+
+\begin{remark}[Connection to Proposition 5]
+The example in part (iii) satisfies the conditions for attribution-dependent multiplicity: (a) belief-dependent payoffs ($\partial \psi_H / \partial \tilde{h} \neq 0$ when $y < \tilde{h}$); (b) distinct attributions across anthropomorphism levels; (c) best-response separation ($y^*(7.2) \neq y^*(2.7)$). The multiplicity arises not from multiple equilibria in a fixed game, but from different attributed beliefs generating different optimal responses.
+\end{remark}
+
+\begin{remark}[Empirical support for (A2')]
+Attribution monotonicity is well-supported empirically. Meta-analytic evidence confirms a positive relationship between anthropomorphism and trust across 97 effect sizes (Blut et al., 2021). Waytz, Heafner, and Epley (2014) demonstrate that anthropomorphizing autonomous systems increases trust, suggesting attributed expectations rise with anthropomorphism.
+\end{remark}
+
+\subsection{OA.5.2: Public Goods --- Detailed Derivations and Remarks}\label{oa:public-goods}
+
+\noindent\textbf{Part (iii): Population Share Effects --- Detailed Channel Analysis.}
+
+Fix $n_H \geq 2$ and vary $n_A \geq 0$. Define:
+\begin{align}
+    \Delta\pi_i &= E\left(1 - \frac{m}{n_H + n_A}\right) \quad \text{(material temptation)}, \\
+    \Psi_i &= \beta_i \left[ \sum_{k \in N_H \setminus \{i\}} h_i^{(2,k)}(E) + \lambda_i^{IND} n_A \omega_i \bar{h}(c_A) \right] \quad \text{(psychological deterrent)}.
+\end{align}
+
+\emph{Material channel.}
+The material temptation increases with $n_A$:
+\begin{equation}
+    \frac{\partial (\Delta\pi_i)}{\partial n_A} = \frac{mE}{(n_H + n_A)^2} > 0.
+\end{equation}
+More AI dilute the MPCR, increasing free-rider incentives.
+
+\emph{Psychological channel.}
+The psychological deterrent also increases with $n_A$:
+\begin{equation}
+    \frac{\partial \Psi_i}{\partial n_A} = \beta_i \lambda_i^{IND} \omega_i \bar{h}(c_A) \geq 0.
+\end{equation}
+More AI create more sources of attributed expectations.
+
+\emph{Net effect.}
+Define the cooperation incentive $I_i = \Psi_i - \Delta\pi_i$. Then:
+\begin{equation}
+    \frac{\partial I_i}{\partial n_A} = \underbrace{\beta_i \lambda_i^{IND} \omega_i \bar{h}(c_A)}_{\text{psychological (+)}} - \underbrace{\frac{mE}{(n_H + n_A)^2}}_{\text{material (--)}}.
+\end{equation}
+The psychological channel has constant marginal effect; the material channel weakens as $n_A$ grows. For sufficiently large $n_A$, the psychological channel dominates whenever $\lambda_i^{IND} \omega_i \bar{h}(c_A) > 0$.
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Channel} & \textbf{Direction} & \textbf{Behavior} \\
+\midrule
+Material & $\partial(\Delta\pi_i)/\partial n_A > 0$ & Diminishes with $n_A$ \\
+Psychological & $\partial \Psi_i/\partial n_A \geq 0$ & Constant in $n_A$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Connection to standard PGT]
+\label{rem:standard-pgt-supp}
+When $n_A = 0$, the cooperation condition reduces to:
+\begin{equation}
+    \beta_i(n_H - 1) \geq E\left(1 - \frac{m}{n_H}\right),
+\end{equation}
+the standard condition for cooperation in psychological public goods games with indignation (Battigalli et al., 2022). ABE extends this by adding the term $\lambda_i^{IND} n_A \omega_i \bar{h}(c_A)$, capturing psychological costs from attributed AI expectations. The nesting result confirms that ABE generalizes standard PGT.
+\end{remark}
+
+\begin{remark}[Role of attenuation $\lambda_i^{IND}$]
+\label{rem:attenuation-role-supp}
+The attenuation factor $\lambda_i^{IND}$ determines whether AI presence affects equilibrium psychologically. When $\lambda_i^{IND} \approx 1$, indignation toward AI operates at full strength, and the psychological channel can dominate material dilution. When $\lambda_i^{IND} \approx 0$, AI are psychologically irrelevant: humans may acknowledge AI ``expectations'' but experience no emotional response to violating them. This parameter captures the intuition that attributed mental states may feel less binding than genuine ones.
+\end{remark}
+
+\begin{remark}[Boundary cases]
+\label{rem:boundary-cases-supp}
+When $n_A = 0$, the threshold $\bar{\omega}_i$ is undefined; cooperation requires $\beta_i(n_H - 1) \geq E(1 - m/n)$ independent of $\omega_i$. When $\lambda_i^{IND} = 0$ with $n_A > 0$, AI contribute only through material payoffs; the psychological term vanishes and the analysis reduces to standard public goods games without belief-dependent preferences toward AI. The assumption $\beta_i > 0$ ensures indignation has behavioral content; when $\beta_i = 0$, the incentive constraint cannot be satisfied since $E(1 - m/n) > 0$.
+\end{remark}
+
+\begin{remark}[Role of assumption (A2')]
+\label{rem:a2-role-supp}
+Assumption (A2') attribution monotonicity---that $\phi_i(\theta_j, x_j, \omega_i)$ is weakly increasing in $\omega_i$---is not used in the existence proof per se, but ensures the threshold $\bar{\omega}_i$ has the correct comparative statics interpretation. Under (A2'), higher anthropomorphism leads to higher attributed expectations, which in turn lowers the cooperation threshold. Without (A2'), a human with higher $\omega_i$ might attribute lower expectations, reversing the relationship between anthropomorphism and cooperation.
+\end{remark}
+
+\begin{remark}[Empirical implications]
+\label{rem:empirical-implications-supp}
+The proposition generates testable predictions:
+\begin{enumerate}
+    \item \textbf{AI behavior matters}: Cooperating AI sustain human cooperation more effectively than defecting AI, through higher attributed expectations ($\bar{h}_H > \bar{h}_L$).
+    \item \textbf{Anthropomorphism matters}: Higher $\omega_i$ lowers the cooperation threshold, making cooperation easier to sustain.
+    \item \textbf{Population composition effects are non-monotonic}: Adding AI may increase or decrease cooperation depending on whether the psychological channel (via $\lambda_i^{IND}$) or material channel dominates.
+    \item \textbf{Null prediction}: If $\omega_i = 0$ or $\lambda_i^{IND} = 0$, AI presence affects cooperation only through material dilution---the novel ABE effects vanish.
+\end{enumerate}
+These predictions distinguish ABE from standard models where AI enter only through material payoffs.
+\end{remark}
+
+\begin{remark}[Threshold interpretation]
+\label{rem:threshold-interpretation-supp}
+The thresholds $\bar{\omega}_i$ (for cooperation) and $\underline{\omega}$ (for defection) have natural interpretations. At $\omega_i = \bar{\omega}_i$, the psychological cost of defection exactly equals the material gain; cooperation requires sufficient anthropomorphism to push beyond this threshold. Conversely, $\underline{\omega}$ marks the point below which material incentives dominate regardless of attributed expectations. The gap between these thresholds defines a region of multiplicity where both equilibria may exist.
+\end{remark}
+
+\subsection{OA.5.3: Coordination --- AI Utility Calculations and Remarks}\label{oa:coordination}
+
+\noindent\textbf{Part (i) Step 1: Detailed AI Utility Calculation.}
+
+Given design commitment $\theta_A > 0$, the AI's utility is:
+\begin{align}
+    U_A(A, s_H) &= \pi_A(A, s_H) + \theta_A, \\
+    U_A(B, s_H) &= \pi_A(B, s_H).
+\end{align}
+
+If $s_H = A$: $U_A(A, A) = 2 + \theta_A > U_A(B, A) = 0$.
+
+If $s_H = B$: $U_A(A, B) = \theta_A$ vs $U_A(B, B) = 2$. For $\theta_A > 2$, AI prefers $A$ regardless of human play. For $\theta_A \leq 2$, AI prefers $A$ when human plays $A$, ensuring $(A, A)$ is an equilibrium.
+
+Under the design interpretation that the AI is \emph{programmed} to coordinate on $A$ (a binding constraint, not merely a preference), $s_A^* = A$ in any ABE.
+
+\begin{remark}[Numerical Example]
+\label{rem:coordination-example-supp}
+Consider $\beta_H = 3$, $\lambda_H^{EC} = 0.5$, $\omega_H = 0.8$, $x_A = 0.9$, $\theta_A = 0.5$.
+
+Attribution: $\tilde{h}_H^{(2,A)}(A) = 0.8 \times 0.9 = 0.72$, $\tilde{h}_H^{(2,A)}(B) = 0.08$.
+
+Utilities given $s_A = A$:
+\begin{align*}
+    U_H(A; A) &= 2 - 3 \times 0.5 \times 0.08 = 2 - 0.12 = 1.88, \\
+    U_H(B; A) &= 0 - 3 \times 0.5 \times 0.72 = -1.08.
+\end{align*}
+
+Psychological pull: $\Delta U_H = 1.88 - (-1.08) = 2.96 > 0$. Human strictly prefers $A$.
+\end{remark}
+
+\begin{remark}[The knife-edge case $x_A = 0.5$]
+When $x_A = 0.5$, attributed beliefs are symmetric: $\tilde{h}_H^{(2,A)}(A) = \tilde{h}_H^{(2,A)}(B) = 0.5 \omega_H$. The psychological pull reduces to $\Delta U_H = 2$, identical to the material game. AI cannot serve as a focal point when its signal is uninformative.
+\end{remark}
+
+\begin{remark}[Contrast with Schelling Focal Points]
+Schelling's focal points rely on external salience (shared conventions, cultural prominence). The AI focal point mechanism is \emph{endogenous}: AI engineers salience through design and signaling. It is a constructed focal point, not a spontaneous one.
+\end{remark}
+
+\begin{remark}[Connection to Proposition 5]
+The coordination game satisfies the conditions for attribution-dependent multiplicity. Different attribution functions (varying $x_A$ or $\omega_H$) yield different equilibrium selections: high attribution selects $(A, A)$; low attribution preserves multiplicity. AI design choices affect equilibrium through the attribution channel.
+\end{remark}
+
+%==============================================================================
+% SECTION OA.6: WELFARE RESULTS
+%==============================================================================
+
+\section{Welfare Propositions: Extended Analysis}\label{oa:welfare}
+
+\subsection{OA.6.1: Proposition 9 --- Numerical Examples and Remarks}\label{oa:welfare-anthro}
+
+\noindent\textbf{Step 6 (Numerical example from Part 2).}
+Fix $E = 10$, $x = 10$, $G = 1.5$, and $\phi_H(0, x, \omega_H) = \omega_H \cdot 5x$.
+
+\textbf{Moderate anthropomorphism ($\omega_H = 0.6$):}
+$\tilde{h}_H^{(2,A)} = 30$, $y^* = 30$, $\psi_H^{GUILT} = 0$. No guilt: expectations exactly met.
+
+\textbf{High anthropomorphism ($\omega_H = 1.0$):}
+$\tilde{h}_H^{(2,A)} = 50$, $y^* = 30$, $\psi_H^{GUILT} = -30$. Maximum return but unmet expectations.
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+& $\omega_H = 0.6$ & $\omega_H = 1.0$ \\
+\midrule
+Attributed expectation & 30 & 50 \\
+Equilibrium return & 30 & 30 \\
+Material welfare & 30 & 30 \\
+Human guilt & 0 & $-30$ \\
+Extended welfare & 30 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Extended welfare falls from 30 to 0 as $\omega_H$ rises from 0.6 to 1.0.
+
+\begin{remark}[Weak versus strict inequality]
+\label{rem:weak-vs-strict-supp}
+The welfare effect is weak ($\geq$) rather than strict ($>$) because anthropomorphism affects welfare only at threshold crossings. Within the defection or cooperation region, marginal changes do not alter equilibrium behavior.
+\end{remark}
+
+\begin{remark}[Why ``may reduce'']
+\label{rem:may-reduce-supp}
+Part 2 states ``may reduce'' because welfare loss requires severe elevated anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$). When $\tilde{h}_H^{(2,A)} \leq 3x$, the human satisfies attributed expectations and incurs no guilt.
+\end{remark}
+
+\begin{remark}[Asymmetry between parts]
+\label{rem:comparison-parts-supp}
+The parts reveal a fundamental asymmetry:
+\begin{itemize}
+    \item Part 1 (prosocial AI): Attributed expectations \emph{align} with AI objectives; guilt creates mutual gains.
+    \item Part 2 (materialist AI): Attributed expectations \emph{diverge} from AI objectives; guilt creates pure loss.
+\end{itemize}
+The critical difference is whether attributed expectations correspond to genuine AI preferences.
+\end{remark}
+
+\begin{remark}[Connection to application propositions]
+\label{rem:connection-propositions-supp}
+Part 1 extends Proposition 7(i) with welfare implications; Part 2 builds on Proposition 6 to show phantom expectations harm.
+\end{remark}
+
+\begin{remark}[Policy implications]
+\label{rem:transparency-supp}
+The phantom expectations mechanism suggests a case for AI transparency. If humans could accurately assess $\rho_A$, they would set $\tilde{h}_H^{(2,A)} = 0$ when $\rho_A = 0$, avoiding welfare-reducing guilt. Opaque AI design that obscures materialist objectives while presenting anthropomorphic interfaces may cause psychological harm without social benefit.
+\end{remark}
+
+\subsection{OA.6.2: Proposition 10 --- Part 1 Details, Numerical Example, and Remarks}\label{oa:over-anthro}
+
+\subsubsection{OA.6.2.1: Equivalence under (A2') and (A2'')}\label{oa:over-anthro-equiv}
+
+Under attribution monotonicity (A2'), $\omega_i' > \omega_i$ implies $\tilde{h}_i^{(2,j)}(\omega_i') \geq \tilde{h}_i^{(2,j)}(\omega_i)$. Under non-degeneracy (A2''), this inequality is strict when $\bar{h}_H > \underline{h}$. Since the rational benchmark is defined at $\omega_i = 0$, any positive anthropomorphism $\omega_i > 0$ satisfies:
+\begin{equation}
+    \tilde{h}_i^{(2,j)}(\omega_i) > \tilde{h}_i^{(2,j)}(0) = \tilde{h}_i^{(2,j),ZA}.
+\end{equation}
+Thus, under (A2') and (A2''), elevated anthropomorphism is equivalent to $\omega_i > 0$.
+
+\subsubsection{OA.6.2.2: Part 1 Detailed Steps}\label{oa:over-anthro-part1}
+
+\emph{Step 1 (Setup and rational benchmark).}
+Consider the public goods game with $n_H$ humans and $n_A \geq 1$ prosocial AI agents ($\rho_A > 0$). Under prosocial design, AI contributes fully: $c_A = E$. Cooperation is efficient by (E): $W^C - W^D = n(m-1)E > 0$ when $m > 1$.
+
+Under dispositional attribution, attributed expectations take the form:
+\begin{equation}
+    \tilde{h}_i^{(2,j)} = \phi_i(\rho_A, c_A, \omega_i) = \omega_i \cdot \bar{h}_H + (1 - \omega_i) \cdot \underline{h},
+\end{equation}
+where $\bar{h}_H > 0$ represents high expectations (human-like attribution), $\underline{h} \geq 0$ represents low expectations (machine-like attribution).
+
+The rational benchmark is:
+\begin{equation}
+    \tilde{h}_i^{(2,j),ZA} = \phi_i(\rho_A, c_A, 0) = \underline{h}.
+\end{equation}
+For simplicity, normalise $\underline{h} = 0$, so $\tilde{h}_i^{(2,j)} = \omega_i \cdot \bar{h}_H$ and $\tilde{h}_i^{(2,j),ZA} = 0$.
+
+\emph{Step 2 (Cooperation threshold).}
+Human $i$ cooperates when indignation cost exceeds material gain from defection:
+\begin{equation}
+    \beta_i \left[ (n_H - 1) + \lambda_i^{IND} n_A \tilde{h}_i^{(2,j)} \right] \geq E\left(1 - \frac{m}{n}\right).
+\end{equation}
+
+Substituting $\tilde{h}_i^{(2,j)} = \omega_i \cdot \bar{h}_H$ and solving for the threshold:
+\begin{equation}
+    \bar{\omega}_i = \frac{E(1 - m/n) - \beta_i(n_H - 1)}{\beta_i \lambda_i^{IND} n_A \bar{h}_H}.
+\end{equation}
+Human $i$ cooperates when $\omega_i \geq \bar{\omega}_i$.
+
+\emph{Step 3 (Welfare comparison).}
+Compare welfare under elevated anthropomorphism ($\omega_i > 0$) versus rational attribution ($\omega_i = 0$).
+
+\textbf{Case A: Cooperation under both.}
+If $\beta_i(n_H - 1) \geq E(1 - m/n)$, cooperation is sustained even under rational attribution. Elevated anthropomorphism does not change equilibrium behaviour: $W(s^*(\omega)) = W(s^*(0)) = nmE$.
+
+\textbf{Case B: Defection under both.}
+If $\omega_i < \bar{\omega}_i$ for the relevant humans, defection prevails. Both yield defection: $W(s^*(\omega)) = W(s^*(0)) = nE$.
+
+\textbf{Case C: Regime switch.}
+Elevated anthropomorphism induces cooperation where rational attribution would not. This occurs when $\beta_i(n_H - 1) < E(1 - m/n)$ but $\omega_i \geq \bar{\omega}_i$. Then:
+\begin{equation}
+    W(s^*(\omega)) = nmE > nE = W(s^*(0)).
+\end{equation}
+
+\emph{Step 4 (Role of conditions).}
+\begin{itemize}
+    \item \textbf{(A2') Attribution Monotonicity}: Ensures $\omega_i > 0$ implies $\tilde{h} \geq \tilde{h}^{ZA}$.
+    \item \textbf{(A2'') Non-Degeneracy}: Ensures $\omega_i > 0$ implies $\tilde{h} > \tilde{h}^{ZA}$ (strict).
+    \item \textbf{(E) Cooperation Efficiency}: $m > 1$ ensures $W^C - W^D > 0$.
+    \item \textbf{Prosocial AI}: $\rho_A > 0$ ensures AI cooperates.
+\end{itemize}
+
+\subsubsection{OA.6.2.3: Part 2 Welfare Calculations and Numerical Example}\label{oa:over-anthro-part2}
+
+\noindent\textbf{Step 4 (Extended welfare under zero-anthropomorphism benchmark).}
+Under $\omega_H = 0$:
+\begin{align}
+    \tilde{h}_H^{(2,A),ZA} &= 0, \\
+    y^{*,ZA} &= 0, \\
+    \psi_H^{GUILT,ZA} &= -G \cdot \max\{0, 0 - 0\} = 0.
+\end{align}
+Material payoffs: AI receives $E - x + 0 = E - x$; human receives $3x - 0 = 3x$. Thus:
+\begin{equation}
+    W^{ext}(\tilde{h}^{ZA}) = (E - x) + 3x + 0 = E + 2x.
+\end{equation}
+
+\noindent\textbf{Step 5 (Extended welfare under elevated anthropomorphism).}
+
+\textbf{Case A: Moderate elevated anthropomorphism ($\omega_H \leq 0.5$).}
+Then $y^* = \omega_H \cdot 6x$. Guilt is zero. Material welfare:
+\begin{align}
+    \pi_A &= E - x + \omega_H \cdot 6x, \\
+    \pi_H &= 3x - \omega_H \cdot 6x = (1 - 2\omega_H) \cdot 3x.
+\end{align}
+Total: $\pi_A + \pi_H = E + 2x$. Extended welfare: $W^{ext} = E + 2x = W^{ext}(\tilde{h}^{ZA})$.
+
+\textbf{Case B: Severe elevated anthropomorphism ($\omega_H > 0.5$).}
+Now $y^* = 3x$ but $\tilde{h}_H^{(2,A)} = \omega_H \cdot 6x > 3x$. Guilt arises:
+\begin{equation}
+    \psi_H^{GUILT} = -G \cdot (6\omega_H - 3)x < 0.
+\end{equation}
+Extended welfare: $W^{ext} = E + 2x - G(6\omega_H - 3)x < W^{ext}(\tilde{h}^{ZA})$.
+
+\medskip
+\noindent\textbf{Numerical Example.}
+Fix $E = 10$, $x = 10$, $G = 1.5$, and $\phi_H(0, x, \omega_H) = 6\omega_H x$.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+& Zero-anthro. & Moderate & Severe \\
+& ($\omega_H = 0$) & ($\omega_H = 0.4$) & ($\omega_H = 0.75$) \\
+\midrule
+Attributed expectation $\tilde{h}_H^{(2,A)}$ & 0 & 24 & 45 \\
+Zero-anthro. benchmark $\tilde{h}^{ZA}$ & 0 & 0 & 0 \\
+Elevated anthropomorphism? & No & Yes & Yes \\
+Equilibrium return $y^*$ & 0 & 24 & 30 \\
+Human guilt $\psi_H^{GUILT}$ & 0 & 0 & $-22.5$ \\
+Material welfare & 30 & 30 & 30 \\
+\textbf{Extended welfare} & \textbf{30} & \textbf{30} & \textbf{7.5} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Calculations for severe case ($\omega_H = 0.75$):}
+\begin{itemize}
+    \item Attributed expectation: $\tilde{h}_H^{(2,A)} = 0.75 \times 6 \times 10 = 45$.
+    \item Return: $y^* = \min\{45, 30\} = 30$.
+    \item Guilt: $\psi_H^{GUILT} = -1.5 \times (45 - 30) = -22.5$.
+    \item Material welfare: $(10 - 10 + 30) + (30 - 30) = 30$.
+    \item Extended welfare: $30 + (-22.5) = 7.5$.
+\end{itemize}
+
+\subsubsection{OA.6.2.4: Remarks}\label{oa:over-anthro-remarks}
+
+\begin{remark}[Contribution relative to Proposition 9]
+\label{rem:relation-prop9-supp}
+Part 1 is a direct corollary of Proposition 9, restated to establish the connection to the zero-anthropomorphism benchmark. Part 2, introducing the phantom expectations mechanism, is the novel contribution. The key insight is that elevated anthropomorphism of materialist AI creates expectations disconnected from any agent's preferences, generating pure deadweight loss through psychological costs.
+\end{remark}
+
+\begin{remark}[Terminology: ``elevated anthropomorphism'']
+\label{rem:terminology-supp}
+We use ``elevated anthropomorphism'' as a descriptive term for attribution exceeding the zero-anthropomorphism benchmark ($\tilde{h} > \tilde{h}^{ZA}$), without implying welfare harm. Part 1 demonstrates that elevated anthropomorphism can improve welfare. The term ``elevated'' refers to the direction of deviation from the benchmark, not its normative valence.
+\end{remark}
+
+\begin{remark}[Weak versus strict inequality in Part 1]
+\label{rem:weak-strict-part1-supp}
+Part 1 states ``weakly improves'' because elevated anthropomorphism affects welfare only through equilibrium selection. Within pure defection or pure cooperation regions, marginal increases in $\tilde{h} - \tilde{h}^{ZA}$ do not alter behaviour. Strict improvement occurs only when elevated anthropomorphism induces a regime switch from defection to cooperation.
+\end{remark}
+
+\begin{remark}[Why ``may reduce'' in Part 2]
+\label{rem:may-reduce-part2-supp}
+Part 2 is an existence result, not a universal claim. Extended welfare loss requires severe elevated anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$). When $\tilde{h}_H^{(2,A)} \leq 3x$, humans satisfy phantom expectations and incur no guilt. The proposition identifies conditions under which harm occurs, not a claim that harm always occurs.
+\end{remark}
+
+\begin{remark}[Asymmetric welfare implications]
+\label{rem:asymmetry-supp}
+The two parts reveal fundamental asymmetry:
+\begin{itemize}
+    \item \textbf{Part 1 (prosocial AI)}: Elevated anthropomorphism amplifies cooperation beyond what rational attribution would induce. Attributed expectations, though exceeding the rational benchmark, align directionally with AI preferences, creating mutual gains.
+    \item \textbf{Part 2 (materialist AI)}: Elevated anthropomorphism creates expectations where none exist. Phantom expectations diverge completely from AI preferences (which are zero), creating pure loss.
+\end{itemize}
+The critical distinction is whether attributed expectations correspond to genuine AI preferences.
+\end{remark}
+
+\begin{remark}[Policy implications for AI transparency]
+\label{rem:policy-supp}
+The phantom expectations mechanism supports a case for AI transparency requirements. If AI objectives were transparent, humans could calibrate $\omega$ appropriately: maintaining positive anthropomorphism toward prosocial AI (preserving cooperation benefits) while setting $\omega = 0$ toward materialist AI (eliminating phantom expectations).
+
+The policy calculus depends on the population of AI systems:
+\begin{itemize}
+    \item If most AI is prosocially designed: Some elevated anthropomorphism may be welfare-enhancing.
+    \item If most AI is materialistically designed: Elevated anthropomorphism causes net harm, favouring transparency mandates.
+    \item Mixed population: Optimal policy must balance cooperation gains against psychological costs.
+\end{itemize}
+
+Note that AI designers may have misaligned incentives: anthropomorphic presentation increases engagement and revenue, while psychological costs are borne by users. This externality suggests that market outcomes may feature excessive anthropomorphic design of materialist AI, strengthening the case for transparency regulation.
+\end{remark}
+
+\begin{remark}[Cultural variation]
+\label{rem:cultural-supp}
+Cross-cultural evidence suggests systematic variation in $\omega$ across populations. Populations with high baseline $\omega$ benefit more from prosocial AI (larger cooperation gains) but are more vulnerable to materialist AI (larger phantom expectation costs). Optimal AI design may therefore be culture-dependent, and transparency policies may be especially important for protecting high-$\omega$ populations.
+\end{remark}
+
+%==============================================================================
+% SECTION OA.7: OPTIMAL DESIGN
+%==============================================================================
+
+\section{Proposition 11: Optimal AI Design}\label{oa:optimal-design}
+
+\subsection{OA.7.1: Preamble --- Full Assumption Statements}\label{oa:optimal-preamble}
+
+\noindent\emph{Assumptions.}
+\begin{enumerate}[label=(\alph*), nosep]
+    \item \textbf{(A1)--(A3) Regularity}: Compact, convex type spaces; continuous payoffs; bounded psychological payoffs $|\psi_i| \leq M < \infty$. Under these conditions, the ABE correspondence is upper hemicontinuous in $x$, and equilibrium payoffs vary continuously with $x$ (by the Maximum Theorem).
+
+    \item \textbf{(A2') Attribution Monotonicity}: Higher anthropomorphism tendency leads to higher attributed expectations: $\omega' > \omega \Rightarrow \tilde{h}_i^{(2,j)}(\omega') \geq \tilde{h}_i^{(2,j)}(\omega)$.
+
+    \item \textbf{(A2''') Signal Monotonicity}: Higher anthropomorphic signal increases attributed expectations: $\partial \tilde{h}_i^{(2,j)}/\partial x \geq 0$ for $\omega_i > 0$, with strict inequality when $\eta > 0$.
+
+    \item \textbf{(E) Cooperation Efficiency}: Public goods multiplier satisfies $m > 1$, ensuring efficiency gains from cooperation.
+
+    \item \textbf{(T) Temptation Dominance}: Material temptation exceeds human-peer indignation alone: $E(1 - m/n) > \beta(n_H - 1)$. This ensures the AI channel matters for cooperation.
+
+    \item \textbf{(I) Indignation Dominance}: Psychological costs can exceed material temptation at maximal expectations: $\beta[(n_H - 1) + \lambda^{IND} n_A] > E(1 - m/n)$.
+
+    \item \textbf{(G') Positive Guilt Sensitivity}: Guilt parameter $G = \gamma_H \lambda_H^{GUILT} > 0$, ensuring psychological costs from unmet expectations.
+\end{enumerate}
+
+\medskip
+\noindent\emph{Decision-Maker.}
+The ``planner'' refers to a social planner who chooses the anthropomorphic signal $x$ to maximize welfare, taking equilibrium behavior as given. This is a first-best benchmark; designer incentives and second-best regulation are discussed in Remark OA.7.5.5.
+
+\medskip
+\noindent\emph{Welfare Measures.}
+We distinguish two welfare measures:
+\begin{itemize}[nosep]
+    \item \textbf{Material welfare}: $W(s) = \sum_{i \in N} \pi_i(s)$. Treats psychological payoffs as instrumental.
+    \item \textbf{Extended welfare}: $W^{ext}(s, h, \tilde{h}) = W(s) + \sum_{i \in N_H} \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})$. Values psychological payoffs intrinsically.
+\end{itemize}
+Part (i) uses material welfare because prosocial AI generates expectations that are met in equilibrium, making psychological welfare non-negative. Parts (ii) and (iii) use extended welfare because anthropomorphism can generate phantom expectations that reduce psychological welfare.
+
+\medskip
+\noindent\emph{Linear Attribution Function.}
+Human $i$'s attributed expectation of AI $j$'s expectation is:
+\begin{equation}
+    \tilde{h}_i^{(2,j)}(C; \rho_j, x, \omega_i) = \omega_i \cdot \left[ \bar{h}(\rho_j) + \eta x \right],
+\end{equation}
+where $\omega_i \in [0,1]$ is anthropomorphism tendency, $\bar{h}(\cdot)$ is the baseline attribution function with $\bar{h}(0) = 0$ and $\bar{h}(1) = \bar{h}_H > 0$, and $\eta > 0$ is signal sensitivity.
+
+\subsection{OA.7.2: Part (i) --- Threshold Analysis Details}\label{oa:optimal-part1}
+
+\noindent\textbf{Claim:} Under (T) and (I), $\bar{\omega}(x) \in (0,1)$ for all $x \in [0, \bar{x}]$.
+
+\begin{proof}[Proof of Claim]
+\begin{enumerate}[label=(\roman*), nosep]
+    \item \textbf{$\bar{\omega}(x) > 0$}: By (T), the numerator $E(1 - m/n) - \beta(n_H - 1) > 0$. The denominator $\beta \lambda^{IND} n_A (\bar{h}_H + \eta x) > 0$ since all terms are positive. Hence $\bar{\omega}(x) > 0$.
+
+    \item \textbf{$\bar{\omega}(0) < 1$}: Substituting $x = 0$ into the threshold formula:
+    \begin{equation}
+        \bar{\omega}(0) = \frac{E(1 - m/n) - \beta(n_H - 1)}{\beta \lambda^{IND} n_A \bar{h}_H}.
+    \end{equation}
+    For $\bar{\omega}(0) < 1$, we need:
+    \begin{equation}
+        E(1 - m/n) - \beta(n_H - 1) < \beta \lambda^{IND} n_A \bar{h}_H.
+    \end{equation}
+    This is implied by (I) when $\bar{h}_H \geq 1$. When $\bar{h}_H < 1$, we assume parameters satisfy this condition.
+
+    \item \textbf{$\bar{\omega}(x) < 1$ for all $x \in [0, \bar{x}]$}: Since $\bar{\omega}(x)$ is decreasing in $x$, $\bar{\omega}(x) \leq \bar{\omega}(0) < 1$ for all $x \geq 0$.
+\end{enumerate}
+\end{proof}
+
+\subsection{OA.7.3: Part (ii) --- Complete Case Analysis}\label{oa:optimal-part2}
+
+\noindent\textbf{Case A: $x = 0$.}
+Attributed expectations: $\tilde{h}_H^{(2,A)} = 0$.
+Equilibrium return: $y^* = 0$.
+Guilt: $\psi_H^{GUILT} = -G \cdot \max\{0, 0 - 0\} = 0$.
+Extended welfare:
+\begin{equation}
+    W^{ext}(0) = (E - x_{send} + 0) + (3x_{send} - 0) + 0 = E + 2x_{send}.
+\end{equation}
+
+\textbf{Case B: $x > 0$ with $\omega_H \eta x \leq 3x_{send}$ (phantom expectations feasible).}
+Attributed expectations: $\tilde{h}_H^{(2,A)} = \omega_H \eta x > 0$.
+Equilibrium return: $y^* = \omega_H \eta x$.
+Guilt: $\psi_H^{GUILT} = -G \cdot \max\{0, \omega_H \eta x - \omega_H \eta x\} = 0$.
+Extended welfare:
+\begin{equation}
+    W^{ext}(x) = (E - x_{send} + \omega_H \eta x) + (3x_{send} - \omega_H \eta x) + 0 = E + 2x_{send} = W^{ext}(0).
+\end{equation}
+Note: The transfer $\omega_H \eta x$ cancels between AI and human payoffs.
+
+\textbf{Case C: $x > 0$ with $\omega_H \eta x > 3x_{send}$ (phantom expectations exceed feasibility).}
+Attributed expectations: $\tilde{h}_H^{(2,A)} = \omega_H \eta x$.
+Equilibrium return: $y^* = 3x_{send}$ (human gives everything but still falls short).
+Guilt: $\psi_H^{GUILT} = -G \cdot (\omega_H \eta x - 3x_{send}) < 0$.
+Extended welfare:
+\begin{equation}
+    W^{ext}(x) = (E - x_{send} + 3x_{send}) + (3x_{send} - 3x_{send}) + \left[-G(\omega_H \eta x - 3x_{send})\right] = E + 2x_{send} - G(\omega_H \eta x - 3x_{send}).
+\end{equation}
+Since $\omega_H \eta x > 3x_{send}$, we have $W^{ext}(x) < W^{ext}(0)$.
+
+\subsection{OA.7.4: Part (iii) --- SOC and IFT Derivations}\label{oa:optimal-part3}
+
+\subsubsection{Second-Order Condition Verification}
+
+Differentiating the FOC:
+\begin{align}
+    \mathcal{W}''(x) &= p''(x) \cdot n_H(m-1)E + p''(x)[\Psi^C - \Psi^D] + 2p'(x)\left[\frac{\partial \Psi^C}{\partial x} - \frac{\partial \Psi^D}{\partial x}\right] \nonumber \\
+    &\quad + p(x)\frac{\partial^2 \Psi^C}{\partial x^2} + (1-p(x))\frac{\partial^2 \Psi^D}{\partial x^2}.
+\end{align}
+
+\textbf{Verification of SOC:}
+\begin{enumerate}[label=(\roman*), nosep]
+    \item $p''(x) < 0$ when $f$ is unimodal and $\bar{\omega}(x)$ is in the increasing part of the density. This captures diminishing returns: as $x$ increases, fewer marginal types are induced to cooperate.
+
+    \item $\partial \Psi^C/\partial x \leq 0$ and $\partial \Psi^D/\partial x \leq 0$: higher $x$ raises attributed expectations, increasing guilt.
+
+    \item $\partial^2 \Psi^C/\partial x^2 \leq 0$ and $\partial^2 \Psi^D/\partial x^2 \leq 0$ under the linear guilt structure: guilt is linear in the expectation gap, and expectations are linear in $x$.
+\end{enumerate}
+
+Under these conditions, $\mathcal{W}''(x^*) < 0$ at any interior critical point, confirming it is a local maximum.
+
+\subsubsection{Implicit Function Theorem Derivations}
+
+Let $\mathcal{F}(x; m, G, \omega) \equiv \mathcal{W}'(x)$. At an interior optimum, $\mathcal{F}(x^*; m, G, \omega) = 0$.
+
+\textbf{IFT conditions:}
+\begin{enumerate}[label=(\alph*), nosep]
+    \item $\mathcal{F}$ is continuously differentiable in $(x, m, G, \omega)$.
+    \item $\partial \mathcal{F}/\partial x = \mathcal{W}''(x^*) \neq 0$ by the SOC.
+\end{enumerate}
+
+By the implicit function theorem:
+\begin{equation}
+    \frac{\partial x^*}{\partial \theta} = -\frac{\partial \mathcal{F}/\partial \theta}{\partial \mathcal{F}/\partial x} = -\frac{\partial^2 \mathcal{W}/\partial x \partial \theta}{\mathcal{W}''(x^*)}.
+\end{equation}
+Since $\mathcal{W}''(x^*) < 0$, the sign of $\partial x^*/\partial \theta$ equals the sign of $\partial^2 \mathcal{W}/\partial x \partial \theta$.
+
+\medskip
+\noindent\textbf{(i) $\partial x^*/\partial m > 0$:}
+
+The cross-partial is:
+\begin{equation}
+    \frac{\partial^2 \mathcal{W}}{\partial x \partial m} = \frac{\partial}{\partial m}\left[ p'(x) \cdot n_H(m-1)E + \cdots \right] = p'(x) \cdot n_H E > 0.
+\end{equation}
+Therefore:
+\begin{equation}
+    \frac{\partial x^*}{\partial m} = -\frac{p'(x^*) \cdot n_H E}{\mathcal{W}''(x^*)} > 0.
+\end{equation}
+
+\medskip
+\noindent\textbf{(ii) $\partial x^*/\partial G < 0$:}
+
+Under defection ($c_i = 0$), guilt is:
+\begin{equation}
+    \psi_i^{GUILT,D}(x) = -G \cdot \omega_i \cdot [\bar{h}(\rho_A) + \eta x].
+\end{equation}
+The marginal effect of $x$ on guilt is:
+\begin{equation}
+    \frac{\partial \Psi^D}{\partial x} = -n_H G \omega \eta.
+\end{equation}
+The cross-partial:
+\begin{equation}
+    \frac{\partial}{\partial G}\left(\frac{\partial \Psi^D}{\partial x}\right) = -n_H \omega \eta < 0.
+\end{equation}
+
+Therefore $\frac{\partial^2 \mathcal{W}}{\partial x \partial G} < 0$, and:
+\begin{equation}
+    \frac{\partial x^*}{\partial G} = -\frac{\partial^2 \mathcal{W}/\partial x \partial G}{\mathcal{W}''(x^*)} < 0.
+\end{equation}
+
+\medskip
+\noindent\textbf{(iii) $\partial x^*/\partial \omega < 0$:}
+
+Higher $\omega$ amplifies guilt costs from each unit of $x$:
+\begin{equation}
+    \frac{\partial}{\partial \omega}\left(\frac{\partial \Psi^D}{\partial x}\right) = -n_H G \eta < 0.
+\end{equation}
+
+Therefore $\frac{\partial^2 \mathcal{W}}{\partial x \partial \omega} < 0$, and:
+\begin{equation}
+    \frac{\partial x^*}{\partial \omega} = -\frac{\partial^2 \mathcal{W}/\partial x \partial \omega}{\mathcal{W}''(x^*)} < 0.
+\end{equation}
+
+\subsection{OA.7.5: Remarks and Extensions}\label{oa:optimal-remarks}
+
+\begin{remark}[Unified interpretation]
+\label{rem:unified-supp}
+The three parts formalize the ``match presentation to objectives'' principle:
+\begin{enumerate}[nosep]
+    \item \textbf{Prosocial AI}: Anthropomorphic presentation facilitates cooperation. The planner uses minimal signal sufficient for threshold crossing. Higher efficiency reduces the required signal.
+    \item \textbf{Materialist AI}: Anthropomorphic presentation creates phantom expectations---attributed expectations without prosocial basis. Minimal presentation ($x^* = 0$) eliminates pure welfare loss.
+    \item \textbf{Mixed AI}: Interior solution reflects genuine tradeoff. The planner calibrates $x^*$ to balance cooperation benefits against psychological costs. Higher efficiency justifies more signal.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Welfare criterion consistency]
+\label{rem:welfare-criterion-supp}
+Part (i) uses material welfare; Parts (ii) and (iii) use extended welfare. This apparent inconsistency is resolved as follows:
+\begin{itemize}[nosep]
+    \item In Part (i), prosocial AI generates expectations consistent with equilibrium behavior. Under cooperation, expectations are met, so $\psi_i \geq 0$. Extended welfare equals or exceeds material welfare. Maximizing material welfare subject to threshold crossing yields a valid optimum.
+    \item In Parts (ii) and (iii), anthropomorphism can generate phantom expectations that create guilt ($\psi_i < 0$). Extended welfare may fall below material welfare. Using material welfare alone would ignore this cost.
+\end{itemize}
+The welfare criterion is thus chosen to match the relevant economic forces in each case.
+\end{remark}
+
+\begin{remark}[Reconciliation of comparative statics for $m$]
+\label{rem:reconcile-m-supp}
+Part (i) shows $\partial x^*/\partial m < 0$ while Part (iii) shows $\partial x^*/\partial m > 0$. These are not contradictory:
+\begin{itemize}[nosep]
+    \item Part (i): The planner finds the \emph{minimal} signal to cross the cooperation threshold. Higher $m$ lowers the threshold, reducing the required signal. The objective is to reach cooperation at minimal cost.
+    \item Part (iii): The planner balances material and psychological welfare at the margin. Higher $m$ increases the \emph{marginal value} of expanding cooperation. At an interior optimum, this justifies a higher signal.
+\end{itemize}
+The difference is the optimization objective: minimal threshold crossing (Part i) versus interior balancing (Part iii). As $\rho_A \to 1$ and guilt costs vanish, Part (iii) degenerates to Part (i).
+\end{remark}
+
+\begin{remark}[Nesting of cases]
+\label{rem:nesting-supp}
+Part (iii) nests Parts (i) and (ii) as limits:
+\begin{itemize}[nosep]
+    \item As $\rho_A \to 1$: $\bar{h}(\rho_A) \to \bar{h}_H$, and in full cooperation equilibrium, expectations are met, so $\Psi^C \to 0$. The marginal cost of $x$ vanishes, and the solution approaches Part (i).
+    \item As $\rho_A \to 0$: $\bar{h}(\rho_A) \to 0$, expectations become purely signal-driven. The cooperation benefit shrinks (threshold rises), while guilt costs remain. The solution approaches Part (ii): $x^* \to 0$.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Role of each assumption]
+\label{rem:assumptions-role-supp}
+\begin{itemize}[nosep]
+    \item \textbf{(A1)--(A3)}: Ensure continuity of equilibrium correspondence, enabling Weierstrass existence and IFT smoothness.
+    \item \textbf{(A2') and (A2''')}: Ensure monotonic mapping from $(\omega, x)$ to attributed expectations.
+    \item \textbf{(E)}: Guarantees $W^C > W^D$, so the planner strictly prefers cooperation.
+    \item \textbf{(T)}: Ensures cooperation threshold is positive (AI channel matters).
+    \item \textbf{(I)}: Ensures cooperation threshold is attainable within $\omega \in [0,1]$.
+    \item \textbf{(G')}: Creates psychological costs from unmet expectations.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Decision-maker and designer incentives]
+\label{rem:decision-maker-supp}
+This proposition characterizes the social planner's optimum. In practice, AI is designed by private entities with potentially misaligned incentives. The key divergence:
+\begin{itemize}[nosep]
+    \item \textbf{Private designers}: May prefer high $x$ because anthropomorphism increases engagement and revenue. Psychological costs (guilt) are externalized to users.
+    \item \textbf{Social planner}: Internalizes psychological costs, choosing lower $x$ for materialist AI.
+\end{itemize}
+This creates a case for regulation when $\rho_A < 1$. The proposition provides the first-best benchmark against which second-best instruments (disclosure requirements, anthropomorphism limits) can be evaluated.
+\end{remark}
+
+\begin{remark}[Boundary cases]
+\label{rem:boundary-supp}
+\begin{itemize}[nosep]
+    \item \textbf{$\omega = 0$}: The human treats AI as a pure machine with no attributed expectations: $\tilde{h}_i^{(2,A)} = 0$ for all $x$. Human cooperation depends only on peer interactions. The anthropomorphic signal is irrelevant; any $x \in [0, \bar{x}]$ is optimal.
+    \item \textbf{$\omega = 1$}: The human fully anthropomorphizes AI, treating it as a human agent. This corresponds to the standard psychological game.
+    \item \textbf{$x = 0$}: Minimal anthropomorphism. All attributed expectations come from $\bar{h}(\rho_A)$. For materialist AI ($\rho_A = 0$), $\tilde{h} = 0$.
+    \item \textbf{$x = \bar{x}$}: Maximal anthropomorphism.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Policy implications]
+\label{rem:policy-supp2}
+The results provide actionable design guidance:
+\begin{enumerate}[nosep]
+    \item \textbf{Prosocial AI} (AI assistants with welfare objectives): Anthropomorphic presentation facilitates cooperation. Design should emphasize human-like qualities, calibrated to efficiency stakes.
+    \item \textbf{Materialist AI} (recommendation systems, trading algorithms): Present as machines. Anthropomorphic interfaces create phantom expectations and psychological harm.
+    \item \textbf{Context-dependent design}: Match signal intensity to efficiency stakes (high $x$ for high-stakes cooperation), user characteristics (low $x$ for guilt-prone or high-$\omega$ populations), and AI objectives.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Connection to Propositions 9 and 10]
+\label{rem:connections-supp}
+This proposition complements earlier welfare results:
+\begin{itemize}[nosep]
+    \item Proposition 9 establishes that higher $\omega$ weakly increases welfare with prosocial AI but may reduce welfare with materialist AI.
+    \item Proposition 10 shows elevated anthropomorphism reduces extended welfare.
+    \item The current proposition characterizes the \emph{optimal design response}: given human anthropomorphism tendency $\omega$, how should the planner choose $x$?
+\end{itemize}
+Together, these results provide both descriptive (how $\omega$ affects outcomes) and normative (how to design $x$) guidance for human-AI interaction.
+\end{remark}
+
+%==============================================================================
+% BIBLIOGRAPHY PLACEHOLDER
+%==============================================================================
+
+\section*{References}
+
+\noindent References cited in this online appendix can be found in the main paper bibliography.
+
+\end{document}

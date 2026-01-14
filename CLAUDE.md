@@ -58,13 +58,14 @@ Use x-writer subagent to improve clarity, grammar, and style
 
 In general:
 
-0. American English, and always write complete sentences.
+0. American English.
 1. **Economy**: Every word must earn its place. Cut ruthlessly. Target 30-50% fewer words than typical academic prose.
 2. **Specificity**: Replace adjectives with numbers. "The effect is 12 percentage points" not "substantial effect."
 3. **Directness**: Active voice, positive form. Lead with findings. "We find X" not "It was found that X."
 4. **Structure**: Build to emphatic endings. The last word of a sentence, paragraph, and paper carries the most weight.
 5. **Simplicity**: If it seems complex, you haven't explained it well enough.
 6. **Transitional**: Each sentence/paragraph builds on the last through transitions and repeated key terms.
+7. Always write complete sentences.
 
 ### Words to Avoid
 

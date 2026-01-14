@@ -1,127 +1,68 @@
 % Proof of Proposition: Trust Game ABE
 % Appendix material for main manuscript
-% Notation follows sec_framework.tex and sec_applications.tex
-
-% Note: The proposition statement is in sec_applications.tex.
-% This proof requires Assumption (A2') Attribution Monotonicity and
-% condition (G) Guilt Dominance: $G \equiv \gamma_H \lambda_H^{GUILT} > 1$.
+% Condensed version: 2026-01-14 (remarks moved to Online Appendix OA.5.1)
 
 \begin{proof}[Proof of Proposition~\ref{prop:trust}]
-The proposition requires two conditions: (A2') the attribution function $\phi_H$ is weakly increasing in $\omega_H$; and (G) guilt dominance $G \equiv \gamma_H \lambda_H^{GUILT} > 1$.
-We prove each claim in turn.
+The proposition requires (A2') attribution monotonicity and (G) guilt dominance ($G \equiv \gamma_H \lambda_H^{GUILT} > 1$).
+
+%------------------------------------------------------------------------------
+% PART (i)
+%------------------------------------------------------------------------------
 
 \medskip
 \noindent\textbf{Proof of (i): Anthropomorphism increases attributed expectations.}
 
-By Definition~\ref{def:attributed-beliefs}, the human trustee's attributed second-order belief is
-\begin{equation}
-    \tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x_A, \omega_H),
-\end{equation}
-where $\rho_A$ is AI prosociality, $x_A$ is the amount sent, and $\omega_H \in [0,1]$ is anthropomorphism.
-
-Assumption (A2') states that for any $\omega_H' > \omega_H$:
+The human trustee's attributed second-order belief is $\tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x_A, \omega_H)$. By (A2'), for $\omega_H' > \omega_H$:
 \begin{equation}
     \phi_H(\rho_A, x_A, \omega_H') \geq \phi_H(\rho_A, x_A, \omega_H).
 \end{equation}
-Hence $\partial \tilde{h}_H^{(2,A)} / \partial \omega_H \geq 0$.
+Hence $\partial \tilde{h}_H^{(2,A)} / \partial \omega_H \geq 0$. \qed
+
+%------------------------------------------------------------------------------
+% PART (ii)
+%------------------------------------------------------------------------------
 
 \medskip
 \noindent\textbf{Proof of (ii): Higher attributed expectations increase equilibrium returns.}
 
-The human's utility is
-\begin{equation}
-    U_H(y) = 3x - y - G \cdot \max\{0, \tilde{h} - y\},
-\end{equation}
-where $G = \gamma_H \lambda_H^{GUILT}$, $y \in [0, 3x]$, and $\tilde{h} = \tilde{h}_H^{(2,A)}$.
+The human's utility is $U_H(y) = 3x - y - G \cdot \max\{0, \tilde{h} - y\}$, where $\tilde{h} = \tilde{h}_H^{(2,A)}$.
 
-\emph{Step 1 (Piecewise structure).} The $\max$ term creates a kink at $y = \tilde{h}$:
+\emph{Step 1 (Piecewise structure).}
 \begin{equation}
     U_H(y) = \begin{cases}
-        3x - G\tilde{h} + (G-1)y & \text{if } y < \tilde{h}, \\[4pt]
+        3x - G\tilde{h} + (G-1)y & \text{if } y < \tilde{h}, \\
         3x - y & \text{if } y \geq \tilde{h}.
     \end{cases}
 \end{equation}
 
-\emph{Step 2 (Marginal utility).} Differentiating:
+\emph{Step 2 (Marginal utility).}
 \begin{equation}
     \frac{\partial U_H}{\partial y} = \begin{cases}
-        G - 1 & \text{if } y < \tilde{h}, \\[4pt]
-        -1 & \text{if } y > \tilde{h}.
+        G - 1 > 0 & \text{if } y < \tilde{h} \text{ (by (G))}, \\
+        -1 < 0 & \text{if } y > \tilde{h}.
     \end{cases}
 \end{equation}
-Under (G), $G > 1$ implies $\partial U_H / \partial y > 0$ for $y < \tilde{h}$ and $\partial U_H / \partial y < 0$ for $y > \tilde{h}$.
 
-\emph{Step 3 (Optimal return).} The human maximizes $U_H(y)$ over $[0, 3x]$.
-\begin{itemize}
-    \item If $\tilde{h} \leq 3x$: Utility is strictly increasing on $[0, \tilde{h})$ and strictly decreasing on $(\tilde{h}, 3x]$, so the unique maximum is $y^* = \tilde{h}$.
-    \item If $\tilde{h} > 3x$: Utility is strictly increasing on all of $[0, 3x]$, so $y^* = 3x$.
-\end{itemize}
-Combining: $y^* = \min\{\tilde{h}, 3x\}$.
+\emph{Step 3 (Optimal return).} The unique maximum is $y^* = \min\{\tilde{h}, 3x\}$.
 
-\emph{Step 4 (Comparative statics).} Since $y^* = \min\{\tilde{h}, 3x\}$ is weakly increasing in $\tilde{h}$:
-\begin{equation}
-    \frac{\partial y^*}{\partial \tilde{h}} = \begin{cases}
-        1 & \text{if } \tilde{h} < 3x, \\[4pt]
-        0 & \text{if } \tilde{h} > 3x.
-    \end{cases}
-\end{equation}
-At $\tilde{h} = 3x$, the function has a kink; the subdifferential is $[0,1]$.
+\emph{Step 4 (Comparative statics).} $\partial y^* / \partial \tilde{h} = 1$ if $\tilde{h} < 3x$, and 0 otherwise. \qed
+
+%------------------------------------------------------------------------------
+% PART (iii)
+%------------------------------------------------------------------------------
 
 \medskip
 \noindent\textbf{Proof of (iii): Same material payoffs, different equilibria.}
 
-By Claims (i) and (ii), $y^*$ depends on $\omega_H$ through attributed beliefs. We construct an explicit example.
-
-\emph{Setup.} Let $E = 10$, $\rho_A = 0.3$, $\gamma_H = 2$, $\lambda_H^{GUILT} = 0.6$ (so $G = 1.2 > 1$), and the AI sends $x = 10$. Consider two humans with identical material payoff functions $\pi_H(y) = 30 - y$ but different anthropomorphism:
+By Claims (i) and (ii), $y^*$ depends on $\omega_H$ through attributed beliefs. Consider $E = 10$, $\rho_A = 0.3$, $G = 1.2$, $x = 10$, with $\phi_H(\rho_A, x_A, \omega_H) = \omega_H \cdot \rho_A \cdot 3x$:
 \begin{itemize}
-    \item Human $H$: $\omega_H = 0.8$
-    \item Human $H'$: $\omega_H' = 0.3$
+    \item Human $H$ ($\omega_H = 0.8$): $\tilde{h}_H^{(2,A)} = 7.2$, $y^*_H = 7.2$.
+    \item Human $H'$ ($\omega_H' = 0.3$): $\tilde{h}_{H'}^{(2,A)} = 2.7$, $y^*_{H'} = 2.7$.
 \end{itemize}
 
-\emph{Attributed beliefs.} Using $\phi_H(\rho_A, x_A, \omega_H) = \omega_H \cdot \rho_A \cdot 3x$:
-\begin{align*}
-    \tilde{h}_H^{(2,A)} &= 0.8 \times 0.3 \times 30 = 7.2, \\
-    \tilde{h}_{H'}^{(2,A)} &= 0.3 \times 0.3 \times 30 = 2.7.
-\end{align*}
-
-\emph{Equilibrium returns.} By Claim (ii):
-\begin{align*}
-    y^*_H &= \min\{7.2, 30\} = 7.2, \\
-    y^*_{H'} &= \min\{2.7, 30\} = 2.7.
-\end{align*}
-
-\emph{Equilibrium comparison.}
-\begin{center}
-\begin{tabular}{lcc}
-\hline
-& $\omega_H = 0.8$ & $\omega_H' = 0.3$ \\
-\hline
-Material payoff function & $30 - y$ & $30 - y$ \\
-Attributed belief $\tilde{h}^{(2,A)}$ & 7.2 & 2.7 \\
-Equilibrium return $y^*$ & 7.2 & 2.7 \\
-AI payoff & 7.2 & 2.7 \\
-Human payoff & 22.8 & 27.3 \\
-\hline
-\end{tabular}
-\end{center}
-
-The material payoff functions are identical, yet equilibrium outcomes differ: anthropomorphism affects attributed beliefs, which enter psychological payoffs and determine guilt-driven returns. This establishes (iii).
+Material payoff functions are identical ($30 - y$), yet equilibrium outcomes differ: anthropomorphism affects attributed beliefs, which determine guilt-driven returns. \qed
 \end{proof}
 
-\begin{remark}[The knife-edge case $G = 1$]
-\label{rem:G-equals-one}
-When $G = \gamma_H \lambda_H^{GUILT} = 1$, the marginal utility $\partial U_H / \partial y = 0$ for all $y < \tilde{h}$. The human is indifferent over $[0, \min\{\tilde{h}, 3x\}]$, so the optimal return is not unique. In this case, $y^* = \min\{\tilde{h}, 3x\}$ is the Pareto-best selection for the AI; other equilibrium selection criteria (e.g., trembling-hand perfection) may yield different predictions. The strict condition $G > 1$ ensures uniqueness.
-\end{remark}
-
-\begin{remark}[The case $G < 1$]
-\label{rem:low-guilt}
-When $G = \gamma_H \lambda_H^{GUILT} < 1$, the marginal utility $\partial U_H / \partial y = G - 1 < 0$ for all $y < \tilde{h}$. The human's utility is strictly decreasing on $[0, 3x]$, so $y^* = 0$ regardless of attributed expectations. In this regime, anthropomorphism has no effect on equilibrium returns: psychological sensitivity is too weak to overcome material self-interest. The condition $G > 1$ is therefore necessary for attributed beliefs to influence behavior.
-\end{remark}
-
-\begin{remark}[Connection to Proposition~\ref{prop:multiplicity}]
-The example in part (iii) satisfies the conditions for attribution-dependent multiplicity: (a) belief-dependent payoffs ($\partial \psi_H / \partial \tilde{h} \neq 0$ when $y < \tilde{h}$); (b) distinct attributions across anthropomorphism levels; (c) best-response separation ($y^*(7.2) \neq y^*(2.7)$). The multiplicity arises not from multiple equilibria in a fixed game, but from different attributed beliefs generating different optimal responses.
-\end{remark}
-
-\begin{remark}[Empirical support for (A2')]
-Attribution monotonicity is well-supported empirically. Meta-analytic evidence confirms a positive relationship between anthropomorphism and trust across 97 effect sizes \citep{blut2021understanding}. \citet{waytz2014trusting} demonstrate that anthropomorphizing autonomous systems increases trust, suggesting attributed expectations rise with anthropomorphism.
+\begin{remark}
+Extended analysis including the knife-edge case $G = 1$, low-guilt regime $G < 1$, connection to multiplicity, and empirical support for (A2') appears in Online Appendix OA.5.1.
 \end{remark}

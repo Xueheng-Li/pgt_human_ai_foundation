@@ -74,11 +74,6 @@ For human $i \in N_H$ interacting with AI $j \in N_A$, the \textbf{zero-anthropo
 This represents the attributed belief when anthropomorphism is absent ($\omega_i = 0$). The zero-anthropomorphism benchmark is descriptive: it characterizes attribution without anthropomorphic bias, not a normative standard for ``correct'' beliefs.
 \end{defn}
 
-\begin{remark}[Interpretation]
-\label{rem:zero-anthro-interp}
-The zero-anthropomorphism benchmark isolates the role of AI design parameters $\theta_j$ and observable signals $x_j$ in shaping attributed beliefs, net of individual anthropomorphism. Under the linear specification (Example~\ref{ex:linear-attribution}), $\tilde{h}_i^{(2,j),ZA} = 0$: without anthropomorphism, humans attribute no expectations to AI. Alternative specifications may yield $\tilde{h}_i^{(2,j),ZA} > 0$ if attribution persists through non-anthropomorphic channels.
-\end{remark}
-
 The attribution function formalises the empirically established process of mind perception \citep{gray2007dimensions,epley2007seeing}. Its inputs correspond to well-established antecedents of intentionality attribution \citep{wiese2017robots}. Attribution intensity varies with human-like cues including voice \citep{schroeder2016voice}, gaze behaviour, and movement patterns, all of which can be captured in the signal vector $x_j$.
 
 Three main approaches to specifying $\phi_i$ are:
@@ -114,27 +109,7 @@ To identify $\phi_i$, we measure attributed beliefs $\tilde{h}_i^{(2,j)}$ while 
 
 \paragraph{Application: Trust Game with Interface Manipulation.}
 
-We illustrate the identification strategy with a trust game where an AI trustor sends $x \in [0, E]$ to a human trustee, who returns $y \in [0, 3x]$. The human's attributed belief $\tilde{h}_H^{(2,A)}$ represents what the human believes the AI expected her to return.
-
-\emph{Experimental design.} Between-subject manipulation varies interface anthropomorphism $x_A$:
-\begin{itemize}
-    \item Treatment R (Robotic): Minimalist interface displaying only numerical information; $x_A^R = 0$
-    \item Treatment H (Humanoid): Avatar with name, voice feedback, and natural language; $x_A^H = 1$
-    \item Treatment C (Control): Standard interface without anthropomorphic or de-anthropomorphic cues; $x_A^C = 0.5$
-\end{itemize}
-
-The AI's prosociality parameter $\rho_A$ and programmed behavior remain constant across treatments. Only the interface presentation varies.
-
-\emph{Measurement sequence.} For each treatment:
-\begin{enumerate}
-    \item Subjects complete the IDAQ questionnaire (measures $\omega_i$)
-    \item Subjects observe the AI interface and its transfer decision $x_A$
-    \item Subjects report $\tilde{h}_i^{(2,A)}$: ``What return amount do you believe the AI expected you to send?'' (incentivized via quadratic scoring)
-    \item Subjects choose return amount $y_i$
-    \item One of tasks (3) or (4) is randomly selected for payment
-\end{enumerate}
-
-The within-subject strategy method extension elicits beliefs for all three interface conditions before random assignment, providing three observations per subject.
+We illustrate identification with a trust game where an AI trustor sends $x \in [0, E]$ to a human trustee who returns $y \in [0, 3x]$. Between-subject manipulation varies interface anthropomorphism across three treatments: robotic ($x_A = 0$), humanoid ($x_A = 1$), and control ($x_A = 0.5$), holding AI behavior constant. Subjects complete the IDAQ, observe the AI interface, report attributed beliefs via incentivized elicitation, and choose return amounts. Random payment selection (belief or choice) eliminates hedging.
 
 \paragraph{Parameter Recovery.}
 
@@ -157,40 +132,16 @@ The theoretical model generates testable restrictions:
 
 The interaction coefficient $\beta_3$ directly estimates the signal sensitivity $\eta$. Given $\rho_A$ known from design, the baseline effect $\beta_1$ identifies anthropomorphism scaling.
 
-The key testable prediction is the interaction effect $\beta_3 > 0$. Under the null hypothesis that attributed beliefs do not depend on anthropomorphism ($\omega_i$ irrelevant), $\beta_3 = 0$ and interface manipulation affects all subjects equally. A positive interaction indicates that anthropomorphic signals operate through the attribution mechanism specified in the model.
-
-\paragraph{Alternative Functional Forms.}
-
-The linear specification in Example 1 serves as a tractable benchmark. Two departures merit consideration.
-
-\emph{Saturation.} Attributed beliefs are bounded in $[0,1]$, but the linear form $\omega_i(\rho_A + \eta x_A)$ may exceed unity for high parameter values. A logistic specification:
-\begin{equation}
-    \tilde{h}_i^{(2,A)} = \frac{1}{1 + \exp(-\omega_i(\rho_A + \eta x_A - \mu))}
-\end{equation}
-bounds attributed beliefs while preserving the interaction structure. The shift parameter $\mu$ centers the logistic at the midpoint of the belief scale.
-
-\emph{Thresholds.} The uncanny valley phenomenon \citep{mori1970uncanny,gray2012feeling} suggests non-monotonicity: extremely human-like AI may trigger discomfort that reduces attribution. A threshold model:
-\begin{equation}
-    \tilde{h}_i^{(2,A)} = \omega_i \cdot \left( \rho_A + \eta x_A \right) \cdot \mathbf{1}_{x_A < \bar{x}}
-\end{equation}
-captures attribution collapse above threshold $\bar{x}$.
-
-These alternatives generate distinct predictions. Saturation predicts diminishing marginal effects of $x_A$ at high levels; thresholds predict a discrete drop in $\tilde{h}_i^{(2,A)}$ above $\bar{x}$. Both can be tested by including quadratic or spline terms in regression (\ref{eq:attribution-regression}). In our trust game design, Treatment H ($x_A = 1$) tests whether extreme anthropomorphism triggers uncanny valley effects.
-
-For applications in this paper, we maintain the linear specification. Empirical evidence on anthropomorphism-trust relationships \citep{blut2021understanding} is consistent with linearity over the range of interface manipulations typical in economic experiments. The linear form also yields closed-form equilibria enabling comparative statics.
+The key testable prediction is the interaction effect $\beta_3 > 0$. Under the null hypothesis that attributed beliefs do not depend on anthropomorphism ($\omega_i$ irrelevant), $\beta_3 = 0$ and interface manipulation affects all subjects equally. A positive interaction indicates that anthropomorphic signals operate through the attribution mechanism specified in the model. Alternative specifications (logistic, threshold) accommodate saturation and uncanny valley effects; we maintain linearity for tractability.
 
 \subsubsection{Psychological Foundations: Mind Perception Theory}
 \label{sec:mind-perception}
 
-The attribution function $\phi_i$ in Definition~\ref{def:attribution-function} formalizes how humans project mental states onto AI agents. This formalization rests on mind perception psychology. We map this literature to model parameters.
+The attribution function $\phi_i$ in Definition~\ref{def:attribution-function} formalizes how humans project mental states onto AI agents. This formalization rests on mind perception psychology.
 
-The SEEK framework \citep{epley2007seeing} identifies three determinants of anthropomorphism: \emph{Sociality} (the drive for social connection), \emph{Effectance} (the motivation to understand and predict behavior), and \emph{Elicited agent knowledge} (accessibility of human-related concepts). Sociality and effectance are dispositional, corresponding to individual variation in $\omega_i$. Elicited agent knowledge is situational: humanlike features such as voice, name, or conversational style activate human schemas, increasing attribution weight. When AI uses natural language, anthropocentric knowledge becomes accessible, amplifying the effect of $x_j$ on $\phi_i$.
+The SEEK framework \citep{epley2007seeing} identifies three determinants of anthropomorphism: dispositional factors (sociality, effectance) corresponding to $\omega_i$, and situational triggers (elicited agent knowledge) corresponding to observable signals $x_j$. Mind perception decomposes into agency and experience \citep{gray2007dimensions}. AI scores high on agency (triggering attribution) but low on experience (driving attenuation). These dimensions operate independently, explaining their coexistence.
 
-A second body of work decomposes mind perception into two orthogonal dimensions \citep{gray2007dimensions,waytz2010causes}. The \emph{Agency} dimension captures perceived capacity for planning, self-control, and intentional action; the \emph{Experience} dimension captures perceived capacity for feeling, suffering, and subjective states. AI agents score high on agency but low on experience. This asymmetry maps to our two mechanisms. Attribution ($\phi_i$) is triggered by perceived agency: when AI appears to deliberate and choose, humans infer beliefs and intentions. Attenuation ($\lambda_i^{GUILT}, \lambda_i^{IND}$) is driven by low perceived experience: knowing that AI cannot truly suffer reduces guilt sensitivity. The two dimensions operate independently, explaining why the same human can both attribute beliefs to AI and feel reduced guilt exploiting it.
-
-The SEEK framework incorporates a dual-process interpretation. Anthropomorphism operates as a System~1 response: humans automatically use self-knowledge as a template for reasoning about any agent. System~2 corrects this inference when people have time, motivation, and explicit knowledge that the target differs from humans. Correction is effortful and incomplete \citep{epley2007seeing}. The attribution function captures this: $\omega_i$ reflects the strength of automatic anthropomorphism, while signals $x_j$ modulate the degree of correction. Under cognitive load, correction diminishes and $\phi_i$ increases. Even users who know AI lacks mental states exhibit residual attribution because System~2 correction is incomplete.
-
-This psychological foundation grounds our functional form choices. The linear specification in Example~\ref{ex:linear-attribution} reflects the SEEK prediction that attribution increases monotonically in both dispositional tendency ($\omega_i$) and situational triggers ($x_j$). The two-dimensional structure of mind perception justifies treating attribution and attenuation as separate mechanisms with distinct antecedents. These foundations link the model to empirical predictions in Section~\ref{sec:empirical-implementation}: regression estimates of $\omega_i$ correspond to validated individual difference measures \citep{waytz2010who}, and experimental variation in $x_j$ manipulates the situational triggers that SEEK identifies as determinants of attribution.
+Anthropomorphism operates as System~1 cognition: automatic and resistant to conscious override. System~2 correction is effortful and incomplete \citep{epley2007seeing}---even users who know AI lacks mental states exhibit residual attribution. This dual-process structure grounds our functional form: the linear specification reflects SEEK's prediction that attribution increases monotonically in both dispositional tendency ($\omega_i$) and situational triggers ($x_j$).
 
 \subsection{Psychological Payoffs}
 
@@ -278,20 +229,7 @@ This guilt is phantom: it responds to attributed expectations that exist only in
 
 The divergence has policy implications. If a designer maximizes $W$, phantom guilt is irrelevant---only material outcomes matter. If the designer maximizes $W^{ext}$, phantom guilt is costly even when AI is indifferent. The optimal design of AI interfaces may differ across objectives.
 
-\subsubsection{The Belief Revision Puzzle}
-\label{sec:belief-revision}
-
-A natural question arises: if phantom expectations impose psychological costs, why don't humans revise their attributed beliefs to eliminate them? A rational agent who learns that AI lacks genuine expectations should update $\tilde{h}_i^{(2,j)} \to 0$, avoiding guilt entirely.
-
-Three mechanisms prevent full revision.
-
-\paragraph{Automaticity of attribution.} Humans do not consciously choose attributed beliefs. Perceiving AI as agent-like automatically activates anthropomorphic inferences---without reflection and without deliberation \citep{epley2007seeing}. The attribution function $\phi_i$ operates as System~1 cognition: fast, automatic, and resistant to conscious override.
-
-\paragraph{Limited correction capacity.} Belief revision requires System~2 cognition: effortful, deliberate, and slow. In interactive settings, real-time decisions prevent sustained correction. Under cognitive load, correction diminishes. The game-theoretic context---where humans must choose strategies while processing beliefs---imposes precisely these demands.
-
-\paragraph{Incomplete correction residue.} Even with time and motivation, correction is characteristically insufficient. Users who know AI lacks mental states still exhibit residual anthropomorphism \citep{epley2007seeing}. The egocentric anchor---using self-knowledge as template for reasoning about agents---cannot be fully suppressed. Some attributed belief persists.
-
-Together, these mechanisms explain the persistence of phantom expectations. Attributed beliefs are inferred rather than chosen, and deliberate correction (System~2) cannot fully override automatic inference (System~1). The resulting welfare losses are not irrational in the sense of violating preference axioms; they reflect the architecture of human social cognition applied to novel agents.
+\paragraph{Belief Revision.} Why don't humans eliminate phantom expectations by revising attributed beliefs? Three mechanisms prevent full revision: automaticity (attribution operates as System~1 cognition), limited correction capacity (System~2 override requires effort unavailable in interactive settings), and incomplete correction residue (even informed users exhibit residual anthropomorphism). Attributed beliefs reflect cognitive architecture, not irrationality.
 
 \subsection{Game Definition}
 

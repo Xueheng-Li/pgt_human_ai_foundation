@@ -124,12 +124,7 @@ RAE captures the case where humans correctly anticipate equilibrium behavior. Th
 
 \begin{remark}[RAE vs. Zero-Anthropomorphism]
 \label{rem:RAE-vs-ZA}
-RAE and the zero-anthropomorphism benchmark are distinct concepts:
-\begin{itemize}
-    \item \textbf{Zero-anthropomorphism} (Definition~\ref{def:zero-anthro}) characterizes attributed beliefs when $\omega_i = 0$. This is a limiting case of the attribution function, independent of equilibrium strategies.
-    \item \textbf{RAE} (Definition~\ref{def:RAE}) requires attributed beliefs to equal equilibrium strategies. This is a fixed-point condition that may hold at any anthropomorphism level $\omega_i \in [0,1]$.
-\end{itemize}
-Neither concept implies the other. A zero-anthropomorphism benchmark $\tilde{h}_i^{(2,j),ZA} = 0$ typically differs from equilibrium strategy $\sigma_i^* > 0$, so zero-anthropomorphism does not yield RAE. Conversely, RAE can hold with positive anthropomorphism if the attribution function happens to project equilibrium play.
+These concepts are distinct. Zero-anthropomorphism (Definition~\ref{def:zero-anthro}) characterizes attributed beliefs when $\omega_i = 0$---a limiting case independent of equilibrium. RAE (Definition~\ref{def:RAE}) requires attributed beliefs to equal equilibrium strategies---a fixed-point condition that may hold at any $\omega_i \in [0,1]$. Neither implies the other: zero-anthropomorphism typically yields $\tilde{h}_i^{(2,j),ZA} \neq \sigma_i^*$, while RAE can hold with positive anthropomorphism.
 \end{remark}
 
 \begin{proposition}[RAE Existence]
@@ -162,14 +157,7 @@ When types are common knowledge (degenerate prior $p$), rational attribution ABE
 \end{corollary}
 
 \begin{remark}[Economic Interpretation]
-Proposition~\ref{prop:rational-attribution} identifies when the ABE framework reduces to standard Bayesian game theory:
-\begin{enumerate}
-    \item \textbf{Rational attribution as a benchmark.} When humans form beliefs about AI expectations ``correctly''---attributing to AI exactly the expectations consistent with equilibrium---the psychological game reduces to a standard game of incomplete information.
-
-    \item \textbf{Departures from rationality.} The ABE framework differs non-trivially from Bayesian games precisely when attribution is \emph{not} rational: when $\phi_i(\theta_j, x_j, \omega_i) \neq \sigma_i^*$. Such departures arise from anthropomorphic bias, signal effects, or systematic misattribution.
-
-    \item \textbf{Design implications.} If AI designers want outcomes equivalent to the rational Bayesian benchmark, they should design AI interfaces and behaviors that induce rational attribution. Conversely, strategic manipulation of attribution can shift outcomes away from the Bayesian benchmark.
-\end{enumerate}
+Proposition~\ref{prop:rational-attribution} identifies when ABE reduces to Bayesian game theory: precisely when attribution is rational. ABE departs from Bayesian predictions when $\phi_i(\theta_j, x_j, \omega_i) \neq \sigma_i^*$---due to anthropomorphic bias, signal effects, or systematic misattribution. This creates design implications: interfaces inducing rational attribution yield Bayesian outcomes; strategic manipulation shifts outcomes away from this benchmark.
 \end{remark}
 
 \begin{remark}[Equilibrium Multiplicity under Rational Attribution]
@@ -198,42 +186,11 @@ The nesting is:
 \end{equation}
 where the final inclusion holds only when zero-anthropomorphism happens to yield RAE (typically not the case).
 
-\subsubsection{Terminological Clarification}
-
-We reserve terminology as follows:
-\begin{itemize}
-    \item \textbf{``Rational''} refers exclusively to the fixed-point property in RAE. A belief is rational if it coincides with the strategy it induces. This is model-consistency, not a normative judgment about anthropomorphism levels.
-
-    \item \textbf{``Zero-anthropomorphism''} refers to the limiting case $\omega_i = 0$. This is descriptive: it characterizes what humans would attribute absent anthropomorphic bias. We avoid calling this ``rational'' since (a) anthropomorphism may be evolutionarily advantageous, and (b) the zero-anthropomorphism benchmark typically differs from equilibrium play.
-
-    \item \textbf{``Elevated anthropomorphism''} refers to cases where $\omega_i > 0$ leads to attributed beliefs exceeding the zero-anthropomorphism benchmark. We avoid ``over-anthropomorphism'' since this implies a normative standard that may not exist.
-\end{itemize}
+% Terminological notes: "Rational" refers to the fixed-point property in RAE (model-consistency, not normative judgment). "Zero-anthropomorphism" is the limiting case $\omega_i = 0$ (descriptive baseline). "Elevated anthropomorphism" means $\omega_i > 0$ leads to attributed beliefs exceeding zero-anthropomorphism benchmark.
 
 \subsubsection{When Each Concept Applies}
 
-\paragraph{ABE (General Case).}
-ABE is the appropriate concept for most applications. It accommodates arbitrary attribution functions without imposing fixed-point restrictions. Use ABE when:
-\begin{itemize}
-    \item Anthropomorphism levels vary across individuals ($\omega_i$ heterogeneous)
-    \item Attribution is based on heuristics, framing, or interface cues
-    \item Attributed beliefs may systematically diverge from equilibrium strategies
-\end{itemize}
-
-\paragraph{RAE (Special Case).}
-RAE applies when attributed beliefs happen to be ``correct'' in the sense of matching equilibrium play. Use RAE when:
-\begin{itemize}
-    \item The game has a unique, salient equilibrium that humans can identify
-    \item Experience or learning has aligned attributed beliefs with actual behavior
-    \item The attribution function is designed to project equilibrium (mechanism design)
-\end{itemize}
-
-\paragraph{Zero-Anthropomorphism Benchmark (Limiting Case).}
-The zero-anthropomorphism benchmark is useful for comparative statics and counterfactual analysis. Use it when:
-\begin{itemize}
-    \item Isolating the effect of anthropomorphism: compare outcomes at $\omega_i = 0$ vs. $\omega_i > 0$
-    \item Characterizing the zero-anthropomorphism attribution baseline
-    \item Designing interventions to reduce anthropomorphic bias
-\end{itemize}
+ABE is the general concept, accommodating heterogeneous anthropomorphism and heuristic attribution. RAE applies when attributed beliefs match equilibrium play---under learning, mechanism design, or unique salient equilibria. The zero-anthropomorphism benchmark enables comparative statics by isolating anthropomorphism effects ($\omega_i = 0$ vs.\ $\omega_i > 0$).
 
 \subsubsection{Relationship to Standard Game Theory}
 
@@ -275,34 +232,11 @@ This multiplicity has important design implications. Interface design, framing, 
 
 We provide three numerical examples demonstrating the proposition.
 
-\paragraph{Example 1: Trust Game with Guilt.}
+\paragraph{Example 1: Trust Game.}
+AI trustor ($E = 10$, $\rho_A = 0.3$), human trustee ($\gamma_H = 2$, $\lambda_H^{GUILT} = 0.5$, $\omega_H = 0.8$). Under anthropomorphic interface: $\tilde{h}_H^{(2,A)} = 15.2$, return $y^* = 15.2$. Under mechanical interface: $\tilde{h}_H^{(2,A)} = 7.2$, return $y^* = 7.2$. The interface doubles AI payoff through elevated attributed expectations.
 
-Consider a trust game with AI trustor (endowment $E = 10$, prosociality $\rho_A = 0.3$) and human trustee (guilt sensitivity $\gamma_H = 2$, attenuation $\lambda_H^{GUILT} = 0.5$, anthropomorphism $\omega_H = 0.8$). AI sends $x = 10$; human returns $y \in [0, 30]$. Human utility: $U_H = 30 - y - \max\{0, \tilde{h}_H^{(2,A)} - y\}$.
+\paragraph{Example 2: Public Goods.}
+One human, one AI ($E = 10$, $m = 1.5$, binary contributions). AI contributes $c_A = 10$. Human: $\beta_H = 8$, $\lambda_H^{IND} = 0.5$. Material gain from defection: 2.5. Under high attribution ($\tilde{h}_H^{(2,A)}(C) = 0.64$): indignation cost $= 2.56 > 2.5$, human cooperates. Under low attribution ($\tilde{h}_H^{(2,A)}(C) = 0.16$): indignation cost $= 0.64 < 2.5$, human defects.
 
-\emph{Attribution $\phi$ (anthropomorphic interface)}: $\tilde{h}_H^{(2,A)} = 0.8(0.3 \times 30 + 0.5 \times 20) = 15.2$.
-
-\emph{Attribution $\phi'$ (mechanical interface)}: $\tilde{h}_H^{(2,A)} = 0.8 \times 0.3 \times 30 = 7.2$.
-
-Equilibrium returns: $y^*(\phi) = 15.2$, $y^*(\phi') = 7.2$. The anthropomorphic interface doubles AI's payoff (from 7.2 to 15.2) through elevated attributed expectations.
-
-\paragraph{Example 2: Public Goods with Indignation.}
-
-Consider a public goods game: one human, one AI, endowment $E = 10$, multiplier $m = 1.5$, binary contributions $\{0, 10\}$. AI contributes $c_A = 10$. Human has $\beta_H = 8$, $\lambda_H^{IND} = 0.5$. Material payoffs: defection yields 17.5, cooperation yields 15.
-
-\emph{Attribution $\phi$ (high)}: $\tilde{h}_H^{(2,A)}(C) = 0.64$. Indignation cost from defection: $8 \times 0.5 \times 0.64 = 2.56 > 2.5$ (material gain). Human cooperates.
-
-\emph{Attribution $\phi'$ (low)}: $\tilde{h}_H^{(2,A)}(C) = 0.16$. Indignation cost: $8 \times 0.5 \times 0.16 = 0.64 < 2.5$. Human defects.
-
-Equilibrium contributions: $c_H^*(\phi) = 10$, $c_H^*(\phi') = 0$.
-
-\paragraph{Example 3: Coordination Game.}
-
-One human, one AI, choose technology $\{A, B\}$. Coordination yields payoff 2; miscoordination yields 0. AI plays $A$. Human has expectation conformity parameter $\beta_H = 3$.
-
-\emph{Attribution $\phi$}: Human believes AI expects $A$ with probability 0.9. Utility: $U_H(A) = 2$, $U_H(B) = -2.7$. Human plays $A$.
-
-\emph{Attribution $\phi'$}: Human believes AI expects $B$ with probability 0.9. Utility: $U_H(A) = -0.7$, $U_H(B) = 0$. Human plays $B$.
-
-Under $\phi$: ABE is $(A, A)$ with payoffs $(2, 2)$. Under $\phi'$: ABE is $(B, A)$ with payoffs $(0, 0)$.
-
-The attribution function serves as an equilibrium selection device, determining whether coordination succeeds.
+\paragraph{Example 3: Coordination.}
+One human, one AI choosing technology $\{A, B\}$. Coordination: 2; miscoordination: 0. AI plays $A$; human has $\beta_H = 3$. Under $\phi$ (AI expects $A$ with probability 0.9): human plays $A$, ABE is $(A, A)$. Under $\phi'$ (AI expects $B$ with probability 0.9): human plays $B$, ABE is $(B, A)$ with payoffs $(0, 0)$. Attribution serves as equilibrium selection device.

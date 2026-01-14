@@ -82,7 +82,7 @@ Consider a coordination game where players choose between two technologies, $A$ 
 \]
 
 \paragraph{Psychological foundation.}
-The expectation conformity mechanism extends guilt and indignation motives to coordination settings. Whereas guilt arises from falling short of perceived obligations (Definition~\ref{def:guilt}), expectation conformity captures the broader tendency to align actions with perceived social expectations---a pattern documented in social psychology \citep{cialdini_Social_1998a}. When humans perceive that others expect a particular action, conforming reduces social anxiety and cognitive dissonance. In human-AI coordination, this mechanism operates through attributed beliefs: humans who attribute expectations to AI experience pressure to conform, even when AI lacks genuine expectations.
+Expectation conformity extends guilt and indignation motives to coordination: humans experience pressure to match perceived social expectations \citep{cialdini_Social_1998a}. Through attributed beliefs, this mechanism operates in human-AI coordination even when AI lacks genuine expectations.
 
 Suppose humans experience expectation conformity: deviating from others' perceived expectations creates disutility. For a 2-player game (one human $H$, one AI $A$), the human's psychological payoff is:
 \[
@@ -112,16 +112,16 @@ This has practical implications for AI-assisted coordination. When humans need t
 The applications yield principles for AI design in strategic settings.
 
 \paragraph{Interface determines equilibrium.}
-Anthropomorphic design features---voice, naming, emotional expression---are not window dressing. They enter equilibrium through the attribution function $\phi_i(\theta_j, x_j, \omega_i)$: higher anthropomorphism $\omega_i$ elevates attributed beliefs $\tilde{h}_i^{(2,j)}$, which in turn affect psychological payoffs and optimal strategies. The trust game (Proposition~\ref{prop:trust}) shows that identical material payoffs support different equilibrium returns depending solely on how anthropomorphic the AI appears.
+Anthropomorphic design features---voice, naming, emotional expression---enter equilibrium through the attribution function: higher $\omega_i$ elevates attributed beliefs $\tilde{h}_i^{(2,j)}$, affecting psychological payoffs and optimal strategies. The trust game (Proposition~\ref{prop:trust}) shows that identical material payoffs support different equilibrium returns depending on how anthropomorphic the AI appears.
 
 \paragraph{Match presentation to objectives.}
-When AI is prosocially designed ($\rho_A > 0$), anthropomorphic presentation amplifies cooperation. Elevated attributed expectations make guilt and indignation salient, inducing humans to reciprocate trust and contribute to public goods. But when AI is materialistically designed ($\rho_A = 0$), anthropomorphic presentation creates phantom expectations---humans feel guilty for disappointing agents that neither expect nor care. Mechanical presentation avoids this welfare-reducing mismatch.
+With prosocial AI ($\rho_A > 0$), anthropomorphic presentation amplifies cooperation: elevated attributed expectations make guilt and indignation salient. With materialist AI ($\rho_A = 0$), anthropomorphic presentation creates phantom expectations---humans feel guilty for disappointing agents that neither expect nor care. Mechanical presentation avoids this welfare-reducing mismatch.
 
 \paragraph{Attenuation cuts both ways.}
-The attenuation factors $\lambda^{GUILT}$ and $\lambda^{IND}$ reduce the psychological weight of AI expectations relative to human expectations. This protects humans from phantom expectations when AI is materialistic, but it also limits the cooperation-inducing power of prosocial AI. The public goods analysis (Proposition~\ref{prop:public-goods}) reveals that when $\lambda^{IND}$ is low, increasing the AI share may paradoxically \emph{undermine} cooperation: the material channel (diluted marginal returns) dominates the psychological channel (attributed expectations). Optimal attenuation depends on whether AI in the environment is predominantly prosocial or materialistic---a question with cross-cultural dimensions given documented variation in moral emotion attenuation toward machines \citep{karpus2025cross}.
+Attenuation factors $\lambda^{GUILT}$ and $\lambda^{IND}$ protect humans from phantom expectations when AI is materialistic, but also limit cooperation-inducing effects with prosocial AI. When $\lambda^{IND}$ is low, increasing AI share may paradoxically undermine cooperation: material temptation dominates attenuated psychological pressure (Proposition~\ref{prop:public-goods}). Optimal attenuation depends on whether AI in the environment is predominantly prosocial or materialistic---a question with cross-cultural dimensions \citep{karpus2025cross}.
 
 \paragraph{AI as coordination device.}
-Beyond dyadic interactions, AI can serve as a \emph{constructed focal point} in coordination problems. Unlike spontaneous Schelling focal points, this mechanism operates through design commitment, clear signalling ($x_A > 0.5$), and attribution: humans who attribute expectations to AI experience psychological pressure to conform. The coordination game (Proposition~\ref{prop:coordination}) shows that AI can resolve equilibrium multiplicity, selecting the efficient outcome when material incentives alone leave coordination indeterminate.
+Beyond dyadic interactions, AI can serve as a \emph{constructed focal point}. Unlike spontaneous Schelling focal points, this mechanism operates through design commitment, clear signalling ($x_A > 0.5$), and attribution. Proposition~\ref{prop:coordination} shows that AI can resolve equilibrium multiplicity when material incentives alone leave coordination indeterminate.
 
 \medskip
 

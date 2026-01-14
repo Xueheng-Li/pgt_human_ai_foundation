@@ -1,172 +1,35 @@
 % Proof of Proposition: Welfare Effects of Anthropomorphism
 % Appendix material for main manuscript
-% Notation follows sec_framework.tex, sec_applications.tex, and sec_welfare.tex
-%
-% This proof establishes Proposition~\ref{prop:welfare-anthro}:
-%   Part 1: When AI is prosocially designed ($\rho_A > 0$), higher anthropomorphism $\omega$
-%           weakly increases material welfare $W(s^*)$.
-%   Part 2: When AI is materialistically designed ($\rho_A = 0$), higher anthropomorphism $\omega$
-%           may reduce extended welfare $W^{ext}(s^*, h^*, \tilde{h}^*)$.
+% Condensed version: 2026-01-14 (numerical example and remarks moved to Online Appendix OA.6.1)
 
 \begin{proof}[Proof of Proposition~\ref{prop:welfare-anthro}]
-Two claims. Part 1 requires (A1)--(A3) from Section~\ref{sec:framework}, plus (A2') attribution monotonicity, (E) cooperation efficiency ($m > 1$), and (I) indignation dominance. Part 2 requires (A2') and (G) guilt dominance ($G = \gamma_H \lambda_H^{GUILT} > 1$).
-
-%------------------------------------------------------------------------------
-% PART 1: Prosocial AI and Material Welfare
-%------------------------------------------------------------------------------
+Two claims. Part 1 requires (A2') attribution monotonicity, (E) cooperation efficiency, and (I) indignation dominance. Part 2 requires (A2') and (G) guilt dominance.
 
 \medskip
-\noindent\textbf{Part 1: When AI is prosocially designed ($\rho_A > 0$), higher anthropomorphism $\omega$ weakly increases material welfare $W(s^*)$.}
+\noindent\textbf{Part 1: Higher anthropomorphism weakly increases material welfare when AI is prosocial.}
 
-\medskip
-\emph{Step 1 (Setup).}
-Consider the public goods game of Section~\ref{sec:applications} with $n_H$ humans and $n_A \geq 1$ AI agents. Material payoffs $\pi_i(c) = E - c_i + (m/n)\sum_k c_k$ and prosocial AI ($\rho_A > 0$) imply full AI contribution: $c_A = E$. Under dispositional attribution (Definition~\ref{def:attribution-function}), humans attribute expectations $\tilde{h}_i^{(2,j)}(E) = \omega_i \cdot \bar{h}_H$ for $j \in N_A$, where $\bar{h}_H > 0$ is the baseline when AI cooperates. Cooperation is efficient: $W^C - W^D = n(m-1)E > 0$.
-
-\medskip
-\emph{Step 2 (Cooperation threshold).}
-By Proposition~\ref{prop:public-goods}(i), human $i$ cooperates when:
-\begin{equation}\label{eq:coop-ic-welfare}
+By Proposition~\ref{prop:public-goods}(i), human $i$ cooperates when the psychological cost of defection exceeds the material gain:
+\begin{equation}
     \beta_i \left[ (n_H - 1) + \lambda_i^{IND} n_A \omega_i \bar{h}_H \right] \geq E\left(1 - \frac{m}{n}\right).
 \end{equation}
-The left-hand side is the psychological cost of defection; the right-hand side is the material gain. Higher $\omega_i$ raises the left-hand side, making cooperation more attractive.
+Solving yields threshold $\bar{\omega}_i = [E(1 - m/n) - \beta_i(n_H - 1)] / [\beta_i \lambda_i^{IND} n_A \bar{h}_H]$.
 
-Solving for the threshold:
-\begin{equation}\label{eq:threshold-welfare}
-    \bar{\omega}_i = \frac{E(1 - m/n) - \beta_i(n_H - 1)}{\beta_i \lambda_i^{IND} n_A \bar{h}_H}.
-\end{equation}
-This formula applies when $n_A \geq 1$. When $n_A = 0$, the game reduces to standard human-only public goods, and welfare results follow from Proposition~\ref{prop:public-goods} directly.
+Since $\partial \bar{\omega}_i / \partial \omega_i < 0$ under (A2'), higher $\omega$ makes cooperation easier to sustain. Welfare is $W(s^*) = nE$ under defection and $W(s^*) = nmE$ under cooperation. At threshold crossing, welfare jumps by $n(m-1)E > 0$. Hence $\partial W(s^*) / \partial \omega \geq 0$. \qed
 
 \medskip
-\emph{Step 3 (Comparative static).}
-We establish $\partial W(s^*) / \partial \omega \geq 0$. Consider symmetric anthropomorphism $\omega_i = \omega$ for all humans; with heterogeneous $\omega_i$, threshold crossing occurs when the marginal human reaches threshold.
+\noindent\textbf{Part 2: Higher anthropomorphism may reduce extended welfare when AI is materialist.}
 
-\textbf{Case 1: $\omega < \bar{\omega}$ for all humans.}
-Cooperation is unsustainable. Defection equilibrium prevails: $W(s^*) = nE$. Marginal increases in $\omega$ below threshold leave welfare unchanged.
+Consider the trust game with materialist AI ($\rho_A = 0$). The zero-anthropomorphism benchmark is $\tilde{h}^{(2,A),ZA} = 0$. A human with $\omega_H > 0$ attributes phantom expectations $\tilde{h}_H^{(2,A)} = \omega_H \cdot 5x > 0$.
 
-\textbf{Case 2: $\omega > \bar{\omega}$ for all humans.}
-Cooperation equilibrium is sustainable: $W(s^*) = nmE$. Marginal increases beyond threshold do not change behavior.
-
-\textbf{Case 3 (Threshold crossing): $\omega$ crosses $\bar{\omega}$.}
-Equilibrium switches from defection to cooperation. Welfare jumps discretely by $n(m-1)E > 0$. At $\omega = \bar{\omega}$ exactly, humans are indifferent; we assume cooperation is selected.
-
-Combining cases: $\partial W(s^*) / \partial \omega \geq 0$, with strict improvement at threshold crossings.
-
-\medskip
-\emph{Step 4 (Role of conditions).}
-\begin{itemize}
-    \item \textbf{(A2') Attribution Monotonicity}: Higher $\omega$ leads to higher attributed expectations. Without it, the mapping could reverse the welfare result.
-    \item \textbf{(E) Cooperation Efficiency}: $m > 1$ ensures the efficiency gap $W^C - W^D = n(m-1)E$ is positive. If $m < 1$, this gap would be negative.
-    \item \textbf{(I) Indignation Dominance}: Requires $E(1 - m/n) \leq \beta_i[(n_H - 1) + \lambda_i^{IND} n_A \bar{h}_H]$, ensuring $\bar{\omega}_i \leq 1$ so the threshold is attainable within $\omega_i \in [0,1]$.
-    \item \textbf{Prosocial AI}: $\rho_A > 0$ ensures AI cooperates and generates high attributed expectations.
-\end{itemize}
-
-This completes Part 1. \hfill $\square$
-
-%------------------------------------------------------------------------------
-% PART 2: Materialist AI and Extended Welfare
-%------------------------------------------------------------------------------
-
-\medskip
-\noindent\textbf{Part 2: When AI is materialistically designed ($\rho_A = 0$), higher anthropomorphism $\omega$ may reduce extended welfare $W^{ext}(s^*, h^*, \tilde{h}^*)$.}
-
-\medskip
-We construct a setting where higher $\omega$ strictly reduces $W^{ext}$. The mechanism is \emph{phantom expectations}: humans attribute expectations to AI agents that have no prosocial objectives, incurring psychological costs without offsetting benefits.
-
-\medskip
-\emph{Step 1 (Setup).}
-Consider the trust game of Section~\ref{sec:applications}. The AI trustor sends $x \in [0, E]$; the human trustee returns $y \in [0, 3x]$. Materialist design ($\rho_A = 0$) means AI utility is purely material: $U_A = E - x + y$.
-
-\medskip
-\emph{Step 2 (Zero-anthropomorphism benchmark).}
-A rational observer knowing $\rho_A = 0$ would attribute zero expectations, since materialist AI has no prosocial objective. Formally, the zero-anthropomorphism benchmark is $\tilde{h}^{(2,A),ZA} = 0$.
-
-\medskip
-\emph{Step 3 (Phantom expectations).}
-A human with $\omega_H > 0$ attributes expectations $\tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x, \omega_H)$. We specify a linear attribution function $\phi_H(0, x, \omega_H) = \omega_H \cdot 5x$, which satisfies (A2') monotonicity and yields positive attributed expectations when $\omega_H > 0$ and $x > 0$. Thus:
-\begin{equation}
-    \tilde{h}_H^{(2,A)} > 0 = \tilde{h}^{(2,A),ZA}.
-\end{equation}
-This is \textbf{elevated anthropomorphism}: attributed expectations exceed the zero-anthropomorphism benchmark. We call $\tilde{h}_H^{(2,A)}$ a \textbf{phantom expectation}---it exists in the human's model but has no counterpart in AI preferences.
-
-\medskip
-\emph{Step 4 (Equilibrium return).}
-Under guilt dominance (G) with $G = \gamma_H \lambda_H^{GUILT} > 1$, the human returns $y^* = \min\{\tilde{h}_H^{(2,A)}, 3x\}$ (Proposition~\ref{prop:trust}). When $\tilde{h}_H^{(2,A)} > 0$, the human returns positive amounts solely because attributed expectations exist---not because the AI benefits psychologically.
-
-\medskip
-\emph{Step 5 (Extended welfare).}
-Extended welfare is $W^{ext} = \sum_i \pi_i(s^*) + \sum_{i \in N_H} \psi_i$. The human's guilt (Definition~\ref{def:guilt}) is:
-\begin{equation}
-    \psi_H^{GUILT} = -G \cdot \max\{0, \tilde{h}_H^{(2,A)} - y^*\}.
-\end{equation}
-When $\tilde{h}_H^{(2,A)} > 3x$, then $y^* = 3x < \tilde{h}_H^{(2,A)}$, and:
+Under (G), $y^* = \min\{\tilde{h}_H^{(2,A)}, 3x\}$. When $\tilde{h}_H^{(2,A)} > 3x$:
 \begin{equation}
     \psi_H^{GUILT} = -G \cdot (\tilde{h}_H^{(2,A)} - 3x) < 0.
 \end{equation}
-The human incurs guilt from failing to meet phantom expectations. This guilt is pure welfare loss.
+This guilt is pure welfare loss---phantom expectations have no counterpart in AI preferences.
 
-\medskip
-\emph{Step 6 (Numerical example).}
-Fix $E = 10$, $x = 10$, $G = 1.5$, and $\phi_H(0, x, \omega_H) = \omega_H \cdot 5x$.
-
-\textbf{Moderate anthropomorphism ($\omega_H = 0.6$):}
-$\tilde{h}_H^{(2,A)} = 30$, $y^* = 30$, $\psi_H^{GUILT} = 0$. No guilt: expectations exactly met.
-
-\textbf{High anthropomorphism ($\omega_H = 1.0$):}
-$\tilde{h}_H^{(2,A)} = 50$, $y^* = 30$, $\psi_H^{GUILT} = -30$. Maximum return but unmet expectations.
-
-\begin{center}
-\begin{tabular}{lcc}
-\hline
-& $\omega_H = 0.6$ & $\omega_H = 1.0$ \\
-\hline
-Attributed expectation & 30 & 50 \\
-Equilibrium return & 30 & 30 \\
-Material welfare & 30 & 30 \\
-Human guilt & 0 & $-30$ \\
-Extended welfare & 30 & 0 \\
-\hline
-\end{tabular}
-\end{center}
-
-Extended welfare falls from 30 to 0 as $\omega_H$ rises from 0.6 to 1.0.
-
-\medskip
-\emph{Step 7 (Mechanism summary).}
-The mechanism requires materialist AI ($\rho_A = 0$), elevated anthropomorphism ($\tilde{h}_H^{(2,A)} > 0$), and phantom expectations exceeding feasible returns. The resulting guilt benefits no one: pure welfare loss.
-
-This completes the existence proof for Part 2. \hfill $\square$
+See Online Appendix OA.6.1 for numerical example demonstrating extended welfare falling from 30 to 0 as $\omega_H$ rises. \qed
 \end{proof}
 
-%------------------------------------------------------------------------------
-% REMARKS
-%------------------------------------------------------------------------------
-
-\begin{remark}[Weak versus strict inequality]
-\label{rem:weak-vs-strict}
-The welfare effect is weak ($\geq$) rather than strict ($>$) because anthropomorphism affects welfare only at threshold crossings. Within the defection or cooperation region, marginal changes do not alter equilibrium behavior.
-\end{remark}
-
-\begin{remark}[Why ``may reduce'']
-\label{rem:may-reduce}
-Part 2 states ``may reduce'' because welfare loss requires severe elevated anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$). When $\tilde{h}_H^{(2,A)} \leq 3x$, the human satisfies attributed expectations and incurs no guilt.
-\end{remark}
-
-\begin{remark}[Asymmetry between parts]
-\label{rem:comparison-parts}
-The parts reveal a fundamental asymmetry:
-\begin{itemize}
-    \item Part 1 (prosocial AI): Attributed expectations \emph{align} with AI objectives; guilt creates mutual gains.
-    \item Part 2 (materialist AI): Attributed expectations \emph{diverge} from AI objectives; guilt creates pure loss.
-\end{itemize}
-The critical difference is whether attributed expectations correspond to genuine AI preferences.
-\end{remark}
-
-\begin{remark}[Connection to application propositions]
-\label{rem:connection-propositions}
-Part 1 extends Proposition~\ref{prop:public-goods}(i) with welfare implications; Part 2 builds on Proposition~\ref{prop:trust} to show phantom expectations harm.
-\end{remark}
-
-\begin{remark}[Policy implications]
-\label{rem:transparency}
-The phantom expectations mechanism suggests a case for AI transparency. If humans could accurately assess $\rho_A$, they would set $\tilde{h}_H^{(2,A)} = 0$ when $\rho_A = 0$, avoiding welfare-reducing guilt. Opaque AI design that obscures materialist objectives while presenting anthropomorphic interfaces may cause psychological harm without social benefit.
+\begin{remark}
+Extended analysis including the weak vs.\ strict inequality distinction, asymmetry between parts, and policy implications for AI transparency appears in Online Appendix OA.6.1.
 \end{remark}

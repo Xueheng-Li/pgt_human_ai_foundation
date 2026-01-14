@@ -1,171 +1,68 @@
 % Proof of Proposition: Coordination ABE
 % Appendix material for main manuscript
-% Notation follows sec_framework.tex and sec_applications.tex
-
-% Note: The proposition statement is in sec_applications.tex.
-% This proof requires Assumption (A2') Attribution Monotonicity and
-% condition (C) Signal Clarity: $x_A > 0.5$.
+% Condensed version: 2026-01-14 (remarks moved to Online Appendix OA.5.3)
 
 \begin{proof}[Proof of Proposition~\ref{prop:coordination}]
-The proposition establishes three claims about coordination games with AI as focal point providers. We first formalize the game structure and then prove each claim.
+The proposition establishes three claims about coordination games with AI as focal point providers. Required conditions: (A2') Attribution Monotonicity and (C) Signal Clarity ($x_A > 0.5$).
 
 \medskip
 \noindent\textbf{Game Setup.}
+One human $H$ and one AI $A$, each choosing from $\{A, B\}$. Material payoffs: 2 if coordinated, 0 otherwise. AI has design commitment $\theta_A > 0$ favoring action $A$. Human experiences expectation conformity: $\psi_H(s_H) = -\beta_H \lambda_H^{EC} \sum_{s' \neq s_H} \tilde{h}_H^{(2,A)}(s')$.
 
-Consider a coordination game with one human $H \in N_H$ and one AI agent $A \in N_A$. Each player chooses from $S_H = S_A = \{A, B\}$. Material payoffs are:
-\begin{equation}
-    \pi_i(s) = \begin{cases}
-        2 & \text{if } s_H = s_A \\
-        0 & \text{otherwise}
-    \end{cases}
-\end{equation}
-The material game has two Nash equilibria: $(A, A)$ and $(B, B)$.
+Attribution: $\tilde{h}_H^{(2,A)}(A) = \omega_H x_A$ and $\tilde{h}_H^{(2,A)}(B) = \omega_H(1 - x_A)$.
 
-The AI is designed with commitment to technology $A$: its utility is $U_A(s) = \pi_A(s) + \theta_A \cdot \mathbf{1}_{s_A = A}$ where $\theta_A > 0$. The human experiences expectation conformity: deviating from the AI's perceived expectation creates psychological cost.
-
-The human's psychological payoff is:
-\begin{equation}
-    \psi_H(s_H) = -\beta_H \cdot \lambda_H^{EC} \cdot \sum_{s' \neq s_H} \tilde{h}_H^{(2,A)}(s'),
-\end{equation}
-where $\tilde{h}_H^{(2,A)}(s')$ is the attributed probability that AI expected human to play $s'$. Since $S_H = \{A, B\}$:
-\begin{itemize}
-    \item If $s_H = A$: $\psi_H = -\beta_H \lambda_H^{EC} \cdot \tilde{h}_H^{(2,A)}(B)$
-    \item If $s_H = B$: $\psi_H = -\beta_H \lambda_H^{EC} \cdot \tilde{h}_H^{(2,A)}(A)$
-\end{itemize}
-
-The attribution function determines how the human forms attributed beliefs. When AI plays $A$ and signals with clarity $x_A \in [0,1]$:
-\begin{equation}
-    \tilde{h}_H^{(2,A)}(A) = \omega_H \cdot x_A, \quad \tilde{h}_H^{(2,A)}(B) = \omega_H \cdot (1 - x_A).
-\end{equation}
-
-\medskip
-\noindent\textbf{Required Conditions.}
-\begin{itemize}
-    \item (A2') Attribution Monotonicity: $\partial \tilde{h}_H^{(2,A)}(A) / \partial \omega_H \geq 0$
-    \item (C) Signal Clarity: $x_A > 0.5$, meaning AI's signal favors action $A$
-\end{itemize}
+%------------------------------------------------------------------------------
+% PART (i)
+%------------------------------------------------------------------------------
 
 \medskip
 \noindent\textbf{Proof of (i): AI signaling $A$ clearly makes attributed beliefs favour $A$.}
 
-\emph{Step 1 (AI's optimal strategy).} Given design commitment $\theta_A > 0$, the AI's utility is:
-\begin{align}
-    U_A(A, s_H) &= \pi_A(A, s_H) + \theta_A, \\
-    U_A(B, s_H) &= \pi_A(B, s_H).
-\end{align}
-
-If $s_H = A$: $U_A(A, A) = 2 + \theta_A > U_A(B, A) = 0$.
-
-If $s_H = B$: $U_A(A, B) = \theta_A$ vs $U_A(B, B) = 2$. For $\theta_A > 2$, AI prefers $A$ regardless of human play. For $\theta_A \leq 2$, AI prefers $A$ when human plays $A$, ensuring $(A, A)$ is an equilibrium.
-
-Under the design interpretation that the AI is \emph{programmed} to coordinate on $A$ (a binding constraint, not merely a preference), $s_A^* = A$ in any ABE.
-
-\emph{Step 2 (Attribution favours $A$).} Given AI plays $A$ and signals with clarity $x_A$:
-\begin{align}
-    \tilde{h}_H^{(2,A)}(A) &= \omega_H \cdot x_A, \\
-    \tilde{h}_H^{(2,A)}(B) &= \omega_H \cdot (1 - x_A).
-\end{align}
-
-Under condition (C) with $x_A > 0.5$:
+Given AI plays $A$ and signals with $x_A > 0.5$ (condition C):
 \begin{equation}
-    \tilde{h}_H^{(2,A)}(A) = \omega_H \cdot x_A > \omega_H \cdot (1 - x_A) = \tilde{h}_H^{(2,A)}(B).
+    \tilde{h}_H^{(2,A)}(A) = \omega_H x_A > \omega_H(1 - x_A) = \tilde{h}_H^{(2,A)}(B).
 \end{equation}
+Attributed beliefs favour $A$. See Online Appendix OA.5.3 for detailed AI utility calculations. \qed
 
-Hence attributed beliefs favour $A$: the human believes AI expected $A$ with higher probability than $B$. \qed
+%------------------------------------------------------------------------------
+% PART (ii)
+%------------------------------------------------------------------------------
 
 \medskip
 \noindent\textbf{Proof of (ii): High anthropomorphism amplifies the psychological pull toward the AI-favoured equilibrium.}
 
-\emph{Step 1 (Define psychological pull).} The psychological pull toward $A$ is the utility advantage from matching AI:
-\begin{equation}
-    \Delta U_H \equiv U_H(A; A) - U_H(B; A).
-\end{equation}
-
-\emph{Step 2 (Compute utilities).} Given $s_A = A$:
+Define psychological pull: $\Delta U_H \equiv U_H(A; A) - U_H(B; A)$. Given $s_A = A$:
 \begin{align}
-    U_H(A; A) &= \pi_H(A, A) + \psi_H(A) = 2 - \beta_H \lambda_H^{EC} \cdot \omega_H(1 - x_A), \\
-    U_H(B; A) &= \pi_H(B, A) + \psi_H(B) = 0 - \beta_H \lambda_H^{EC} \cdot \omega_H \cdot x_A.
+    U_H(A; A) &= 2 - \beta_H \lambda_H^{EC} \omega_H(1 - x_A), \\
+    U_H(B; A) &= 0 - \beta_H \lambda_H^{EC} \omega_H x_A.
 \end{align}
 
-\emph{Step 3 (Derive the pull).}
-\begin{align}
-    \Delta U_H &= 2 - \beta_H \lambda_H^{EC} \omega_H(1 - x_A) + \beta_H \lambda_H^{EC} \omega_H x_A \\
-    &= 2 + \beta_H \lambda_H^{EC} \omega_H (2x_A - 1).
-\end{align}
-
-\emph{Step 4 (Comparative statics).}
+Thus:
 \begin{equation}
-    \frac{\partial \Delta U_H}{\partial \omega_H} = \beta_H \lambda_H^{EC} (2x_A - 1).
+    \Delta U_H = 2 + \beta_H \lambda_H^{EC} \omega_H (2x_A - 1).
 \end{equation}
 
-Under condition (C), $x_A > 0.5$ implies $2x_A - 1 > 0$, so:
+Comparative static:
 \begin{equation}
-    \frac{\partial \Delta U_H}{\partial \omega_H} = \beta_H \lambda_H^{EC} (2x_A - 1) > 0.
+    \frac{\partial \Delta U_H}{\partial \omega_H} = \beta_H \lambda_H^{EC} (2x_A - 1) > 0 \quad \text{(since } x_A > 0.5\text{)}.
 \end{equation}
 
-Higher anthropomorphism $\omega_H$ increases the utility advantage of playing $A$. The psychological pull toward the AI-favoured equilibrium is amplified. \qed
+Higher anthropomorphism increases the utility advantage of playing $A$. \qed
+
+%------------------------------------------------------------------------------
+% PART (iii)
+%------------------------------------------------------------------------------
 
 \medskip
 \noindent\textbf{Proof of (iii): AI can serve as focal point providers, resolving coordination problems.}
 
-\emph{Step 1 (Material game multiplicity).} The material game has two Nash equilibria: $(A, A)$ and $(B, B)$, both yielding payoffs $(2, 2)$. Neither is payoff-dominant; the game exhibits coordination multiplicity.
+\emph{$(A, A)$ is an ABE.} By Part (ii), $\Delta U_H > 0$, so $A$ is the unique best response to $s_A = A$. Given design commitment $\theta_A > 0$, AI optimally plays $A$. All ABE conditions are satisfied.
 
-\emph{Step 2 ($(A, A)$ is an ABE).} We verify the four ABE conditions:
-\begin{enumerate}
-    \item \textbf{Human optimality (ABE1):} By Claim (ii), $\Delta U_H = 2 + \beta_H \lambda_H^{EC} \omega_H (2x_A - 1) > 0$ when $x_A > 0.5$ and parameters are positive. Hence $A$ is the unique best response to $s_A = A$.
+\emph{$(B, B)$ is not an ABE.} Either $\theta_A > 2$ (AI deviates to $A$) or under binding constraint interpretation, $s_A = B$ violates the AI's programmed behavior.
 
-    \item \textbf{AI optimality (ABE2):} Given design commitment $\theta_A > 0$ and the human playing $A$, we have $U_A(A, A) = 2 + \theta_A > U_A(B, A) = 0$. Hence $A$ is optimal for AI.
-
-    \item \textbf{Genuine belief consistency (ABE3):} With only one human, this is vacuously satisfied.
-
-    \item \textbf{Attribution consistency (ABE4):} By construction, $\tilde{h}_H^{(2,A)} = \phi_H(\theta_A, x_A, \omega_H)$.
-\end{enumerate}
-
-Therefore $(A, A)$ is an ABE.
-
-\emph{Step 3 ($(B, B)$ is not an ABE).} At profile $(B, B)$:
-\begin{itemize}
-    \item If $\theta_A > 2$: $U_A(A, B) = \theta_A > 2 = U_A(B, B)$, so AI deviates to $A$. ABE2 fails.
-    \item If $\theta_A \leq 2$: Under the binding constraint interpretation (AI is \emph{programmed} to play $A$), $s_A = B$ violates the constraint. ABE2 fails.
-\end{itemize}
-
-Therefore $(B, B)$ is not an ABE.
-
-\emph{Step 4 (Uniqueness).} Any ABE must have $s_A^* = A$ by AI optimality. Given $s_A^* = A$, human's unique best response is $A$ (by Claim ii). Hence $(A, A)$ is the unique ABE.
-
-\emph{Step 5 (Focal point mechanism).} AI resolves coordination multiplicity through:
-\begin{enumerate}
-    \item \textbf{Commitment}: Design parameter $\theta_A > 0$ ensures AI plays $A$
-    \item \textbf{Signaling}: Clarity $x_A > 0.5$ makes AI's choice salient
-    \item \textbf{Attribution}: Human attributes expectations $\tilde{h}_H^{(2,A)}(A) > \tilde{h}_H^{(2,A)}(B)$
-    \item \textbf{Psychological pressure}: Expectation conformity penalizes deviation from $A$
-\end{enumerate}
-The AI serves as an endogenous focal point provider. \qed
+\emph{Focal point mechanism.} AI resolves multiplicity through: (1) commitment via $\theta_A$; (2) signaling via $x_A > 0.5$; (3) attribution via $\tilde{h}_H^{(2,A)}(A) > \tilde{h}_H^{(2,A)}(B)$; (4) psychological pressure via expectation conformity. \qed
 \end{proof}
 
-\begin{remark}[Numerical Example]
-\label{rem:coordination-example}
-Consider $\beta_H = 3$, $\lambda_H^{EC} = 0.5$, $\omega_H = 0.8$, $x_A = 0.9$, $\theta_A = 0.5$.
-
-Attribution: $\tilde{h}_H^{(2,A)}(A) = 0.8 \times 0.9 = 0.72$, $\tilde{h}_H^{(2,A)}(B) = 0.08$.
-
-Utilities given $s_A = A$:
-\begin{align*}
-    U_H(A; A) &= 2 - 3 \times 0.5 \times 0.08 = 2 - 0.12 = 1.88, \\
-    U_H(B; A) &= 0 - 3 \times 0.5 \times 0.72 = -1.08.
-\end{align*}
-
-Psychological pull: $\Delta U_H = 1.88 - (-1.08) = 2.96 > 0$. Human strictly prefers $A$.
-\end{remark}
-
-\begin{remark}[The knife-edge case $x_A = 0.5$]
-When $x_A = 0.5$, attributed beliefs are symmetric: $\tilde{h}_H^{(2,A)}(A) = \tilde{h}_H^{(2,A)}(B) = 0.5 \omega_H$. The psychological pull reduces to $\Delta U_H = 2$, identical to the material game. AI cannot serve as a focal point when its signal is uninformative.
-\end{remark}
-
-\begin{remark}[Contrast with Schelling Focal Points]
-Schelling's focal points rely on external salience (shared conventions, cultural prominence). The AI focal point mechanism is \emph{endogenous}: AI engineers salience through design and signaling. It is a constructed focal point, not a spontaneous one.
-\end{remark}
-
-\begin{remark}[Connection to Proposition~\ref{prop:multiplicity}]
-The coordination game satisfies the conditions for attribution-dependent multiplicity. Different attribution functions (varying $x_A$ or $\omega_H$) yield different equilibrium selections: high attribution selects $(A, A)$; low attribution preserves multiplicity. AI design choices affect equilibrium through the attribution channel.
+\begin{remark}
+Extended analysis including numerical example, knife-edge case $x_A = 0.5$, contrast with Schelling focal points, and connection to multiplicity appears in Online Appendix OA.5.3.
 \end{remark}
