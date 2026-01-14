@@ -12,10 +12,10 @@
 - [x] Add Section 6.1 "Empirical Agenda"
 
 ### CR2: Existence Proof Tightening
-- [ ] Rewrite Appendix A.1 with three attribution cases
-- [ ] Specify topology (weak*)
-- [ ] Add Lemma A.1 (boundedness from A1)
-- [ ] Verify φᵢ produces valid distributions
+- [x] Rewrite Appendix A.1 with three attribution cases
+- [x] Specify topology (weak*)
+- [x] Add Lemma A.1 (boundedness from A1)
+- [x] Verify φᵢ produces valid distributions
 
 ### CR3: Welfare Measure Justification
 - [ ] Add Section 2.7 "Welfare Measures" with Definitions 3-4

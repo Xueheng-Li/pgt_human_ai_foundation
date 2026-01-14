@@ -1,52 +1,128 @@
 % Proof of Theorem: Existence of ABE
 % Appendix material for main manuscript
 % Notation follows sec_framework.tex and sec_equilibrium.tex
+% Revised: 2026-01-14 to address reviewer feedback (CR2)
+
+%==============================================================================
+% LEMMA A.1: BOUNDEDNESS OF PSYCHOLOGICAL PAYOFFS
+%==============================================================================
+
+\begin{lemma}[Boundedness of Psychological Payoffs]
+\label{lem:bounded-psi}
+Under Assumptions A1 (Regularity) and A2 (Attribution Continuity), for each human type $t_i \in T_i$, there exists $M(t_i) < \infty$ such that
+\begin{equation}
+    |\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}; t_i)| \leq M(t_i)
+\end{equation}
+for all strategy profiles $s \in S$, all genuine second-order beliefs $h_i^{(2)} \in \mathcal{H}_i^{(2)}$, and all attributed beliefs $\tilde{h}_i^{(2)} \in \tilde{\mathcal{H}}_i^{(2)}$. Moreover, by compactness of the type space, there exists a uniform bound $M = \sup_{t_i \in T_i} M(t_i) < \infty$.
+\end{lemma}
+
+\begin{proof}
+We establish boundedness by showing that $\psi_i$ is a continuous function on a compact domain.
+
+\medskip
+\noindent\textit{Step 1: Compactness of the strategy domain.}
+By A1a (finite strategy spaces), each strategy space $S_i$ is finite. Hence the strategy profile space $S = \prod_{i \in N} S_i$ is finite and therefore compact in the discrete topology.
+
+\medskip
+\noindent\textit{Step 2: Compactness of the belief domains.}
+For genuine second-order beliefs, $h_i^{(2,k)} \in \Delta(\Delta(S_{-k}))$ for each $k \neq i$. Since $S_{-k}$ is finite by A1a, the simplex $\Delta(S_{-k})$ is a compact subset of $\mathbb{R}^{|S_{-k}|}$. By Prohorov's theorem, the space of probability distributions over this compact simplex, $\Delta(\Delta(S_{-k}))$, is compact in the weak* topology. Since we work in finite dimensions, weak* convergence coincides with Euclidean convergence. Thus $\mathcal{H}_i^{(2)} = \prod_{k \neq i} \Delta(\Delta(S_{-k}))$ is compact as a finite product of compact spaces.
+
+For attributed beliefs, $\tilde{h}_i^{(2,j)} \in \Delta(S_i)$ for each AI agent $j \in N_A$. Since $S_i$ is finite, $\Delta(S_i)$ is a compact simplex. Thus $\tilde{\mathcal{H}}_i^{(2)} = \prod_{j \in N_A} \Delta(S_i)$ is compact.
+
+\medskip
+\noindent\textit{Step 3: Boundedness for fixed type.}
+For fixed type $t_i = (\beta_i, \gamma_i, \omega_i, \lambda_i^{IND}, \lambda_i^{GUILT}, \ldots) \in T_i$, the psychological payoff function $\psi_i(\cdot; t_i): S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)} \to \mathbb{R}$ is continuous. For the indignation component:
+\[
+    \psi_i^{IND}(s, h_i^{(2)}, \tilde{h}_i^{(2)}; t_i) = -\beta_i \cdot \mathbf{1}_{s_i = D} \cdot \left[ \sum_{k \in N_H} h_i^{(2,k)}(C) + \lambda_i^{IND} \sum_{j \in N_A} \tilde{h}_i^{(2,j)}(C) \right]
+\]
+This is linear in the belief arguments, hence continuous. Since $S$ is finite, continuity in $s$ is automatic. By A1c (continuous payoffs), $\psi_i$ is continuous in all arguments. The domain $S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)}$ is compact. By the Weierstrass extreme value theorem, $|\psi_i(\cdot; t_i)| \leq M(t_i)$ for some $M(t_i) < \infty$.
+
+\medskip
+\noindent\textit{Step 4: Uniform boundedness over types.}
+By A1b (compact type spaces), $T_i$ is compact. Since $\psi_i$ is jointly continuous in $(s, h_i^{(2)}, \tilde{h}_i^{(2)}, t_i)$ by A1c, and the product space $(S \times \mathcal{H}_i^{(2)} \times \tilde{\mathcal{H}}_i^{(2)}) \times T_i$ is compact, another application of Weierstrass gives uniform boundedness: $|\psi_i| \leq M_i$ for some $M_i < \infty$. Taking $M = \max_{i \in N_H} M_i$ yields the global bound.
+\end{proof}
+
+\begin{remark}
+Lemma~\ref{lem:bounded-psi} shows that Assumption A3 (Bounded Psychological Payoffs) follows from A1 and A2. The boundedness arises from three sources: finiteness of strategy spaces (A1a), compactness of type spaces (A1b), and beliefs lying in compact simplices.
+\end{remark}
+
+\medskip
+\noindent With boundedness established, we proceed to the main existence result.
+
+%==============================================================================
+% MAIN THEOREM: EXISTENCE OF ABE
+%==============================================================================
 
 \begin{proof}[Proof of Theorem~\ref{thm:existence}]
 The proof applies Kakutani's fixed-point theorem to the best-response correspondence on the mixed strategy space. The key insight: both genuine and attributed beliefs are \emph{functions} of strategies, not independent equilibrium variables, so the fixed-point argument operates on the finite-dimensional space $\Sigma$ alone.
 
 \medskip
 \noindent\textbf{Step 1: Strategy space construction.}
-Let $\Sigma = \prod_{i \in N} \Delta(S_i)$ be the space of mixed strategy profiles. Since each $S_i$ is finite and non-empty (A1), each simplex $\Delta(S_i)$ is non-empty, compact (closed and bounded in $\mathbb{R}^{|S_i|}$), and convex. The finite product $\Sigma$ inherits these properties.
+We work on the product space $\Sigma = \prod_{i \in N} \Delta(S_i)$, where each $\Delta(S_i)$ denotes the simplex of probability distributions over player $i$'s finite action set $S_i$. Since each $S_i$ is finite with $|S_i| = n_i$ by A1a, the simplex $\Delta(S_i)$ is the standard $(n_i - 1)$-dimensional simplex:
+\[
+\Delta(S_i) = \left\{ \sigma_i \in \mathbb{R}^{n_i} : \sigma_i(s_i) \geq 0 \ \forall s_i \in S_i, \; \sum_{s_i \in S_i} \sigma_i(s_i) = 1 \right\}.
+\]
+We equip each $\Delta(S_i)$ with the Euclidean (relative) topology inherited from $\mathbb{R}^{n_i}$, and $\Sigma$ with the product topology. Each $\Delta(S_i)$ is compact (closed and bounded in $\mathbb{R}^{n_i}$). By Tychonoff's theorem, the finite product $\Sigma$ is compact. Moreover, $\Sigma$ is convex since it is a product of convex sets.
 
 \medskip
 \noindent\textbf{Step 2: Belief computation.}
-Given a strategy profile $\sigma \in \Sigma$, beliefs are determined as follows:
-\begin{itemize}
-    \item \emph{Attributed beliefs}: For human $i \in N_H$ and AI $j \in N_A$, define $\tilde{h}_i^{(2,j)}(\sigma) = \phi_i(\theta_j, x_j, \omega_i)$. These are independent of $\sigma$---constants determined by AI design parameters, observable signals, and the human's anthropomorphism tendency.
-    \item \emph{Genuine beliefs}: For humans $i, k \in N_H$, define first-order beliefs $h_i^{(1,k)}(\sigma) = \sigma_k$ and second-order beliefs $h_i^{(2,k)}(\sigma) = \sigma_i$. Each is a coordinate projection, hence continuous in $\sigma$.
-\end{itemize}
+Given a strategy profile $\sigma \in \Sigma$, we compute beliefs for each player type.
+
+\emph{Genuine beliefs (humans about humans):} For $i, k \in N_H$, define first-order beliefs $h_i^{(1,k)}(\sigma) = \sigma_k$ and second-order beliefs $h_i^{(2,k)}(\sigma) = \sigma_i$. The second-order construction reflects the equilibrium interpretation: in equilibrium with correct beliefs, human $k$'s expectation about human $i$'s play equals $i$'s actual equilibrium strategy $\sigma_i$. Thus $h_i^{(2,k)}(\sigma) = \sigma_i$ captures ``what $i$ believes $k$ expected from $i$.'' Each belief is a coordinate projection, hence continuous in $\sigma$.
+
+\emph{Attributed beliefs (humans about AI):} For human $i \in N_H$ and AI $j \in N_A$, the attributed second-order belief $\tilde{h}_i^{(2,j)}$ represents what $i$ believes about $j$'s ``expectation'' regarding $i$'s strategy. The framework admits three attribution approaches:
+\begin{enumerate}
+    \item[(i)] \emph{Signal-based attribution}: $\phi_i^{sig}(\theta_j, x_j, \omega_i) = g(x_j, \omega_i)$ depends only on observable AI signals $x_j$ and anthropomorphism tendency $\omega_i$.
+
+    \item[(ii)] \emph{Dispositional attribution}: $\phi_i^{disp}(\theta_j, x_j, \omega_i) = \omega_i \cdot \bar{h} + (1-\omega_i) \cdot \underline{h}$ depends only on $\omega_i$ and fixed reference distributions $\bar{h}, \underline{h} \in \Delta(S_i)$.
+
+    \item[(iii)] \emph{Behavioral attribution}: $\phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i) = g(\sigma_j, \omega_i)$ depends on AI's observed strategy $\sigma_j$, creating a feedback loop between attributed beliefs and equilibrium play.
+\end{enumerate}
+
+\noindent\emph{This theorem covers Cases (i) and (ii): exogenous attribution.} Under signal-based or dispositional attribution, the attribution function takes the form
+\[
+    \tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
+\]
+where the arguments $(\theta_j, x_j, \omega_i)$ are exogenous parameters---AI design, observable signals, and human traits---none of which depend on equilibrium strategies $\sigma$. Therefore, $\tilde{h}_i^{(2,j)}$ is a \emph{constant} (independent of $\sigma$), determined before the game is played.
+
+\emph{Attribution validity.} By A2 (Attribution Continuity), the attribution function maps to valid probability distributions: $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$. For the linear specification $\tilde{h}_i^{(2,j)}(C) = \omega_i(\rho_j + \eta x_j)$, validity requires the parameter restriction $\rho_j + \eta x_j \leq 1$. Under this restriction, since $\omega_i \in [0,1]$, we have $\tilde{h}_i^{(2,j)}(C) \in [0,1]$ and thus $\tilde{h}_i^{(2,j)} \in \Delta(S_i)$. Alternative specifications (truncation, logistic) satisfy validity without parameter restrictions; see Section~\ref{sec:framework}.
+
+This constancy is the key simplification: attributed beliefs do not create additional equilibrium conditions. Human $i$'s optimization problem takes $\tilde{h}_i^{(2,j)}$ as given, just as she would take AI design parameters as given. The fixed-point argument operates on strategies $\Sigma$ alone, without jointly solving for beliefs.
 
 \medskip
 \noindent\textbf{Step 3: Best-response correspondence.}
 For each human $i \in N_H$, define $BR_i^H: \Sigma \rightrightarrows \Delta(S_i)$ by
 \[
-    BR_i^H(\sigma) = \arg\max_{\sigma_i' \in \Delta(S_i)} \sum_{s \in S} \left(\prod_{k \in N} \sigma_k'(s_k)\right) U_i^H(s, h_i(\sigma), \tilde{h}_i)
+    BR_i^H(\sigma) = \arg\max_{\sigma_i' \in \Delta(S_i)} \mathbb{E}_{\sigma_i', \sigma_{-i}}\left[ U_i^H(s, h_i(\sigma), \tilde{h}_i) \right]
 \]
-where $\sigma_k' = \sigma_k$ for $k \neq i$, and beliefs $h_i(\sigma), \tilde{h}_i$ are computed as in Step 2.
+where beliefs $h_i(\sigma), \tilde{h}_i$ are computed as in Step 2.
 
 For each AI $j \in N_A$, define $BR_j^A: \Sigma \rightrightarrows \Delta(S_j)$ by
 \[
-    BR_j^A(\sigma) = \arg\max_{\sigma_j' \in \Delta(S_j)} \sum_{s \in S} \left(\prod_{k \in N} \sigma_k'(s_k)\right) U_j^A(s; \theta_j)
+    BR_j^A(\sigma) = \arg\max_{\sigma_j' \in \Delta(S_j)} \mathbb{E}_{\sigma_j', \sigma_{-j}}\left[ U_j^A(s; \theta_j) \right].
 \]
-where $\sigma_k' = \sigma_k$ for $k \neq j$.
+By A1c (continuous payoffs), $U_j^A(s; \theta_j)$ is continuous in $\sigma$, ensuring well-defined best responses.
 
-We verify that each $BR_k$ (for $k \in N$) is:
+We verify that each $BR_k$ (for $k \in N$) satisfies the conditions for Kakutani's theorem:
 \begin{enumerate}
-    \item[(i)] \emph{Non-empty valued}: The simplex $\Delta(S_k)$ is compact and the objective is continuous in $\sigma_k'$, so the maximum is attained (Weierstrass).
-    \item[(ii)] \emph{Convex valued}: The objective is linear in $\sigma_k'$; any convex combination of maximizers is a maximizer.
-    \item[(iii)] \emph{Upper hemicontinuous}: The constraint set $\Delta(S_k)$ is constant (hence continuous). The objective is continuous in $(\sigma_k', \sigma)$: the material component is polynomial in $\sigma$; the psychological component $\psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ is continuous by A1 (continuity of $\psi_i$ in beliefs) and continuity of the belief mappings. By Berge's Maximum Theorem, $BR_k$ is upper hemicontinuous.
+    \item[(i)] \emph{Non-empty valued}: The simplex $\Delta(S_k)$ is compact and the objective is continuous in $\sigma_k'$, so the maximum is attained by the Weierstrass extreme value theorem.
+
+    \item[(ii)] \emph{Convex valued}: Expected utility is multilinear in the strategy profile, hence linear in $\sigma_k'$ for fixed $\sigma_{-k}$. Any convex combination of maximizers is therefore a maximizer.
+
+    \item[(iii)] \emph{Upper hemicontinuous}: The constraint set $\Delta(S_k)$ is constant (hence continuous). The objective is continuous in $(\sigma_k', \sigma)$: the material component $\pi_i(s)$ is continuous by A1c; the psychological component $\psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ is continuous by A1c (continuity of $\psi_i$) and continuity of the belief mappings (coordinate projections for genuine beliefs, constants for attributed beliefs). By Berge's Maximum Theorem, $BR_k$ is upper hemicontinuous.
 \end{enumerate}
 
 \medskip
 \noindent\textbf{Step 4: Fixed-point application.}
-Define the joint correspondence $BR: \Sigma \rightrightarrows \Sigma$ by $BR(\sigma) = \prod_{k \in N} BR_k(\sigma)$. The product of non-empty, convex-valued, upper hemicontinuous correspondences inherits these properties. Each $BR_k(\sigma)$ is closed (as the $\arg\max$ of a continuous function over a compact set), so $BR$ has a closed graph.
+Define the joint correspondence $BR: \Sigma \rightrightarrows \Sigma$ by $BR(\sigma) = \prod_{k \in N} BR_k(\sigma)$. The product of non-empty, convex-valued correspondences inherits these properties.
+
+We verify that $BR$ has a closed graph. Let $(\sigma^n, \hat{\sigma}^n) \to (\sigma, \hat{\sigma})$ with $\hat{\sigma}^n \in BR(\sigma^n)$ for all $n$. For each player $k$, we have $\hat{\sigma}_k^n \in BR_k(\sigma^n)$, meaning $\hat{\sigma}_k^n$ maximizes the objective over $\Delta(S_k)$ given $\sigma^n$. Since $\Delta(S_k)$ is compact and the objective is continuous in $(\sigma_k', \sigma)$, the sequence $\hat{\sigma}_k^n \to \hat{\sigma}_k$ and $\hat{\sigma}_k$ maximizes the objective given $\sigma$ (by Berge's theorem applied to each component). Thus $\hat{\sigma} \in BR(\sigma)$, and $BR$ has a closed graph. (Note: for correspondences with compact range, closed graph is equivalent to upper hemicontinuity.)
 
 By Kakutani's fixed-point theorem: $\Sigma$ is non-empty, compact, and convex; $BR(\sigma)$ is non-empty and convex for all $\sigma$; $BR$ has a closed graph. Therefore, there exists $\sigma^* \in \Sigma$ with $\sigma^* \in BR(\sigma^*)$.
 
 \medskip
 \noindent\textbf{Step 5: Equilibrium verification.}
-We verify that the fixed point $\sigma^*$, together with beliefs computed from Steps 2, satisfies all four ABE conditions.
+We verify that the fixed point $\sigma^*$, together with beliefs computed from Step 2, satisfies all four ABE conditions.
 
 \emph{(ABE1) Human Optimality}: For $i \in N_H$, the fixed-point property gives $\sigma_i^* \in BR_i^H(\sigma^*)$, so $\sigma_i^*$ maximizes $U_i^H$ given $\sigma_{-i}^*$ and the induced beliefs.
 
@@ -63,15 +139,46 @@ First-order consistency holds: $h_i^{*(1,k)} = \sigma_k^*$ (beliefs equal actual
 \]
 Thus $i$'s belief about what $k$ expected from $i$ equals what $k$ actually expected from $i$.
 
-\emph{(ABE4) Attribution Consistency}: Define $\tilde{h}_i^{*(2,j)} := \phi_i(\theta_j, x_j, \omega_i)$. This is exactly the attribution consistency condition.
+\emph{(ABE4) Attribution Consistency}: Define $\tilde{h}_i^{*(2,j)} := \phi_i(\theta_j, x_j, \omega_i)$. This is exactly the attribution consistency condition: attributed beliefs are determined by the attribution function.
 
 All four ABE conditions are satisfied. Therefore, $(\sigma^*, h^*, \tilde{h}^*)$ is an Attributed Belief Equilibrium.
 \end{proof}
 
+%==============================================================================
+% REMARKS
+%==============================================================================
+
+\begin{remark}[Behavioral Attribution: Future Extension]
+\label{rem:behavioral}
+Case (iii)---behavioral attribution---creates a feedback loop: $\tilde{h}_i^{(2,j)}(\sigma) = \phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends on AI's equilibrium strategy $\sigma_j$, which itself depends on other players' strategies.
+
+Extending Theorem~\ref{thm:existence} to behavioral attribution requires additional analysis. The key complication: when $\tilde{h}_i^{(2,j)}$ depends on $\sigma_j$, the objective function $U_i^H(s, h_i(\sigma), \tilde{h}_i(\sigma))$ is no longer separable between genuine and attributed beliefs. Verifying convexity of $BR_i^H(\sigma)$ requires additional assumptions ensuring that the composite $\phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends only on $\sigma_j$ (not on the full profile $\sigma$) and that linearity is preserved.
+
+We conjecture that existence holds under the additional assumption:
+\begin{quote}
+    \textbf{(A2')} \emph{Behavioral attribution continuity}: $\phi_i^{beh}$ is continuous in $\sigma_j \in \Delta(S_j)$ for fixed $(\theta_j, x_j, \omega_i)$, and depends only on $\sigma_j$, not on other players' strategies.
+\end{quote}
+A complete treatment of behavioral attribution is deferred to future work.
+\end{remark}
+
 \begin{remark}[Role of Assumptions]
-The proof uses: A1 (finite strategy spaces, continuous payoffs) for compactness, convexity, and Berge's theorem; A2 (well-defined attribution) for attributed beliefs to be valid probability distributions; A3 (bounded psychological payoffs) is implied by A1 given compactness of $\Sigma$, ensuring continuity of the utility function.
+\label{rem:assumptions}
+The proof uses the following assumptions:
+\begin{itemize}
+    \item A1a (finite strategy spaces): for compactness of $\Sigma$ and well-defined best responses;
+    \item A1b (compact type spaces): for uniform boundedness in Lemma~\ref{lem:bounded-psi};
+    \item A1c (continuous payoffs): for Berge's Maximum Theorem and upper hemicontinuity of $BR$;
+    \item A2 (attribution continuity and validity): for attributed beliefs to be valid probability distributions in $\Delta(S_i)$ and continuous in parameters.
+\end{itemize}
+Lemma~\ref{lem:bounded-psi} shows that A3 (bounded psychological payoffs) is implied by A1--A2, hence redundant as a separate assumption.
 \end{remark}
 
 \begin{remark}[Comparison with Standard PGT]
-The ABE existence argument is structurally simpler than existence proofs for standard psychological game equilibria \citep{battigalli2009dynamic}. Attributed beliefs are exogenously determined---constants, not equilibrium variables. The fixed-point problem is confined to the finite-dimensional space $\Sigma$, not the infinite-dimensional belief space.
+\label{rem:comparison}
+The ABE existence argument is structurally simpler than existence proofs for standard psychological game equilibria \citep{battigalli2009dynamic}. Attributed beliefs are exogenously determined---constants, not equilibrium variables. The fixed-point problem is confined to the finite-dimensional space $\Sigma$, not the infinite-dimensional belief space. This simplification arises because AI agents lack genuine mental states, so there is no belief consistency requirement linking attributed beliefs to AI ``expectations.''
+\end{remark}
+
+\begin{remark}[Topology and Generalizations]
+\label{rem:topology}
+Our restriction to finite strategy spaces ensures that the standard Euclidean topology on simplices coincides with the weak* topology on probability measures. This equivalence, which fails in infinite dimensions, allows us to invoke Kakutani's fixed-point theorem in its classical finite-dimensional form. Extensions to infinite strategy spaces would require the weak* topology to preserve compactness via the Banach-Alaoglu theorem; see \citet{AliprantisBorder2006} for a comprehensive treatment.
 \end{remark}
