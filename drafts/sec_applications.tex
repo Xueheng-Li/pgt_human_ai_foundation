@@ -12,6 +12,10 @@ In applications with a single human and single AI, we use subscripts $H$ and $A$
 
 Consider a trust game with an AI trustor and a human trustee. The AI trustor has endowment $E$ and can send any amount $x \in [0, E]$ to the human trustee. The sent amount is tripled, so the trustee receives $3x$. The trustee then returns any amount $y \in [0, 3x]$ to the AI.
 
+\begin{remark}[Design Choice: AI Trustor]
+We position AI as trustor and human as trustee, inverting the natural test of whether humans trust AI. This design isolates the attribution mechanism: with AI as sender, the human's return decision reveals whether attributed expectations (about what AI ``expected'') trigger guilt-driven reciprocity. Absent anthropomorphism ($\omega_H \approx 0$), material incentives favor returning zero. Positive anthropomorphism elevates attributed expectations, increasing guilt from low returns. The design thus tests whether anthropomorphic cues affect human behavior through the psychological channel specified in Definition~\ref{def:guilt}.
+\end{remark}
+
 Material payoffs are $\pi_A(x,y) = E - x + y$ for the AI and $\pi_H(x,y) = 3x - y$ for the human. The AI is designed with prosociality parameter $\rho_A$, yielding utility
 \[
     U_A(x, y; \rho_A) = (1 - \rho_A)(E - x + y) + \rho_A(E + 2x).
@@ -23,6 +27,10 @@ The human trustee experiences guilt from disappointing the AI's perceived expect
     U_H(y; \tilde{h}_H) = 3x - y - \gamma_H \cdot \lambda_H^{GUILT} \cdot \max\{0, \tilde{h}_H^{(2,A)} - y\},
 \]
 where $\tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x_A, \omega_H)$ is the attributed belief about what the AI ``expected'' to receive back.
+
+\begin{remark}[Notation: Transfer vs. Signal]
+In the trust game, $x \in [0, E]$ denotes the monetary transfer from AI trustor to human trustee. This is distinct from the signal $x_j$ in the attribution function $\phi_i(\theta_j, x_j, \omega_i)$, which captures anthropomorphic design features (interface style, voice, emotional expression). The trust game holds material payoffs fixed while Section~\ref{sec:empirical-implementation} varies interface signals $x_A \in \{x_A^R, x_A^H, x_A^C\}$ to test attribution effects.
+\end{remark}
 
 \begin{proposition}[Trust Game ABE]
 \label{prop:trust}
@@ -73,6 +81,9 @@ Consider a coordination game where players choose between two technologies, $A$ 
     \end{cases}
 \]
 
+\paragraph{Psychological foundation.}
+The expectation conformity mechanism extends guilt and indignation motives to coordination settings. Whereas guilt arises from falling short of perceived obligations (Definition~\ref{def:guilt}), expectation conformity captures the broader tendency to align actions with perceived social expectations---a pattern documented in social psychology \citep{cialdini_Social_1998a}. When humans perceive that others expect a particular action, conforming reduces social anxiety and cognitive dissonance. In human-AI coordination, this mechanism operates through attributed beliefs: humans who attribute expectations to AI experience pressure to conform, even when AI lacks genuine expectations.
+
 Suppose humans experience expectation conformity: deviating from others' perceived expectations creates disutility. For a 2-player game (one human $H$, one AI $A$), the human's psychological payoff is:
 \[
     \psi_H(s_H) = -\beta_H \cdot \lambda_H^{EC} \cdot \sum_{s' \neq s_H} \tilde{h}_H^{(2,A)}(s'),
@@ -88,8 +99,8 @@ When AI plays $A$ and signals with clarity $x_A \in [0,1]$, the attribution func
 \label{prop:coordination}
 In the coordination game with AI designed to play $A$ (commitment $\theta_A > 0$), suppose (A2') the attribution function is weakly increasing in $\omega_H$, and (C) signal clarity satisfies $x_A > 0.5$. Then:
 \begin{enumerate}
-    \item Attributed beliefs favour $A$: $\tilde{h}_H^{(2,A)}(A) > \tilde{h}_H^{(2,A)}(B)$.
-    \item High anthropomorphism amplifies the psychological pull toward the AI-favoured equilibrium: $\partial \Delta U_H / \partial \omega_H > 0$.
+    \item Attributed beliefs favor $A$: $\tilde{h}_H^{(2,A)}(A) > \tilde{h}_H^{(2,A)}(B)$.
+    \item High anthropomorphism amplifies the psychological pull toward the AI-favored equilibrium: $\partial \Delta U_H / \partial \omega_H > 0$.
     \item AI serves as focal point provider: $(A, A)$ is the unique ABE, resolving the multiplicity of the material game.
 \end{enumerate}
 \end{proposition}

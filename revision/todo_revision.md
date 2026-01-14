@@ -33,8 +33,8 @@
 - [x] Add Subsection 3.3 (relationship between concepts)
 
 ### CR5: Assumption Structure
-- [ ] Create unified assumption table (Section 2.8)
-- [ ] Add G vs G' clarification footnote
+- [x] Create unified assumption table (Section 2.10)
+- [x] Add G vs G' clarification footnote
 
 ---
 
@@ -51,26 +51,26 @@
 ## Quick Wins and Polish
 
 ### References
-- [ ] Fix missing reference line 171 (Harsanyi 1967)
-- [ ] Fix broken references lines 2748, 3078, 3806
+- [x] Fix missing reference line 171 (Harsanyi 1967)
+- [x] Fix broken references lines 2748, 3078, 3806
+
+### Clarifications
+- [x] Add h vs β clarification footnote (already present in sec_framework.tex:36)
+- [x] Clarify trust game x (action + signal) in Section 4.1
+- [x] Add trust game design motivation
+- [x] Add coordination psychological payoff justification
+- [x] Add Proposition 10 discrete assumption remark
+
+### Literature Connections
+- [x] Add Karpus et al. cross-cultural details
+- [x] Add mechanism design literature connection
+- [x] Add behavioral game theory connection
+- [x] Add machine behavior literature connection
 
 ### Compression
 - [ ] Compress Introduction Results subsection
 - [ ] Tighten Related Literature section
 - [ ] Move numerical examples to Appendix C (supplement)
-
-### Clarifications
-- [ ] Add h vs β clarification footnote
-- [ ] Clarify trust game x (action + signal) in Section 4.1
-- [ ] Add trust game design motivation
-- [ ] Add coordination psychological payoff justification
-- [ ] Add Proposition 10 discrete assumption remark
-
-### Literature Connections
-- [ ] Add Karpus et al. cross-cultural details
-- [ ] Add mechanism design literature connection
-- [ ] Add behavioral game theory connection
-- [ ] Add machine behavior literature connection
 
 ---
 
