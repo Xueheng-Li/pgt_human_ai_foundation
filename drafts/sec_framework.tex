@@ -2,7 +2,7 @@
 \section{The Formal Framework}
 \label{sec:framework}
 
-This section presents the formal structure of asymmetric psychological games with human and AI players. We introduce the primitives, belief hierarchies, and the attribution function that captures how humans project mental states onto AI agents.
+This section presents the formal structure of asymmetric psychological games with human and AI players. We introduce the primitives, belief hierarchies, and the attribution function that captures how humans project mental states onto AI agents. Table~\ref{tab:assumptions} summarizes all assumptions; core conditions (A1)--(A3) ensure existence.
 
 \subsection{Players and Types}
 
@@ -27,13 +27,13 @@ Common AI specifications include materialist ($U_j^A = \pi_j(s)$), prosocial ($U
 
 \subsection{Belief Hierarchies}
 
-Following \citet{mertens1985formulation} and \citet{battigalli2009dynamic}, we construct belief hierarchies recursively. For human $i \in N_H$:
+Following \citet{mertens1985formulation}, \citet{battigalli2009dynamic}, and \citet{battigalli2019incorporating}, we construct belief hierarchies recursively. For human $i \in N_H$:
 \begin{align}
     h_i^{(0)} &= t_i \in T_i \quad \text{(type)} \\
     h_i^{(1)} &\in \Delta(S_{-i}) \quad \text{(first-order beliefs about others' play)} \\
     h_i^{(2,k)} &\in \Delta(\Delta(S_{-k})) \quad \text{(second-order beliefs: what } k \text{ expects from others)}
 \end{align}
-We use $h_i^{(n)}$ instead of the $\beta_i^{(n)}$ notation from \citet{battigalli2009dynamic} to avoid confusion with the indignation sensitivity parameter $\beta$. We write $h_i^{(1,k)}$ for the marginal of $h_i^{(1)}$ on player $k$'s strategy. For action $a \in S_k$, we write $h_i^{(2,k)}(a)$ for the probability that player $i$ believes player $k$ expected action $a$. We write $h_i^{(2)} = \{h_i^{(2,k)}\}_{k \neq i}$ for the collection of second-order beliefs.
+We use $h_i^{(n)}$ instead of the $\beta_i^{(n)}$ notation from \citet{battigalli2009dynamic} to avoid confusion with the indignation sensitivity parameter $\beta$. We write $h_i^{(1,k)}$ for the marginal of $h_i^{(1)}$ on player $k$'s strategy. For action $a \in S_k$, we write $h_i^{(2,k)}(a)$ for the probability that player $i$ believes player $k$ expected action $a$. We write $h_i^{(2)} = \{h_i^{(2,k)}\}_{k \neq i}$ for the collection of second-order beliefs. In applications, we work with point beliefs where $h_i^{(2,k)}$ places mass on a single expectation; thus $h_i^{(2,k)}(a)$ denotes the probability that $i$ believes $k$ expected action $a$.
 
 \subsection{Attributed Beliefs}
 
@@ -45,7 +45,7 @@ For human $i \in N_H$ interacting with AI $j \in N_A$, the \textbf{attributed se
 \begin{equation}
     \tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)
 \end{equation}
-where $\theta_j \in \Theta_j$ is the AI's design parameters, $x_j \in X$ is observable signals (interface design, behavioural cues), and $\omega_i \in [0,1]$ is human $i$'s anthropomorphism tendency.
+where $\theta_j \in \Theta_j$ is the AI's design parameters, $x_j \in X$ is observable interface signals---design features, not strategic choices (see Remark~\ref{rem:transfer-signal}), and $\omega_i \in [0,1]$ is human $i$'s anthropomorphism tendency.
 \end{defn}
 
 The attributed belief $\tilde{h}_i^{(2,j)} \in \Delta(S_i)$ represents ``what human $i$ believes AI $j$ expected human $i$ to do.'' This is the belief that triggers guilt or indignation when human $i$ disappoints the AI's perceived expectations.
@@ -146,7 +146,7 @@ The strategy method enables post-hoc rationalization: when subjects state belief
 
 \emph{Strategy method.} Complete mapping of the attribution function requires observing $\tilde{h}_i^{(2,j)}$ across the full domain of $(x_j, \omega_i)$. The strategy method \citep{brandts2011strategy} elicits beliefs for each possible signal level within-subject, recovering the full $\phi_i$ mapping without relying on between-subject variation alone.
 
-\emph{Anthropomorphism measurement.} Individual anthropomorphism $\omega_i$ is measured using the Individual Differences in Anthropomorphism Questionnaire (IDAQ; \citealp{waytz2010who}). The IDAQ contains 15 items measuring attribution of mental states to non-human entities (e.g., ``To what extent does a robot have intentions?''). We use the technology subscale, which correlates with trust in automated systems \citep{waytz2014trusting}.
+\emph{Anthropomorphism measurement.} Individual anthropomorphism $\omega_i$ is measured using the Individual Differences in Anthropomorphism Questionnaire (IDAQ; \citealp{waytz2010who}). The IDAQ contains 15 items measuring attribution of mental states to non-human entities (e.g., ``To what extent does a robot have intentions?''). We use the technology subscale, which correlates with trust in automated systems \citep{waytz2014mind}.
 
 \paragraph{Application: Trust Game with Interface Manipulation.}
 
@@ -231,7 +231,7 @@ The indignation payoff captures disutility from disappointing others' expectatio
 where $\beta_i > 0$ is indignation sensitivity, $h_i^{(2,k)}(C)$ is the probability that human $i$ believes human $k$ expected cooperation, $\tilde{h}_i^{(2,j)}(C)$ is the attributed probability that AI $j$ expected cooperation, $\lambda_i^{IND} \in [0,1]$ is the indignation attenuation factor toward AI, and $\mathbf{1}_{s_i = D}$ is the indicator for defection (adapted to context-specific actions in applications).
 \end{defn}
 
-The attenuation of indignation toward AI reflects intent attribution. Indignation requires perceiving malicious intent, but humans perceive AI behaviour as data-driven rather than prejudice-driven \citep{bigman2023people}.
+The attenuation of indignation toward AI reflects intent attribution. Indignation requires perceiving malicious intent, but humans perceive AI behaviour as data-driven rather than prejudice-driven \citep{bigman2023people}. Related belief-dependent emotions---frustration and anger---arise in sequential games when players respond to perceived blame \citep{battigalli2019frustration}.
 
 \begin{defn}[Guilt Aversion with Attenuation]
 \label{def:guilt}
@@ -349,6 +349,10 @@ Assumption A2 applies to exogenous attribution (signal-based or dispositional), 
 \label{ass:bounded}
 (A3) There exists $M < \infty$ such that $|\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})| \leq M$ for all $i \in N_H$, all $s \in S$, and all beliefs.
 \end{assumption}
+
+\begin{remark}[Assumption A3 Redundancy]
+Under A1--A2, boundedness of psychological payoffs follows from continuity on compact domains. We state A3 explicitly for clarity in the existence proof.
+\end{remark}
 
 \subsection{Assumption Summary}
 \label{sec:assumption-summary}
