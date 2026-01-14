@@ -35,7 +35,14 @@ The space $\Sigma = \prod_{i \in N} \Delta(S_i)$ is compact and convex. See Onli
 
 \medskip
 \noindent\textbf{Step 2: Belief computation.}
-Given $\sigma \in \Sigma$, genuine beliefs are $h_i^{(1,k)}(\sigma) = \sigma_k$ and $h_i^{(2,k)}(\sigma) = \sigma_i$ (coordinate projections, continuous). Under exogenous attribution (signal-based or dispositional), $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ is constant in $\sigma$---the key simplification: attributed beliefs do not create additional equilibrium conditions. See Online Appendix OA.1.2 for the three attribution approaches.
+Given $\sigma \in \Sigma$, genuine beliefs are $h_i^{(1,k)}(\sigma) = \sigma_k$ and $h_i^{(2,k)}(\sigma) = \sigma_i$ (coordinate projections, continuous).
+
+For attributed beliefs, two cases arise:
+\begin{enumerate}
+    \item[(a)] \textbf{Exogenous attribution} (signal-based or dispositional): $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ is constant in $\sigma$. Attributed beliefs do not create additional equilibrium conditions.
+    \item[(b)] \textbf{Behavioral attribution}: $\tilde{h}_i^{(2,j)}(\sigma) = \phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends on AI strategy $\sigma_j$. By A2-beh, this is continuous in $\sigma_j$ and depends only on $\sigma_j$, not on $\sigma_i$ or other players' strategies.
+\end{enumerate}
+In both cases, the mapping $\sigma \mapsto \tilde{h}_i^{(2,j)}(\sigma)$ is continuous: constant in case (a), continuous in $\sigma_j$ by A2-beh in case (b). See Online Appendix OA.1.2 for details.
 
 \medskip
 \noindent\textbf{Step 3: Best-response correspondence.}
@@ -57,7 +64,7 @@ We verify that each $BR_k$ (for $k \in N$) satisfies the conditions for Kakutani
 
     \item[(ii)] \emph{Convex valued}: Expected utility is multilinear in the strategy profile, hence linear in $\sigma_k'$ for fixed $\sigma_{-k}$. Any convex combination of maximizers is therefore a maximizer.
 
-    \item[(iii)] \emph{Upper hemicontinuous}: The constraint set $\Delta(S_k)$ is constant (hence continuous). The objective is continuous in $(\sigma_k', \sigma)$: the material component $\pi_i(s)$ is continuous by A1c; the psychological component $\psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)})$ is continuous by A1c (continuity of $\psi_i$) and continuity of the belief mappings (coordinate projections for genuine beliefs, constants for attributed beliefs). By Berge's Maximum Theorem, $BR_k$ is upper hemicontinuous.
+    \item[(iii)] \emph{Upper hemicontinuous}: The constraint set $\Delta(S_k)$ is constant (hence continuous). The objective is continuous in $(\sigma_k', \sigma)$: the material component $\pi_i(s)$ is continuous by A1c; the psychological component $\psi_i(s, h_i^{(2)}(\sigma), \tilde{h}_i^{(2)}(\sigma))$ is continuous by A1c (continuity of $\psi_i$) and continuity of the belief mappings---coordinate projections for genuine beliefs, and either constants (exogenous case) or continuous in $\sigma_j$ by A2-beh (behavioral case) for attributed beliefs. By Berge's Maximum Theorem, $BR_k$ is upper hemicontinuous.
 \end{enumerate}
 
 \medskip
@@ -87,11 +94,11 @@ First-order consistency holds: $h_i^{*(1,k)} = \sigma_k^*$ (beliefs equal actual
 \]
 Thus $i$'s belief about what $k$ expected from $i$ equals what $k$ actually expected from $i$.
 
-\emph{(ABE4) Attribution Consistency}: Define $\tilde{h}_i^{*(2,j)} := \phi_i(\theta_j, x_j, \omega_i)$. This is exactly the attribution consistency condition: attributed beliefs are determined by the attribution function.
+\emph{(ABE4) Attribution Consistency}: Under exogenous attribution, define $\tilde{h}_i^{*(2,j)} := \phi_i(\theta_j, x_j, \omega_i)$. Under behavioral attribution, define $\tilde{h}_i^{*(2,j)} := \phi_i^{beh}(\theta_j, x_j, \sigma_j^*, \omega_i)$, evaluated at the equilibrium AI strategy. In both cases, attributed beliefs are determined by the attribution function given the relevant inputs.
 
 All four ABE conditions are satisfied. Therefore, $(\sigma^*, h^*, \tilde{h}^*)$ is an Attributed Belief Equilibrium.
 \end{proof}
 
-\begin{remark}
-Technical details including the boundedness lemma proof, topology considerations, attribution approaches, and extensions to behavioral attribution appear in Online Appendix OA.1.
+\begin{remark}[Role of Attribution Assumptions]
+Under exogenous attribution (A2), attributed beliefs are constant in $\sigma$, simplifying the continuity argument. Under behavioral attribution (A2-beh), attributed beliefs depend on AI strategies but remain continuous in $\sigma$, preserving upper hemicontinuity of the best-response correspondence. The own-strategy independence condition in A2-beh ensures convexity of best responses: human $i$'s objective is linear in $\sigma_i'$ because $\tilde{h}_i^{(2,j)}$ depends on $\sigma_j$, not $\sigma_i'$. Technical details appear in Online Appendix OA.1.
 \end{remark}

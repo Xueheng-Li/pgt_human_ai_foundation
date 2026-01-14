@@ -8,6 +8,11 @@ We apply the ABE framework to three canonical games: the trust game, public good
 In applications with a single human and single AI, we use subscripts $H$ and $A$ instead of indices $i$ and $j$ for clarity.
 \end{remark}
 
+\begin{remark}[Attribution Type in Applications]
+\label{rem:exogenous-applications}
+All applications in this section use \textbf{exogenous attribution}---signal-based or dispositional---where attributed beliefs depend on AI design parameters, interface features, and human anthropomorphism tendency, not on equilibrium strategies. This ensures attributed beliefs are determined before the game is played, satisfying Assumption A2. For extensions involving behavioral attribution (where attributed beliefs depend on observed AI behavior), see Assumption A2-beh and the discussion in Online Appendix OA.1.3.
+\end{remark}
+
 \subsection{Trust Game}
 
 Consider a trust game with an AI trustor and a human trustee. The AI trustor has endowment $E$ and can send any amount $x \in [0, E]$ to the human trustee. The sent amount is tripled, so the trustee receives $3x$. The trustee then returns any amount $y \in [0, 3x]$ to the AI.
@@ -29,7 +34,13 @@ The human trustee experiences guilt from disappointing the AI's perceived expect
 where $\tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x_A, \omega_H)$ is the attributed belief about what the AI ``expected'' to receive back.
 
 \begin{remark}[Notation: Transfer vs. Signal]
-In the trust game, $x \in [0, E]$ denotes the monetary transfer from AI trustor to human trustee. This is distinct from the signal $x_j$ in the attribution function $\phi_i(\theta_j, x_j, \omega_i)$, which captures anthropomorphic design features (interface style, voice, emotional expression). The trust game holds material payoffs fixed while Section~\ref{sec:empirical-implementation} varies interface signals $x_A \in \{x_A^R, x_A^H, x_A^C\}$ to test attribution effects.
+\label{rem:transfer-signal}
+The trust game involves two distinct variables denoted by ``$x$'':
+\begin{itemize}
+    \item \textbf{Monetary transfer} $x \in [0, E]$: the strategic choice of how much the AI trustor sends.
+    \item \textbf{Interface signal} $x_A$: anthropomorphic design features (interface style, voice, emotional expression) that enter the attribution function.
+\end{itemize}
+The attributed belief $\tilde{h}_H^{(2,A)} = \phi_H(\rho_A, x_A, \omega_H)$ depends on the interface signal $x_A$, \textbf{not} the monetary transfer $x$. This is exogenous attribution: the human's attributed expectations about ``what the AI expected'' are determined by AI design parameters and interface features, not by the AI's equilibrium strategy. Section~\ref{sec:empirical-implementation} varies $x_A \in \{x_A^R, x_A^H, x_A^C\}$ (robotic, humanoid, control) to test how interface signals affect attributed beliefs.
 \end{remark}
 
 \begin{proposition}[Trust Game ABE]

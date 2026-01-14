@@ -101,17 +101,19 @@ By A2 (Attribution Continuity), the attribution function maps to valid probabili
 
 \subsection{OA.1.3: Remarks on Extensions}\label{oa:existence-remarks}
 
-\begin{remark}[Behavioral Attribution: Future Extension]
+\begin{remark}[Behavioral Attribution: Complete Treatment]
 \label{rem:behavioral-supp}
 Case (iii)---behavioral attribution---creates a feedback loop: $\tilde{h}_i^{(2,j)}(\sigma) = \phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends on AI's equilibrium strategy $\sigma_j$, which itself depends on other players' strategies.
 
-Extending Theorem 1 to behavioral attribution requires additional analysis. The key complication: when $\tilde{h}_i^{(2,j)}$ depends on $\sigma_j$, the objective function $U_i^H(s, h_i(\sigma), \tilde{h}_i(\sigma))$ is no longer separable between genuine and attributed beliefs. Verifying convexity of $BR_i^H(\sigma)$ requires additional assumptions ensuring that the composite $\phi_i^{beh}(\theta_j, x_j, \sigma_j, \omega_i)$ depends only on $\sigma_j$ (not on the full profile $\sigma$) and that linearity is preserved.
+The existence proof extends to behavioral attribution under Assumption A2-beh (Behavioral Attribution Regularity). The key conditions are:
+\begin{enumerate}
+    \item \textbf{Strategy continuity}: $\phi_i^{beh}$ is continuous in $\sigma_j \in \Delta(S_j)$ for fixed $(\theta_j, x_j, \omega_i)$.
+    \item \textbf{Own-strategy independence}: $\phi_i^{beh}$ depends only on $\sigma_j$, not on $\sigma_i$ or other players' strategies.
+\end{enumerate}
 
-We conjecture that existence holds under the additional assumption:
-\begin{quote}
-    \textbf{(A2')} \emph{Behavioral attribution continuity}: $\phi_i^{beh}$ is continuous in $\sigma_j \in \Delta(S_j)$ for fixed $(\theta_j, x_j, \omega_i)$, and depends only on $\sigma_j$, not on other players' strategies.
-\end{quote}
-A complete treatment of behavioral attribution is deferred to future work.
+\emph{Why the proof extends.} The continuity condition ensures upper hemicontinuity of the best-response correspondence via Berge's Maximum Theorem. The own-strategy independence condition ensures convexity of best responses: when human $i$ optimizes over $\sigma_i' \in \Delta(S_i)$, the attributed belief $\tilde{h}_i^{(2,j)} = \phi_i^{beh}(\cdot, \sigma_j, \cdot)$ is fixed (it depends on $\sigma_j$, not $\sigma_i'$), so expected utility remains linear in $\sigma_i'$.
+
+\emph{When behavioral attribution applies.} Behavioral attribution is appropriate when humans form expectations about AI based on observed behavior rather than fixed interface features. For example, if an AI assistant's generous actions lead humans to attribute higher expectations, the attribution function should depend on the AI's strategy. The applications in Section~\ref{sec:applications} use exogenous attribution (signal-based or dispositional), where interface features determine attributed beliefs independent of equilibrium play.
 \end{remark}
 
 \begin{remark}[Role of Assumptions]
@@ -121,14 +123,15 @@ The proof uses the following assumptions:
     \item A1a (finite strategy spaces): for compactness of $\Sigma$ and well-defined best responses;
     \item A1b (compact type spaces): for uniform boundedness in Lemma A.1;
     \item A1c (continuous payoffs): for Berge's Maximum Theorem and upper hemicontinuity of $BR$;
-    \item A2 (attribution continuity and validity): for attributed beliefs to be valid probability distributions in $\Delta(S_i)$ and continuous in parameters.
+    \item A2 (attribution continuity): for exogenous attributed beliefs to be valid and continuous;
+    \item A2-beh (behavioral attribution regularity): for behavioral attributed beliefs to preserve continuity and convexity of best responses.
 \end{itemize}
-Lemma A.1 shows that A3 (bounded psychological payoffs) is implied by A1--A2, hence redundant as a separate assumption.
+Lemma A.1 shows that A3 (bounded psychological payoffs) is implied by A1--A2, hence redundant as a separate assumption. For behavioral attribution, A2-beh replaces A2 in the continuity argument.
 \end{remark}
 
 \begin{remark}[Comparison with Standard PGT]
 \label{rem:comparison-supp}
-The ABE existence argument is structurally simpler than existence proofs for standard psychological game equilibria (Battigalli and Dufwenberg, 2009). Attributed beliefs are exogenously determined---constants, not equilibrium variables. The fixed-point problem is confined to the finite-dimensional space $\Sigma$, not the infinite-dimensional belief space. This simplification arises because AI agents lack genuine mental states, so there is no belief consistency requirement linking attributed beliefs to AI ``expectations.''
+The ABE existence argument is structurally simpler than existence proofs for standard psychological game equilibria (Battigalli and Dufwenberg, 2009). Under exogenous attribution, attributed beliefs are constants, not equilibrium variables. Under behavioral attribution (A2-beh), attributed beliefs depend on AI strategies, but this dependence is \emph{one-directional}: AI strategies determine attributed beliefs via a continuous function, but there is no belief consistency requirement linking attributed beliefs back to AI ``expectations'' (since AI lacks genuine mental states). The fixed-point problem remains confined to the finite-dimensional space $\Sigma$, not the infinite-dimensional belief space. This simplification distinguishes ABE from standard PGT, where belief hierarchies of all humans must satisfy mutual consistency.
 \end{remark}
 
 \begin{remark}[Topology and Generalizations]

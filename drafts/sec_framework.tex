@@ -256,6 +256,20 @@ We impose the following regularity conditions:
 (A2) The attribution function $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$ is continuous in $(\theta_j, x_j)$ for fixed $\omega_i$.
 \end{assumption}
 
+\begin{assumption}[Behavioral Attribution Regularity]
+\label{ass:behavioral-attribution}
+(A2-beh) When attribution depends on observed AI behavior, the function $\phi_i^{beh}: \Theta_j \times X \times \Delta(S_j) \times \Omega_i \to \Delta(S_i)$ satisfies:
+\begin{enumerate}
+    \item \textbf{Strategy continuity}: $\phi_i^{beh}$ is continuous in $\sigma_j \in \Delta(S_j)$ for fixed $(\theta_j, x_j, \omega_i)$.
+    \item \textbf{Own-strategy independence}: $\phi_i^{beh}$ depends only on AI $j$'s strategy $\sigma_j$, not on human $i$'s strategy $\sigma_i$ or other players' strategies.
+\end{enumerate}
+\end{assumption}
+
+\begin{remark}[Scope of Attribution Assumptions]
+\label{rem:attribution-scope}
+Assumption A2 applies to exogenous attribution (signal-based or dispositional), where attributed beliefs are constant in the strategy profile. Assumption A2-beh applies to behavioral attribution, where attributed beliefs depend on AI's observed behavior. The existence theorem (Theorem~\ref{thm:existence}) holds under either A2 alone (exogenous case) or A2 and A2-beh together (behavioral case). The applications in Section~\ref{sec:applications} use exogenous attribution.
+\end{remark}
+
 \begin{assumption}[Bounded Psychological Payoffs]
 \label{ass:bounded}
 (A3) There exists $M < \infty$ such that $|\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})| \leq M$ for all $i \in N_H$, all $s \in S$, and all beliefs.
@@ -277,7 +291,8 @@ Table~\ref{tab:assumptions} collects all assumptions. Core assumptions (A1)--(A3
 \midrule
 \multicolumn{4}{@{}l}{\textit{Core Assumptions}} \\[0.5ex]
 (A1) & Regularity & Strategy spaces $S_i$ are finite; type spaces $T_i$, $\Theta_j$ are compact and convex; payoffs are continuous & All results \\[0.5ex]
-(A2) & Attribution Continuity & $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$ is continuous in $(\theta_j, x_j)$ & All results \\[0.5ex]
+(A2) & Attribution Continuity & $\phi_i: \Theta_j \times X \times \Omega_i \to \Delta(S_i)$ is continuous in $(\theta_j, x_j)$ & Exogenous attrib.\ results \\[0.5ex]
+(A2-beh) & Behavioral Attrib.\ Regularity & $\phi_i^{beh}$ continuous in $\sigma_j$; depends only on $\sigma_j$ & Behavioral attrib.\ results \\[0.5ex]
 (A3) & Bounded Psychological Payoffs & $|\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})| \leq M$ for some $M < \infty$ & All results \\[1ex]
 \midrule
 \multicolumn{4}{@{}l}{\textit{Optional Extensions to (A2)}} \\[0.5ex]
