@@ -27,6 +27,8 @@ cd drafts && pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex m
 cd theory && pdflatex foundations.tex && bibtex foundations && pdflatex foundations.tex
 ```
 
+Don't add Claude as a contributor/coauthor when commit and push.
+
 ## File Format Policy
 
 - **LaTeX (.tex)**: Definitions, theorems, proofs, manuscript
@@ -46,9 +48,11 @@ cd theory && pdflatex foundations.tex && bibtex foundations && pdflatex foundati
 ## Language and writing style
 
 Follow the style of Sanjeev Goyal's network economics papers:
-- Analytical precision in mathematical arguments
-- Clear identification of economic mechanisms
+- Exceptionally clear in thinking through and articulating contributions and economic insights
 - Strong links between theory and empirical observations
+- Clear identification of economic mechanisms
+- Analytical precision in mathematical arguments
+
 
 Use x-writer subagent to improve clarity, grammar, and style
 
