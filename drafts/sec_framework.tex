@@ -87,6 +87,88 @@ A simple parametric form is
 where $\rho_j \in [0,1]$ is AI's prosociality parameter, $x_j \in [0,1]$ is anthropomorphic signal strength, $\eta > 0$ is signal sensitivity, and $\omega_i \in [0,1]$ is individual anthropomorphism. Attributed beliefs about AI's expectation of cooperation increase with AI prosociality, anthropomorphic signals, and individual anthropomorphism tendency.
 \end{example}
 
+\subsubsection{Empirical Implementation and Testability}
+\label{sec:empirical-implementation}
+
+The attribution function $\phi_i$ is identified through experimental variation in its arguments. We describe the measurement strategy, illustrate with a trust game design, and derive testable predictions.
+
+\paragraph{Identification Strategy.}
+
+To identify $\phi_i$, we measure attributed beliefs $\tilde{h}_i^{(2,j)}$ while varying AI signals $x_j$ and measuring individual anthropomorphism $\omega_i$. Three components enable identification.
+
+\emph{Belief elicitation.} We elicit attributed beliefs using incentive-compatible mechanisms. Quadratic scoring rules \citep{gachter2010peer} reward accuracy: subjects report their belief that the AI expects cooperation, and payment increases quadratically in the accuracy of that belief. To address hedging---subjects adjusting stated beliefs to insure against game outcomes---we follow \citet{blanco2010belief} in paying either the belief elicitation task or the strategic game, never both. This eliminates the incentive to hedge beliefs against strategic payoffs.
+
+\emph{Strategy method.} Complete mapping of the attribution function requires observing $\tilde{h}_i^{(2,j)}$ across the full domain of $(x_j, \omega_i)$. The strategy method \citep{brandts2011strategy} elicits beliefs for each possible signal level within-subject, recovering the full $\phi_i$ mapping without relying on between-subject variation alone. Subjects state their attributed belief conditional on each interface treatment before learning which treatment applies.
+
+\emph{Anthropomorphism measurement.} Individual anthropomorphism $\omega_i$ is measured using the Individual Differences in Anthropomorphism Questionnaire (IDAQ; \citealp{waytz2010who}). The IDAQ contains 15 items measuring attribution of mental states to non-human entities (e.g., ``To what extent does a robot have intentions?''). We use the technology subscale, which correlates with trust in automated systems \citep{waytz2014trusting}.
+
+\paragraph{Application: Trust Game with Interface Manipulation.}
+
+We illustrate the identification strategy with a trust game where an AI trustor sends $x \in [0, E]$ to a human trustee, who returns $y \in [0, 3x]$. The human's attributed belief $\tilde{h}_H^{(2,A)}$ represents what the human believes the AI expected her to return.
+
+\emph{Experimental design.} Between-subject manipulation varies interface anthropomorphism $x_A$:
+\begin{itemize}
+    \item Treatment R (Robotic): Minimalist interface displaying only numerical information; $x_A^R = 0$
+    \item Treatment H (Humanoid): Avatar with name, voice feedback, and natural language; $x_A^H = 1$
+    \item Treatment C (Control): Standard interface without anthropomorphic or de-anthropomorphic cues; $x_A^C = 0.5$
+\end{itemize}
+
+The AI's prosociality parameter $\rho_A$ and programmed behavior remain constant across treatments. Only the interface presentation varies.
+
+\emph{Measurement sequence.} For each treatment:
+\begin{enumerate}
+    \item Subjects complete the IDAQ questionnaire (measures $\omega_i$)
+    \item Subjects observe the AI interface and its transfer decision $x_A$
+    \item Subjects report $\tilde{h}_i^{(2,A)}$: ``What return amount do you believe the AI expected you to send?'' (incentivized via quadratic scoring)
+    \item Subjects choose return amount $y_i$
+    \item One of tasks (3) or (4) is randomly selected for payment
+\end{enumerate}
+
+The within-subject strategy method extension elicits beliefs for all three interface conditions before random assignment, providing three observations per subject.
+
+\paragraph{Parameter Recovery.}
+
+Under the linear attribution specification from Example 1:
+\begin{equation}
+    \tilde{h}_i^{(2,A)} = \omega_i \cdot \left( \rho_A + \eta \cdot x_A \right)
+\end{equation}
+treatment variation identifies $\eta$; $\rho_A$ is assumed known from AI design. The reduced-form regression is:
+\begin{equation}
+    \tilde{h}_{it}^{(2,A)} = \beta_0 + \beta_1 \omega_i + \beta_2 x_{At} + \beta_3 \omega_i \cdot x_{At} + \varepsilon_{it}
+    \label{eq:attribution-regression}
+\end{equation}
+where $t \in \{R, H, C\}$ indexes treatments.
+
+The theoretical model generates testable restrictions:
+\begin{enumerate}
+    \item $\beta_2 = 0$: Signal has no direct effect on attributed beliefs; the effect operates through anthropomorphism
+    \item $\beta_3 > 0$: Anthropomorphism moderates signal effect; high-$\omega_i$ subjects respond more to interface manipulation
+\end{enumerate}
+
+The interaction coefficient $\beta_3$ directly estimates the signal sensitivity $\eta$. Given $\rho_A$ known from design, the baseline effect $\beta_1$ identifies anthropomorphism scaling.
+
+The key testable prediction is the interaction effect $\beta_3 > 0$. Under the null hypothesis that attributed beliefs do not depend on anthropomorphism ($\omega_i$ irrelevant), $\beta_3 = 0$ and interface manipulation affects all subjects equally. A positive interaction indicates that anthropomorphic signals operate through the attribution mechanism specified in the model.
+
+\paragraph{Alternative Functional Forms.}
+
+The linear specification in Example 1 serves as a tractable benchmark. Two departures merit consideration.
+
+\emph{Saturation.} Attributed beliefs are bounded in $[0,1]$, but the linear form $\omega_i(\rho_A + \eta x_A)$ may exceed unity for high parameter values. A logistic specification:
+\begin{equation}
+    \tilde{h}_i^{(2,A)} = \frac{1}{1 + \exp(-\omega_i(\rho_A + \eta x_A - \mu))}
+\end{equation}
+bounds attributed beliefs while preserving the interaction structure. The shift parameter $\mu$ centers the logistic at the midpoint of the belief scale.
+
+\emph{Thresholds.} The uncanny valley phenomenon \citep{mori1970uncanny,gray2012feeling} suggests non-monotonicity: extremely human-like AI may trigger discomfort that reduces attribution. A threshold model:
+\begin{equation}
+    \tilde{h}_i^{(2,A)} = \omega_i \cdot \left( \rho_A + \eta x_A \right) \cdot \mathbf{1}_{x_A < \bar{x}}
+\end{equation}
+captures attribution collapse above threshold $\bar{x}$.
+
+These alternatives generate distinct predictions. Saturation predicts diminishing marginal effects of $x_A$ at high levels; thresholds predict a discrete drop in $\tilde{h}_i^{(2,A)}$ above $\bar{x}$. Both can be tested by including quadratic or spline terms in regression (\ref{eq:attribution-regression}). In our trust game design, Treatment H ($x_A = 1$) tests whether extreme anthropomorphism triggers uncanny valley effects.
+
+For applications in this paper, we maintain the linear specification. Empirical evidence on anthropomorphism-trust relationships \citep{blut2021understanding} is consistent with linearity over the range of interface manipulations typical in economic experiments. The linear form also yields closed-form equilibria enabling comparative statics.
+
 \subsection{Psychological Payoffs}
 
 Two main psychological mechanisms are relevant: indignation and guilt.
