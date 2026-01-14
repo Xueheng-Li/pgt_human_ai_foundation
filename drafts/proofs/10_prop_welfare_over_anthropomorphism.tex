@@ -1,4 +1,4 @@
-% Proof of Proposition: Welfare Effects of Over-Anthropomorphism
+% Proof of Proposition: Welfare Effects of Elevated Anthropomorphism
 % Appendix material for main manuscript
 % Notation follows sec_framework.tex, sec_applications.tex, and sec_welfare.tex
 %
@@ -9,17 +9,17 @@
 %   3. Added non-degeneracy condition to assumption list
 %   4. Clarified contribution: Part 2 (phantom expectations) is novel; Part 1 follows from Prop 8
 %   5. Fixed straight quotes to LaTeX quotes (6 instances)
-%   6. Added clarification on "over-anthropomorphism" terminology
+%   6. Added clarification on "elevated anthropomorphism" terminology
 %   7. Minor style improvements per review feedback
 %
 % This proof establishes Proposition~\ref{prop:over-anthro}:
 %   Part 1: When AI is prosocially designed and cooperation is efficient,
-%           over-anthropomorphism weakly improves material welfare.
-%   Part 2: When AI is materialistically designed, over-anthropomorphism
+%           elevated anthropomorphism weakly improves material welfare.
+%   Part 2: When AI is materialistically designed, elevated anthropomorphism
 %           may reduce extended welfare through phantom expectations.
 %
-% Over-anthropomorphism is defined as: h_i^{(2,j)} > h_i^{(2,j),RAT}
-% where h_i^{(2,j),RAT} = phi_i(theta_j, x_j, 0) is the rational attribution benchmark.
+% Elevated anthropomorphism is defined as: h_i^{(2,j)} > h_i^{(2,j),ZA}
+% where h_i^{(2,j),ZA} = phi_i(theta_j, x_j, 0) is the zero-anthropomorphism benchmark.
 %
 % Contribution note: Part 1 is a direct corollary of Proposition~\ref{prop:welfare-anthro}.
 % Part 2, introducing the phantom expectations mechanism, is the novel contribution.
@@ -28,46 +28,46 @@
 Two parts. Both require (A1)--(A3) from Section~\ref{sec:framework}, (A2') attribution monotonicity, and (A2'') attribution non-degeneracy (i.e., $\phi_i$ is not constant in $\omega_i$ when $\bar{h}_H > \underline{h}$). Part 1 additionally requires (E) cooperation efficiency. Part 2 additionally requires (G') positive guilt sensitivity ($G > 0$).
 
 %------------------------------------------------------------------------------
-% RATIONAL ATTRIBUTION BENCHMARK
+% ZERO-ANTHROPOMORPHISM BENCHMARK
 %------------------------------------------------------------------------------
 
 \medskip
-\noindent\textbf{Rational Attribution Benchmark.}
-Define the \emph{rational attribution benchmark} as the attributed belief that would arise under zero anthropomorphism:
+\textbf{Zero-Anthropomorphism Benchmark.}
+Define the \emph{zero-anthropomorphism benchmark} as as the attributed belief that would arise under zero anthropomorphism:
 \begin{equation}\label{eq:rational-benchmark}
-    \tilde{h}_i^{(2,j),RAT} \equiv \phi_i(\theta_j, x_j, 0).
+    \tilde{h}_i^{(2,j),ZA} \equiv \phi_i(\theta_j, x_j, 0).
 \end{equation}
 This represents what a perfectly informed, non-anthropomorphising agent would attribute to AI $j$: with full knowledge of AI design parameters $\theta_j$ and observable signals $x_j$, but no psychological tendency to project human-like mental states ($\omega_i = 0$).
 
-Under standard attribution functions where $\phi_i(\cdot, \cdot, 0) = \underline{h}$ (the machine-like baseline), we have $\tilde{h}_i^{(2,j),RAT} = \underline{h}$ for all AI types. This specification reflects that a non-anthropomorphising observer ($\omega_i = 0$) defaults to machine-like attribution regardless of AI design. The distinction between prosocial and materialist AI affects how anthropomorphism \emph{should} be calibrated (the normative question), not what non-anthropomorphising observers \emph{do} attribute (the descriptive baseline).
+Under standard attribution functions where $\phi_i(\cdot, \cdot, 0) = \underline{h}$ (the machine-like baseline), we have $\tilde{h}_i^{(2,j),ZA} = \underline{h}$ for all AI types. This specification reflects that a non-anthropomorphising observer ($\omega_i = 0$) defaults to machine-like attribution regardless of AI design. The distinction between prosocial and materialist AI affects how anthropomorphism \emph{should} be calibrated (the normative question), not what non-anthropomorphising observers \emph{do} attribute (the descriptive baseline).
 
 \medskip
-\noindent\textbf{Over-Anthropomorphism.}
-Human $i$ exhibits over-anthropomorphism toward AI $j$ when:
+\textbf{Elevated Anthropomorphism.}
+Human $i$ exhibits elevated anthropomorphism toward AI $j$ when:
 \begin{equation}\label{eq:over-anthro-def}
-    \tilde{h}_i^{(2,j)} > \tilde{h}_i^{(2,j),RAT}.
+    \tilde{h}_i^{(2,j)} > \tilde{h}_i^{(2,j),ZA}.
 \end{equation}
-We use ``over-anthropomorphism'' as a descriptive term for attribution exceeding the rational benchmark, without implying welfare harm. Part 1 shows that over-anthropomorphism can be welfare-improving; the term refers to the direction of deviation, not its normative valence.
+We use ``elevated anthropomorphism'' as a descriptive term for attribution exceeding the rational benchmark, without implying welfare harm. Part 1 shows that elevated anthropomorphism can be welfare-improving; the term refers to the direction of deviation, not its normative valence.
 
 \noindent\textbf{Equivalence under (A2') and (A2'').}
 Under attribution monotonicity (A2'), $\omega_i' > \omega_i$ implies $\tilde{h}_i^{(2,j)}(\omega_i') \geq \tilde{h}_i^{(2,j)}(\omega_i)$. Under non-degeneracy (A2''), this inequality is strict when $\bar{h}_H > \underline{h}$. Since the rational benchmark is defined at $\omega_i = 0$, any positive anthropomorphism $\omega_i > 0$ satisfies:
 \begin{equation}
-    \tilde{h}_i^{(2,j)}(\omega_i) > \tilde{h}_i^{(2,j)}(0) = \tilde{h}_i^{(2,j),RAT}.
+    \tilde{h}_i^{(2,j)}(\omega_i) > \tilde{h}_i^{(2,j)}(0) = \tilde{h}_i^{(2,j),ZA}.
 \end{equation}
-Thus, under (A2') and (A2''), over-anthropomorphism is equivalent to $\omega_i > 0$.
+Thus, under (A2') and (A2''), elevated anthropomorphism is equivalent to $\omega_i > 0$.
 
 \medskip
 \noindent\textbf{Boundary Case: $\omega_i = 0$.}
-When $\omega_i = 0$, we have $\tilde{h}_i^{(2,j)} = \tilde{h}_i^{(2,j),RAT}$ by definition. There is no over-anthropomorphism; the human attributes exactly the rational benchmark.
+When $\omega_i = 0$, we have $\tilde{h}_i^{(2,j)} = \tilde{h}_i^{(2,j),ZA}$ by definition. There is no elevated anthropomorphism; the human attributes exactly the rational benchmark.
 
 %------------------------------------------------------------------------------
 % PART 1: Prosocial AI and Material Welfare
 %------------------------------------------------------------------------------
 
 \medskip
-\noindent\textbf{Part 1: Over-anthropomorphism weakly improves material welfare when AI is prosocially designed and cooperation is efficient.}
+\noindent\textbf{Part 1: Elevated anthropomorphism weakly improves material welfare when AI is prosocially designed and cooperation is efficient.}
 
-This part is a direct corollary of Proposition~\ref{prop:welfare-anthro}. We restate the argument to establish the connection to the rational attribution benchmark.
+This part is a direct corollary of Proposition~\ref{prop:welfare-anthro}. We restate the argument to establish the connection to the zero-anthropomorphism benchmark.
 
 \medskip
 \emph{Step 1 (Setup and rational benchmark).}
@@ -81,9 +81,9 @@ where $\bar{h}_H > 0$ represents high expectations (human-like attribution), $\u
 
 The rational benchmark is:
 \begin{equation}\label{eq:rat-prosocial}
-    \tilde{h}_i^{(2,j),RAT} = \phi_i(\rho_A, c_A, 0) = \underline{h}.
+    \tilde{h}_i^{(2,j),ZA} = \phi_i(\rho_A, c_A, 0) = \underline{h}.
 \end{equation}
-For simplicity, normalise $\underline{h} = 0$, so $\tilde{h}_i^{(2,j)} = \omega_i \cdot \bar{h}_H$ and $\tilde{h}_i^{(2,j),RAT} = 0$. The general case with $\underline{h} > 0$ follows analogously with threshold shifts; the key requirement is $\bar{h}_H > \underline{h}$ for non-degeneracy.
+For simplicity, normalise $\underline{h} = 0$, so $\tilde{h}_i^{(2,j)} = \omega_i \cdot \bar{h}_H$ and $\tilde{h}_i^{(2,j),ZA} = 0$. The general case with $\underline{h} > 0$ follows analogously with threshold shifts; the key requirement is $\bar{h}_H > \underline{h}$ for non-degeneracy.
 
 \medskip
 \emph{Step 2 (Cooperation threshold).}
@@ -107,16 +107,16 @@ If this holds, cooperation is sustained even without anthropomorphism. If it fai
 
 \medskip
 \emph{Step 3 (Welfare comparison).}
-Compare welfare under over-anthropomorphism ($\omega_i > 0$) versus rational attribution ($\omega_i = 0$). Let $s^*(\omega)$ denote the equilibrium under anthropomorphism level $\omega$.
+Compare welfare under elevated anthropomorphism ($\omega_i > 0$) versus rational attribution ($\omega_i = 0$). Let $s^*(\omega)$ denote the equilibrium under anthropomorphism level $\omega$.
 
 \textbf{Case A: Cooperation under both.}
-If $\beta_i(n_H - 1) \geq E(1 - m/n)$, cooperation is sustained even under rational attribution. Over-anthropomorphism does not change equilibrium behaviour: $W(s^*(\omega)) = W(s^*(0)) = nmE$.
+If $\beta_i(n_H - 1) \geq E(1 - m/n)$, cooperation is sustained even under rational attribution. Elevated anthropomorphism does not change equilibrium behaviour: $W(s^*(\omega)) = W(s^*(0)) = nmE$.
 
 \textbf{Case B: Defection under both.}
-If $\omega_i < \bar{\omega}_i$ for the relevant humans, defection prevails. If over-anthropomorphism is insufficient to induce cooperation ($\omega_i$ still below threshold), both yield defection: $W(s^*(\omega)) = W(s^*(0)) = nE$.
+If $\omega_i < \bar{\omega}_i$ for the relevant humans, defection prevails. If elevated anthropomorphism is insufficient to induce cooperation ($\omega_i$ still below threshold), both yield defection: $W(s^*(\omega)) = W(s^*(0)) = nE$.
 
 \textbf{Case C: Regime switch.}
-Over-anthropomorphism induces cooperation where rational attribution would not. This occurs when $\beta_i(n_H - 1) < E(1 - m/n)$ (defection under $\omega = 0$) but $\omega_i \geq \bar{\omega}_i$ (cooperation under positive $\omega$). Then:
+Elevated anthropomorphism induces cooperation where rational attribution would not. This occurs when $\beta_i(n_H - 1) < E(1 - m/n)$ (defection under $\omega = 0$) but $\omega_i \geq \bar{\omega}_i$ (cooperation under positive $\omega$). Then:
 \begin{equation}
     W(s^*(\omega)) = nmE > nE = W(s^*(0)).
 \end{equation}
@@ -126,8 +126,8 @@ Combining cases: $W(s^*(\omega > 0)) \geq W(s^*(\omega = 0))$, with strict inequ
 \medskip
 \emph{Step 4 (Role of conditions).}
 \begin{itemize}
-    \item \textbf{(A2') Attribution Monotonicity}: Ensures $\omega_i > 0$ implies $\tilde{h} \geq \tilde{h}^{RAT}$, making cooperation easier to sustain.
-    \item \textbf{(A2'') Non-Degeneracy}: Ensures $\omega_i > 0$ implies $\tilde{h} > \tilde{h}^{RAT}$ (strict), so positive anthropomorphism has bite.
+    \item \textbf{(A2') Attribution Monotonicity}: Ensures $\omega_i > 0$ implies $\tilde{h} \geq \tilde{h}^{ZA}$, making cooperation easier to sustain.
+    \item \textbf{(A2'') Non-Degeneracy}: Ensures $\omega_i > 0$ implies $\tilde{h} > \tilde{h}^{ZA}$ (strict), so positive anthropomorphism has bite.
     \item \textbf{(E) Cooperation Efficiency}: $m > 1$ ensures $W^C - W^D = n(m-1)E > 0$, so regime switch to cooperation is welfare-improving.
     \item \textbf{Prosocial AI}: $\rho_A > 0$ ensures AI cooperates, generating the context where over-attribution can induce human cooperation.
 \end{itemize}
@@ -139,12 +139,12 @@ This completes Part 1. \hfill $\square_1$
 %------------------------------------------------------------------------------
 
 \medskip
-\noindent\textbf{Part 2: Over-anthropomorphism may reduce extended welfare when AI is materialistically designed.}
+\noindent\textbf{Part 2: Elevated anthropomorphism may reduce extended welfare when AI is materialistically designed.}
 
-This part introduces the novel contribution: the \emph{phantom expectations} mechanism. Unlike Part 1 (which follows directly from Proposition~\ref{prop:welfare-anthro}), this part identifies how over-anthropomorphism creates welfare-reducing psychological costs when attributed expectations have no basis in AI preferences.
+This part introduces the novel contribution: the \emph{phantom expectations} mechanism. Unlike Part 1 (which follows directly from Proposition~\ref{prop:welfare-anthro}), this part identifies how elevated anthropomorphism creates welfare-reducing psychological costs when attributed expectations have no basis in AI preferences.
 
 \medskip
-We construct a setting where over-anthropomorphism strictly reduces $W^{ext}$. The mechanism is \emph{phantom expectations}: humans attribute expectations to AI that has no prosocial objective, incurring psychological costs without offsetting benefits.
+We construct a setting where elevated anthropomorphism strictly reduces $W^{ext}$. The mechanism is \emph{phantom expectations}: humans attribute expectations to AI that has no prosocial objective, incurring psychological costs without offsetting benefits.
 
 \medskip
 \emph{Step 1 (Setup and rational benchmark).}
@@ -152,12 +152,12 @@ Consider the trust game of Section~\ref{sec:applications}. AI trustor sends $x \
 
 The rational benchmark for materialist AI is:
 \begin{equation}\label{eq:rat-materialist}
-    \tilde{h}_H^{(2,A),RAT} = \phi_H(0, x, 0) = \underline{h} = 0.
+    \tilde{h}_H^{(2,A),ZA} = \phi_H(0, x, 0) = \underline{h} = 0.
 \end{equation}
 A rational observer knowing $\rho_A = 0$ and having $\omega_H = 0$ attributes zero expectations: the machine-like baseline applies. This follows from standard attribution functions where $\phi_H(\cdot, \cdot, 0) = \underline{h}$.
 
 \medskip
-\emph{Step 2 (Phantom expectations from over-anthropomorphism).}
+\emph{Step 2 (Phantom expectations from elevated anthropomorphism).}
 With $\omega_H > 0$, attributed expectations exceed the rational benchmark. To model how anthropomorphism amplifies attributed expectations, consider a signal-based attribution function:
 \begin{equation}\label{eq:signal-attribution}
     \phi_H(\rho_A, x, \omega_H) = \omega_H \cdot (3x + \eta x_A),
@@ -168,9 +168,9 @@ This specification captures that anthropomorphism operates through two channels:
 
 With this attribution function:
 \begin{equation}
-    \tilde{h}_H^{(2,A)} = \phi_H(0, x, \omega_H) = \omega_H \cdot 6x > 0 = \tilde{h}_H^{(2,A),RAT}.
+    \tilde{h}_H^{(2,A)} = \phi_H(0, x, \omega_H) = \omega_H \cdot 6x > 0 = \tilde{h}_H^{(2,A),ZA}.
 \end{equation}
-Any positive $\omega_H$ constitutes over-anthropomorphism when $\rho_A = 0$. These attributed expectations are \textbf{phantom}: they exist in the human's psychological model but correspond to nothing in AI preferences.
+Any positive $\omega_H$ constitutes elevated anthropomorphism when $\rho_A = 0$. These attributed expectations are \textbf{phantom}: they exist in the human's psychological model but correspond to nothing in AI preferences.
 
 \medskip
 \emph{Step 3 (Equilibrium returns).}
@@ -180,29 +180,29 @@ Under positive guilt sensitivity (G') with $G = \gamma_H \lambda_H^{GUILT} > 0$,
 \end{equation}
 The return is bounded above by the feasibility constraint $y \leq 3x$.
 
-Contrast with rational attribution: when $\tilde{h}_H^{(2,A),RAT} = 0$, the human faces no guilt from any return level. With purely material preferences, the human returns $y^{*,RAT} = 0$.
+Contrast with zero-anthropomorphism benchmark: when $\tilde{h}_H^{(2,A),ZA} = 0$, the human faces no guilt from any return level. With purely material preferences, the human returns $y^{*,ZA} = 0$.
 
-Over-anthropomorphism increases returns, but these returns are driven by phantom expectations rather than genuine AI preferences.
+Elevated anthropomorphism increases returns, but these returns are driven by phantom expectations rather than genuine AI preferences.
 
 \medskip
-\emph{Step 4 (Extended welfare under rational attribution).}
-Under rational attribution ($\omega_H = 0$):
+\emph{Step 4 (Extended welfare under zero-anthropomorphism benchmark).}
+Under zero-anthropomorphism benchmark ($\omega_H = 0$):
 \begin{align}
-    \tilde{h}_H^{(2,A),RAT} &= 0, \\
-    y^{*,RAT} &= 0, \\
-    \psi_H^{GUILT,RAT} &= -G \cdot \max\{0, 0 - 0\} = 0.
+    \tilde{h}_H^{(2,A),ZA} &= 0, \\
+    y^{*,ZA} &= 0, \\
+    \psi_H^{GUILT,ZA} &= -G \cdot \max\{0, 0 - 0\} = 0.
 \end{align}
 Material payoffs: AI receives $E - x + 0 = E - x$; human receives $3x - 0 = 3x$. Thus:
 \begin{equation}
-    W^{ext}(\tilde{h}^{RAT}) = (E - x) + 3x + 0 = E + 2x.
+    W^{ext}(\tilde{h}^{ZA}) = (E - x) + 3x + 0 = E + 2x.
 \end{equation}
 No guilt because attributed expectations are zero and (trivially) met.
 
 \medskip
-\emph{Step 5 (Extended welfare under over-anthropomorphism).}
-Under over-anthropomorphism with $\tilde{h}_H^{(2,A)} = \omega_H \cdot 6x$:
+\emph{Step 5 (Extended welfare under elevated anthropomorphism).}
+Under elevated anthropomorphism with $\tilde{h}_H^{(2,A)} = \omega_H \cdot 6x$:
 
-\textbf{Case A: Moderate over-anthropomorphism ($\tilde{h}_H^{(2,A)} \leq 3x$, i.e., $\omega_H \leq 0.5$).}
+\textbf{Case A: Moderate elevated anthropomorphism ($\tilde{h}_H^{(2,A)} \leq 3x$, i.e., $\omega_H \leq 0.5$).}
 Then $y^* = \tilde{h}_H^{(2,A)} = \omega_H \cdot 6x$. Guilt is:
 \begin{equation}
     \psi_H^{GUILT} = -G \cdot \max\{0, \tilde{h}_H^{(2,A)} - y^*\} = -G \cdot \max\{0, 0\} = 0.
@@ -214,11 +214,11 @@ No guilt: phantom expectations are met. Material welfare:
 \end{align}
 Total material welfare: $\pi_A + \pi_H = E - x + \omega_H \cdot 6x + (1 - 2\omega_H) \cdot 3x = E + 2x$. Extended welfare:
 \begin{equation}
-    W^{ext}(\tilde{h}) = E + 2x + 0 = E + 2x = W^{ext}(\tilde{h}^{RAT}).
+    W^{ext}(\tilde{h}) = E + 2x + 0 = E + 2x = W^{ext}(\tilde{h}^{ZA}).
 \end{equation}
-Extended welfare unchanged from rational attribution---phantom expectations redistribute welfare from human to AI but create no net loss when expectations are met.
+Extended welfare unchanged from zero-anthropomorphism benchmark---phantom expectations redistribute welfare from human to AI but create no net loss when expectations are met.
 
-\textbf{Case B: Severe over-anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$, i.e., $\omega_H > 0.5$).}
+\textbf{Case B: Severe elevated anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$, i.e., $\omega_H > 0.5$).}
 Now $y^* = 3x$ (feasibility binds) but $\tilde{h}_H^{(2,A)} = \omega_H \cdot 6x > 3x$. Guilt arises:
 \begin{equation}
     \psi_H^{GUILT} = -G \cdot (\omega_H \cdot 6x - 3x) = -G \cdot (6\omega_H - 3)x < 0.
@@ -228,7 +228,7 @@ Extended welfare:
 \begin{equation}
     W^{ext}(\tilde{h}) = (E - x + 3x) + (3x - 3x) + (-G(6\omega_H - 3)x) = E + 2x - G(6\omega_H - 3)x.
 \end{equation}
-When $\omega_H > 0.5$ and $G > 0$, we have $W^{ext}(\tilde{h}) < E + 2x = W^{ext}(\tilde{h}^{RAT})$.
+When $\omega_H > 0.5$ and $G > 0$, we have $W^{ext}(\tilde{h}) < E + 2x = W^{ext}(\tilde{h}^{ZA})$.
 
 \medskip
 \emph{Step 6 (Numerical example).}
@@ -237,12 +237,12 @@ Fix $E = 10$, $x = 10$, $G = 1.5$, and $\phi_H(0, x, \omega_H) = 6\omega_H x$ (s
 \begin{center}
 \begin{tabular}{lccc}
 \hline
-& Rational & Moderate & Severe \\
+& Zero-anthro. & Moderate & Severe \\
 & ($\omega_H = 0$) & ($\omega_H = 0.4$) & ($\omega_H = 0.75$) \\
 \hline
 Attributed expectation $\tilde{h}_H^{(2,A)}$ & 0 & 24 & 45 \\
-Rational benchmark $\tilde{h}^{RAT}$ & 0 & 0 & 0 \\
-Over-anthropomorphism? & No & Yes & Yes \\
+Zero-anthro. benchmark $\tilde{h}^{ZA}$ & 0 & 0 & 0 \\
+Elevated anthropomorphism? & No & Yes & Yes \\
 Equilibrium return $y^*$ & 0 & 24 & 30 \\
 Human guilt $\psi_H^{GUILT}$ & 0 & 0 & $-22.5$ \\
 Material welfare & 30 & 30 & 30 \\
@@ -260,14 +260,14 @@ Material welfare & 30 & 30 & 30 \\
     \item Extended welfare: $30 + (-22.5) = 7.5$.
 \end{itemize}
 
-Under rational attribution, extended welfare is 30. Under moderate over-anthropomorphism ($\omega_H = 0.4$), expectations are met and welfare remains 30. Under severe over-anthropomorphism ($\omega_H = 0.75$), phantom expectations exceed feasibility, generating unmet expectations and guilt. Extended welfare falls to 7.5.
+Under rational attribution, extended welfare is 30. Under moderate elevated anthropomorphism ($\omega_H = 0.4$), expectations are met and welfare remains 30. Under severe elevated anthropomorphism ($\omega_H = 0.75$), phantom expectations exceed feasibility, generating unmet expectations and guilt. Extended welfare falls to 7.5.
 
 \medskip
 \emph{Step 7 (Mechanism summary).}
 Extended welfare reduction requires four conditions:
 \begin{enumerate}
-    \item \textbf{Materialist AI} ($\rho_A = 0$): Establishes $\tilde{h}^{RAT} = 0$ as the non-anthropomorphic baseline.
-    \item \textbf{Over-anthropomorphism} ($\omega_H > 0$): Generates $\tilde{h} > \tilde{h}^{RAT} = 0$.
+    \item \textbf{Materialist AI} ($\rho_A = 0$): Establishes $\tilde{h}^{ZA} = 0$ as the non-anthropomorphic baseline.
+    \item \textbf{Elevated anthropomorphism} ($\omega_H > 0$): Generates $\tilde{h} > \tilde{h}^{ZA} = 0$.
     \item \textbf{Phantom expectations exceed feasibility} ($\tilde{h}_H^{(2,A)} > 3x$): Creates expectations that cannot be satisfied.
     \item \textbf{Positive guilt sensitivity} ($G > 0$): Converts unmet expectations into psychological cost.
 \end{enumerate}
@@ -282,32 +282,32 @@ This completes the existence proof for Part 2. \hfill $\square_2$
 
 \begin{remark}[Contribution relative to Proposition~\ref{prop:welfare-anthro}]
 \label{rem:relation-prop8}
-Part 1 is a direct corollary of Proposition~\ref{prop:welfare-anthro}, restated to establish the connection to the rational attribution benchmark. Part 2, introducing the phantom expectations mechanism, is the novel contribution. The key insight is that over-anthropomorphism of materialist AI creates expectations disconnected from any agent's preferences, generating pure deadweight loss through psychological costs.
+Part 1 is a direct corollary of Proposition~\ref{prop:welfare-anthro}, restated to establish the connection to the zero-anthropomorphism benchmark. Part 2, introducing the phantom expectations mechanism, is the novel contribution. The key insight is that elevated anthropomorphism of materialist AI creates expectations disconnected from any agent's preferences, generating pure deadweight loss through psychological costs.
 \end{remark}
 
-\begin{remark}[Terminology: ``over-anthropomorphism'']
+\begin{remark}[Terminology: ``elevated anthropomorphism'']
 \label{rem:terminology}
-We use ``over-anthropomorphism'' as a descriptive term for attribution exceeding the rational benchmark ($\tilde{h} > \tilde{h}^{RAT}$), without implying welfare harm. Part 1 demonstrates that over-anthropomorphism can improve welfare. The prefix ``over-'' refers to the direction of deviation from the benchmark, not its normative valence. Alternative terminology such as ``positive anthropomorphism relative to rational benchmark'' is more precise but less tractable.
+We use ``elevated anthropomorphism'' as a descriptive term for attribution exceeding the zero-anthropomorphism benchmark ($\tilde{h} > \tilde{h}^{ZA}$), without implying welfare harm. Part 1 demonstrates that elevated anthropomorphism can improve welfare. The term ``elevated'' refers to the direction of deviation from the benchmark, not its normative valence. Alternative terminology such as ``positive anthropomorphism relative to zero-anthropomorphism benchmark'' is more precise but less tractable.
 \end{remark}
 
 \begin{remark}[Weak versus strict inequality in Part 1]
 \label{rem:weak-strict-part1}
-Part 1 states ``weakly improves'' because over-anthropomorphism affects welfare only through equilibrium selection. Within pure defection or pure cooperation regions, marginal increases in $\tilde{h} - \tilde{h}^{RAT}$ do not alter behaviour. Strict improvement occurs only when over-anthropomorphism induces a regime switch from defection to cooperation.
+Part 1 states ``weakly improves'' because elevated anthropomorphism affects welfare only through equilibrium selection. Within pure defection or pure cooperation regions, marginal increases in $\tilde{h} - \tilde{h}^{ZA}$ do not alter behaviour. Strict improvement occurs only when elevated anthropomorphism induces a regime switch from defection to cooperation.
 \end{remark}
 
 \begin{remark}[Why ``may reduce'' in Part 2]
 \label{rem:may-reduce-part2}
-Part 2 is an existence result, not a universal claim. Extended welfare loss requires severe over-anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$). When $\tilde{h}_H^{(2,A)} \leq 3x$, humans satisfy phantom expectations and incur no guilt. The proposition identifies conditions under which harm occurs, not a claim that harm always occurs.
+Part 2 is an existence result, not a universal claim. Extended welfare loss requires severe elevated anthropomorphism ($\tilde{h}_H^{(2,A)} > 3x$). When $\tilde{h}_H^{(2,A)} \leq 3x$, humans satisfy phantom expectations and incur no guilt. The proposition identifies conditions under which harm occurs, not a claim that harm always occurs.
 \end{remark}
 
 \begin{remark}[Asymmetric welfare implications]
 \label{rem:asymmetry}
 The two parts reveal fundamental asymmetry:
 \begin{itemize}
-    \item \textbf{Part 1 (prosocial AI)}: Over-anthropomorphism amplifies cooperation beyond what rational attribution would induce. Attributed expectations, though exceeding the rational benchmark, align directionally with AI preferences, creating mutual gains.
-    \item \textbf{Part 2 (materialist AI)}: Over-anthropomorphism creates expectations where none exist. Phantom expectations diverge completely from AI preferences (which are zero), creating pure loss.
+    \item \textbf{Part 1 (prosocial AI)}: Elevated anthropomorphism amplifies cooperation beyond what rational attribution would induce. Attributed expectations, though exceeding the rational benchmark, align directionally with AI preferences, creating mutual gains.
+    \item \textbf{Part 2 (materialist AI)}: Elevated anthropomorphism creates expectations where none exist. Phantom expectations diverge completely from AI preferences (which are zero), creating pure loss.
 \end{itemize}
-The critical distinction is whether attributed expectations correspond to genuine AI preferences. When attributed expectations align with AI design (prosocial case), over-anthropomorphism coordinates behaviour toward cooperation. When attributed expectations are phantom (materialist case), over-anthropomorphism generates deadweight psychological costs.
+The critical distinction is whether attributed expectations correspond to genuine AI preferences. When attributed expectations align with AI design (prosocial case), elevated anthropomorphism coordinates behaviour toward cooperation. When attributed expectations are phantom (materialist case), elevated anthropomorphism generates deadweight psychological costs.
 \end{remark}
 
 \begin{remark}[Policy implications for AI transparency]
@@ -316,8 +316,8 @@ The phantom expectations mechanism supports a case for AI transparency requireme
 
 The policy calculus depends on the population of AI systems:
 \begin{itemize}
-    \item If most AI is prosocially designed: Some over-anthropomorphism may be welfare-enhancing.
-    \item If most AI is materialistically designed: Over-anthropomorphism causes net harm, favouring transparency mandates.
+    \item If most AI is prosocially designed: Some elevated anthropomorphism may be welfare-enhancing.
+    \item If most AI is materialistically designed: Elevated anthropomorphism causes net harm, favouring transparency mandates.
     \item Mixed population: Optimal policy must balance cooperation gains against psychological costs.
 \end{itemize}
 

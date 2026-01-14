@@ -65,9 +65,18 @@ For each human $i \in N_H$, the attribution function is a mapping
 that determines how human $i$ attributes expectations to AI $j$ based on AI's design parameters $\theta_j$, observable signals $x_j$, and the human's anthropomorphism tendency $\omega_i$.
 \end{defn}
 
-\begin{remark}[Rational Attribution Benchmark]
-\label{rem:rational-benchmark}
-We define the \textbf{rational attribution benchmark} $\tilde{h}_i^{(2,j),RAT}$ as the attributed belief that would arise if the human correctly inferred AI expectations from the AI's objective function: $\tilde{h}_i^{(2,j),RAT} = \lim_{\omega_i \to 0} \phi_i(\theta_j, x_j, \omega_i)$ when this limit exists, representing attribution without anthropomorphic bias.
+\begin{defn}[Zero-Anthropomorphism Benchmark]
+\label{def:zero-anthro}
+For human $i \in N_H$ interacting with AI $j \in N_A$, the \textbf{zero-anthropomorphism attributed belief} is:
+\begin{equation}
+    \tilde{h}_i^{(2,j),ZA} = \phi_i(\theta_j, x_j, 0)
+\end{equation}
+This represents the attributed belief when anthropomorphism is absent ($\omega_i = 0$). The zero-anthropomorphism benchmark is descriptive: it characterizes attribution without anthropomorphic bias, not a normative standard for ``correct'' beliefs.
+\end{defn}
+
+\begin{remark}[Interpretation]
+\label{rem:zero-anthro-interp}
+The zero-anthropomorphism benchmark isolates the role of AI design parameters $\theta_j$ and observable signals $x_j$ in shaping attributed beliefs, net of individual anthropomorphism. Under the linear specification (Example~\ref{ex:linear-attribution}), $\tilde{h}_i^{(2,j),ZA} = 0$: without anthropomorphism, humans attribute no expectations to AI. Alternative specifications may yield $\tilde{h}_i^{(2,j),ZA} > 0$ if attribution persists through non-anthropomorphic channels.
 \end{remark}
 
 The attribution function formalises the empirically established process of mind perception \citep{gray2007dimensions,epley2007seeing}. Its inputs correspond to well-established antecedents of intentionality attribution \citep{wiese2017robots}. Attribution intensity varies with human-like cues including voice \citep{schroeder2016voice}, gaze behaviour, and movement patterns, all of which can be captured in the signal vector $x_j$.

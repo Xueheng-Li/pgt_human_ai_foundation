@@ -1,9 +1,9 @@
-% Proof of Proposition: Rational Attribution and Bayesian Game Equivalence
+% Proof of Proposition: Rational Attribution Equilibrium and Bayesian Game Equivalence
 % For inclusion in ABE manuscript appendix
 % When attribution is rational, ABE reduces to Bayes-Nash Equilibrium
 
 \paragraph{The Equivalent Bayesian Game $\Gamma^B$.}
-Given the psychological game $\Gamma$ and a candidate equilibrium $\sigma^*$ satisfying rational attribution, construct the Bayesian game $\Gamma^B$ as follows:
+Given the psychological game $\Gamma$ and a candidate equilibrium $\sigma^*$ satisfying Rational Attribution Equilibrium (RAE), construct the Bayesian game $\Gamma^B$ as follows:
 
 \textbf{1. Players.} $N = N_H \cup N_A$ (identical to $\Gamma$).
 
@@ -24,7 +24,7 @@ Given the psychological game $\Gamma$ and a candidate equilibrium $\sigma^*$ sat
     \label{eq:bayesian-human-payoff}
         u_i^B(s, \tau) = \pi_i(s) + \psi_i(s, \sigma_i^*, \sigma_i^*)
     \end{equation}
-    Under rational attribution, all second-order beliefs (genuine and attributed) equal $\sigma_i^*$. The psychological payoff $\psi_i$ is evaluated at these consistent beliefs.
+    Under Rational Attribution Equilibrium (RAE), all second-order beliefs (genuine and attributed) equal $\sigma_i^*$. The psychological payoff $\psi_i$ is evaluated at these consistent beliefs.
 
     \item For AI $j \in N_A$ with type $\tau_j = \theta_j$:
     \begin{equation}
@@ -40,11 +40,11 @@ The Bayesian game construction uses the candidate equilibrium $\sigma^*$ in the 
 We prove parts (a) and (b) separately.
 
 \medskip
-\noindent\textbf{Part (a): ABE with Rational Attribution $\Rightarrow$ BNE.}
+\noindent\textbf{Part (a): ABE with Rational Attribution Equilibrium $\Rightarrow$ BNE.}
 
-Let $(\sigma^*, h^*, \tilde{h}^*)$ be an ABE of $\Gamma$ where $(\sigma^*, \phi)$ satisfy rational attribution. We show that $\sigma^*$ is a BNE of $\Gamma^B$.
+Let $(\sigma^*, h^*, \tilde{h}^*)$ be an ABE of $\Gamma$ where $(\sigma^*, \phi)$ satisfy Rational Attribution Equilibrium (RAE). We show that $\sigma^*$ is a BNE of $\Gamma^B$.
 
-\emph{Step 1: Characterize equilibrium beliefs under rational attribution.}
+\emph{Step 1: Characterize equilibrium beliefs under RAE.}
 
 By the ABE belief consistency conditions (ABE3):
 \begin{align}
@@ -53,13 +53,13 @@ By the ABE belief consistency conditions (ABE3):
 \end{align}
 The second equality uses ABE3 twice: first, second-order consistency $h_i^{*(2,k)} = h_k^{*(1,i)}$; second, first-order consistency $h_k^{*(1,i)} = \sigma_i^*$.
 
-By attribution consistency (ABE4) and rational attribution:
+By attribution consistency (ABE4) and RAE:
 \begin{equation}
     \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*
 \end{equation}
-The last equality is the rational attribution condition.
+The last equality is the RAE condition.
 
-Therefore, under rational attribution, all second-order beliefs---both genuine ($h_i^{*(2,k)}$) and attributed ($\tilde{h}_i^{*(2,j)}$)---equal the equilibrium strategy $\sigma_i^*$.
+Therefore, under RAE, all second-order beliefs---both genuine ($h_i^{*(2,k)}$) and attributed ($\tilde{h}_i^{*(2,j)}$)---equal the equilibrium strategy $\sigma_i^*$.
 
 \emph{Step 2: Verify human optimality in $\Gamma^B$.}
 
@@ -75,7 +75,7 @@ In the Bayesian game $\Gamma^B$, human $i$'s payoff is:
 \[
     u_i^B(s, \tau) = \pi_i(s) + \psi_i(s, \sigma_i^*, \sigma_i^*)
 \]
-which coincides with the ABE utility under rational attribution.
+which coincides with the ABE utility under RAE.
 
 Since $\sigma_i^*$ maximizes $U_i^H$ in the ABE, it also maximizes $u_i^B$ in $\Gamma^B$. Human optimality in $\Gamma^B$ is satisfied.
 
@@ -93,7 +93,7 @@ In $\Gamma^B$, AI $j$'s payoff is $u_j^B(s, \theta_j) = U_j^A(s; \theta_j)$, whi
 Since both human and AI optimality in $\Gamma^B$ are satisfied by $\sigma^*$, we have that $\sigma^*$ is a BNE of $\Gamma^B$.
 
 \medskip
-\noindent\textbf{Part (b): BNE $\Rightarrow$ ABE with Rational Attribution.}
+\noindent\textbf{Part (b): BNE $\Rightarrow$ ABE with Rational Attribution Equilibrium.}
 
 Let $\sigma^*$ be a BNE of the Bayesian game $\Gamma^B$ constructed above, where the payoff function uses $\sigma^*$ itself (i.e., $\sigma^*$ is a fixed point). We construct an ABE of $\Gamma$.
 
@@ -109,11 +109,11 @@ Define attributed beliefs by:
 \begin{equation}
     \tilde{h}_i^{*(2,j)} := \phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*
 \end{equation}
-where the last equality is the rational attribution condition.
+where the last equality is the RAE condition.
 
 \emph{Step 2: Verify ABE conditions.}
 
-\textbf{(ABE1) Human Optimality.} Since $\sigma^*$ is a BNE of $\Gamma^B$, and the payoffs coincide under rational attribution (Step 2 of Part (a)), human optimality in ABE is satisfied.
+\textbf{(ABE1) Human Optimality.} Since $\sigma^*$ is a BNE of $\Gamma^B$, and the payoffs coincide under RAE (Step 2 of Part (a)), human optimality in ABE is satisfied.
 
 \textbf{(ABE2) AI Optimality.} Since $\sigma^*$ is a BNE and AI payoffs are identical in $\Gamma$ and $\Gamma^B$, AI optimality is satisfied.
 
@@ -133,5 +133,5 @@ All four ABE conditions are satisfied. Therefore, $(\sigma^*, h^*, \tilde{h}^*)$
 \medskip
 \noindent\textbf{Conclusion.}
 
-The mappings in Parts (a) and (b) are consistent: the same strategy profile $\sigma^*$ appears in both the ABE and the BNE when rational attribution holds. This establishes the correspondence.
+The mappings in Parts (a) and (b) are consistent: the same strategy profile $\sigma^*$ appears in both the ABE and the BNE when RAE holds. This establishes the correspondence.
 \end{proof}

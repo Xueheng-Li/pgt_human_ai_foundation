@@ -18,19 +18,19 @@
 - [x] Verify φᵢ produces valid distributions
 
 ### CR3: Welfare Measure Justification
-- [ ] Add Section 2.7 "Welfare Measures" with Definitions 3-4
-- [ ] Add Section 2.7.4 "Belief revision puzzle"
-- [ ] Revise Proposition 8 with explicit welfare flagging
-- [ ] Add Proposition 10' (extended welfare optimal design)
-- [ ] Add Corollaries 2-3 (when measures agree/diverge)
+- [x] Add Section 2.7 "Welfare Measures" with Definitions 3-4
+- [x] Add Section 2.7.4 "Belief revision puzzle"
+- [x] Revise Proposition 8 with explicit welfare flagging
+- [x] Add Proposition 10' (extended welfare optimal design)
+- [x] Add Corollaries 2-3 (when measures agree/diverge)
 
 ### CR4: Rational Attribution Clarity
-- [ ] Replace "Rational attribution" (ω→0) → "Zero-anthropomorphism benchmark"
-- [ ] Replace "Over-anthropomorphism" → "Elevated anthropomorphism"
-- [ ] Add Definition 5 (Zero-anthropomorphism benchmark)
-- [ ] Add Definition 6 (Rational Attribution Equilibrium)
-- [ ] Add Proposition 3' (RAE existence conditions)
-- [ ] Add Subsection 3.3 (relationship between concepts)
+- [x] Replace "Rational attribution" (ω→0) → "Zero-anthropomorphism benchmark"
+- [x] Replace "Over-anthropomorphism" → "Elevated anthropomorphism"
+- [x] Add Definition 5 (Zero-anthropomorphism benchmark)
+- [x] Add Definition 6 (Rational Attribution Equilibrium)
+- [x] Add Proposition 3' (RAE existence conditions)
+- [x] Add Subsection 3.3 (relationship between concepts)
 
 ### CR5: Assumption Structure
 - [ ] Create unified assumption table (Section 2.8)

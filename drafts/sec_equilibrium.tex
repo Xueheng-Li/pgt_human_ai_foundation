@@ -106,26 +106,55 @@ A strategy profile $\sigma^*$ together with attribution function $\phi$ satisfy 
 
 Rational attribution is a fixed-point requirement: $\phi$ projects equilibrium play, and $\sigma^*$ is an equilibrium given $\phi$. Existence is not guaranteed for general games but holds in games with unique Nash equilibria. The proposition identifies when ABE reduces to standard Bayesian game theory---precisely when humans form ``correct'' beliefs about AI expectations. See Appendix~\ref{app:proofs} for the complete proof and construction of the equivalent Bayesian game $\Gamma^B$.
 
-\begin{defn}[Rational Attribution as a Fixed Point]
-\label{def:rational-attribution}
-Fix a psychological game $\Gamma$. A strategy profile $\sigma^* \in \prod_{k \in N} \Delta(S_k)$ together with attribution function $\phi$ satisfy \textbf{rational attribution} if the following fixed-point condition holds:
+\begin{defn}[Rational Attribution Equilibrium]
+\label{def:RAE}
+Fix a psychological game $\Gamma$. A strategy profile $\sigma^* \in \prod_{k \in N} \Delta(S_k)$ together with attribution function $\phi$ constitute a \textbf{Rational Attribution Equilibrium (RAE)} if:
 \begin{enumerate}
-    \item[(i)] \textbf{Attribution projects equilibrium}: For all $i \in N_H$ and $j \in N_A$,
+    \item[(i)] $\sigma^*$ is an Attributed Belief Equilibrium under $\phi$;
+    \item[(ii)] For all $i \in N_H$ and $j \in N_A$:
     \begin{equation}
-        \phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*
+        \tilde{h}_i^{*(2,j)} = \phi_i(\theta_j, x_j, \omega_i) = \sigma_i^*
+        \label{eq:RAE-fixed-point}
     \end{equation}
-    That is, the attributed belief about ``what AI expects human $i$ to do'' equals human $i$'s actual equilibrium strategy.
-
-    \item[(ii)] \textbf{Strategies are optimal}: Given the beliefs determined by $\phi$, the profile $\sigma^*$ satisfies ABE optimality:
-    \begin{itemize}
-        \item For all $i \in N_H$: $\sigma_i^* \in \arg\max_{\sigma_i} \mathbb{E}[U_i^H(\sigma_i, \sigma_{-i}^*, h_i(\sigma^*), \tilde{h}_i(\phi))]$
-        \item For all $j \in N_A$: $\sigma_j^* \in \arg\max_{\sigma_j} U_j^A(\sigma_j, \sigma_{-j}^*; \theta_j)$
-    \end{itemize}
 \end{enumerate}
-The pair $(\sigma^*, \phi)$ is mutually consistent: $\phi$ projects the equilibrium play, and $\sigma^*$ is indeed an equilibrium given $\phi$.
+Condition (ii) is a fixed-point requirement: the attributed belief about ``what AI $j$ expects human $i$ to do'' equals human $i$'s actual equilibrium strategy.
 \end{defn}
 
-Rational attribution captures the case where humans correctly anticipate equilibrium behavior: the attributed belief ``what AI expects me to do'' coincides with what the human actually does in equilibrium. This is the ``rational'' benchmark: no systematic bias in belief formation.
+RAE captures the case where humans correctly anticipate equilibrium behavior. The attributed belief coincides with actual play---no systematic bias in belief formation. This is analogous to rational expectations in macroeconomics: beliefs are model-consistent.
+
+\begin{remark}[RAE vs. Zero-Anthropomorphism]
+\label{rem:RAE-vs-ZA}
+RAE and the zero-anthropomorphism benchmark are distinct concepts:
+\begin{itemize}
+    \item \textbf{Zero-anthropomorphism} (Definition~\ref{def:zero-anthro}) characterizes attributed beliefs when $\omega_i = 0$. This is a limiting case of the attribution function, independent of equilibrium strategies.
+    \item \textbf{RAE} (Definition~\ref{def:RAE}) requires attributed beliefs to equal equilibrium strategies. This is a fixed-point condition that may hold at any anthropomorphism level $\omega_i \in [0,1]$.
+\end{itemize}
+Neither concept implies the other. A zero-anthropomorphism benchmark $\tilde{h}_i^{(2,j),ZA} = 0$ typically differs from equilibrium strategy $\sigma_i^* > 0$, so zero-anthropomorphism does not yield RAE. Conversely, RAE can hold with positive anthropomorphism if the attribution function happens to project equilibrium play.
+\end{remark}
+
+\begin{proposition}[RAE Existence]
+\label{prop:RAE-existence}
+Consider a psychological game $\Gamma$ satisfying Assumptions A1--A3. Rational Attribution Equilibrium exists under either of the following conditions:
+\begin{enumerate}
+    \item[(i)] \textbf{Unique Nash benchmark}: The material game $\Gamma^M$ has a unique Nash equilibrium $\sigma^{NE}$, and $\phi_i(\theta_j, x_j, \omega_i) = \sigma_i^{NE}$ for all $i \in N_H$, $j \in N_A$.
+    \item[(ii)] \textbf{Equilibrium-projecting attribution}: The attribution function satisfies
+    \begin{equation}
+        \phi_i(\theta_j, x_j, \omega_i) = \arg\max_{\sigma_i} \mathbb{E}[U_i^H(\sigma_i, \sigma_{-i}^*, h_i^*, \tilde{h}_i^*)]
+    \end{equation}
+    for some ABE $(\sigma^*, h^*, \tilde{h}^*)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof Sketch]
+(i) Under uniqueness, equilibrium strategies are pinned down by material payoffs. If attribution projects this unique equilibrium, the fixed-point condition (\ref{eq:RAE-fixed-point}) holds by construction.
+
+(ii) This condition directly imposes the fixed-point: attributed beliefs equal optimal strategies. Existence follows from Theorem~\ref{thm:existence} applied to the restricted class of attribution functions satisfying this property. \qed
+\end{proof}
+
+\begin{remark}[Non-Existence of RAE]
+\label{rem:RAE-nonexistence}
+RAE need not exist in general. Consider a game where $\sigma_i^* \in (0,1)$ is the unique equilibrium mixing probability, but the attribution function satisfies $\phi_i(\theta_j, x_j, \omega_i) \in \{0, 1\}$ (pure-strategy attribution). The fixed-point condition (\ref{eq:RAE-fixed-point}) cannot be satisfied. RAE is a special case of ABE, not the generic outcome.
+\end{remark}
 
 \begin{corollary}[Complete Information Reduction]
 \label{cor:complete-info}
@@ -146,6 +175,76 @@ Proposition~\ref{prop:rational-attribution} identifies when the ABE framework re
 \begin{remark}[Equilibrium Multiplicity under Rational Attribution]
 If the underlying game has multiple equilibria, the rational attribution condition can hold for at most one equilibrium per attribution function $\phi$. This is because $\phi_i(\theta_j, x_j, \omega_i)$ is a deterministic function of its arguments---it cannot output different values for different equilibria. The proposition establishes correspondence for each equilibrium satisfying the fixed-point condition separately.
 \end{remark}
+
+\subsection{Relationship Between Equilibrium Concepts}
+\label{sec:concept-relationships}
+
+The framework yields a nested hierarchy of equilibrium concepts. We clarify terminology and explain when each applies.
+
+\subsubsection{Conceptual Hierarchy}
+
+Three equilibrium concepts have been introduced:
+\begin{enumerate}
+    \item \textbf{Attributed Belief Equilibrium (ABE)}: The general concept (Definition~\ref{def:ABE}). Attributed beliefs are determined by the attribution function $\phi_i$, which depends on AI characteristics $(\theta_j, x_j)$ and human anthropomorphism $\omega_i$. No restriction on the relationship between attributed beliefs and equilibrium strategies.
+
+    \item \textbf{Rational Attribution Equilibrium (RAE)}: A refinement of ABE (Definition~\ref{def:RAE}). Attributed beliefs equal equilibrium strategies: $\tilde{h}_i^{*(2,j)} = \sigma_i^*$. This is a fixed-point requirement analogous to rational expectations.
+
+    \item \textbf{Zero-Anthropomorphism Benchmark}: A limiting case (Definition~\ref{def:zero-anthro}). Attributed beliefs when $\omega_i = 0$. This is a descriptive benchmark, not an equilibrium concept.
+\end{enumerate}
+
+The nesting is:
+\begin{equation}
+    \text{ABE} \supseteq \text{RAE} \supseteq \{\text{Zero-anthropomorphism ABE}\}
+\end{equation}
+where the final inclusion holds only when zero-anthropomorphism happens to yield RAE (typically not the case).
+
+\subsubsection{Terminological Clarification}
+
+We reserve terminology as follows:
+\begin{itemize}
+    \item \textbf{``Rational''} refers exclusively to the fixed-point property in RAE. A belief is rational if it coincides with the strategy it induces. This is model-consistency, not a normative judgment about anthropomorphism levels.
+
+    \item \textbf{``Zero-anthropomorphism''} refers to the limiting case $\omega_i = 0$. This is descriptive: it characterizes what humans would attribute absent anthropomorphic bias. We avoid calling this ``rational'' since (a) anthropomorphism may be evolutionarily advantageous, and (b) the zero-anthropomorphism benchmark typically differs from equilibrium play.
+
+    \item \textbf{``Elevated anthropomorphism''} refers to cases where $\omega_i > 0$ leads to attributed beliefs exceeding the zero-anthropomorphism benchmark. We avoid ``over-anthropomorphism'' since this implies a normative standard that may not exist.
+\end{itemize}
+
+\subsubsection{When Each Concept Applies}
+
+\paragraph{ABE (General Case).}
+ABE is the appropriate concept for most applications. It accommodates arbitrary attribution functions without imposing fixed-point restrictions. Use ABE when:
+\begin{itemize}
+    \item Anthropomorphism levels vary across individuals ($\omega_i$ heterogeneous)
+    \item Attribution is based on heuristics, framing, or interface cues
+    \item Attributed beliefs may systematically diverge from equilibrium strategies
+\end{itemize}
+
+\paragraph{RAE (Special Case).}
+RAE applies when attributed beliefs happen to be ``correct'' in the sense of matching equilibrium play. Use RAE when:
+\begin{itemize}
+    \item The game has a unique, salient equilibrium that humans can identify
+    \item Experience or learning has aligned attributed beliefs with actual behavior
+    \item The attribution function is designed to project equilibrium (mechanism design)
+\end{itemize}
+
+\paragraph{Zero-Anthropomorphism Benchmark (Limiting Case).}
+The zero-anthropomorphism benchmark is useful for comparative statics and counterfactual analysis. Use it when:
+\begin{itemize}
+    \item Isolating the effect of anthropomorphism: compare outcomes at $\omega_i = 0$ vs. $\omega_i > 0$
+    \item Characterizing the zero-anthropomorphism attribution baseline
+    \item Designing interventions to reduce anthropomorphic bias
+\end{itemize}
+
+\subsubsection{Relationship to Standard Game Theory}
+
+Proposition~\ref{prop:rational-attribution} establishes that RAE corresponds bijectively to Bayes-Nash equilibria of an equivalent Bayesian game. The ABE framework differs non-trivially from standard game theory precisely when attribution is \emph{not} rational---when $\tilde{h}_i^{*(2,j)} \neq \sigma_i^*$. This departure arises from:
+\begin{itemize}
+    \item \textbf{Anthropomorphic bias}: $\omega_i > 0$ inflates attributed beliefs beyond what equilibrium play warrants
+    \item \textbf{Signal effects}: Interface design ($x_j$) shapes attribution independent of equilibrium
+    \item \textbf{Systematic misattribution}: Humans project their own cooperative tendencies onto AI
+\end{itemize}
+
+The practical import: ABE captures departures from Bayesian rationality that are empirically documented in human-AI interaction. RAE is the benchmark where no such departures occur.
 
 \subsection{Multiplicity}
 
