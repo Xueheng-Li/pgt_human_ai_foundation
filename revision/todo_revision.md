@@ -8,8 +8,8 @@
 ### CR1: Attribution Function Foundation
 - [x] Add Subsection 2.5.4 "Empirical Implementation and Testability"
 - [x] Add Subsection 2.5.5 "Mind Perception Theory connection"
-- [ ] Revise Example 1 (justify linearity)
-- [ ] Add Section 6.1 "Empirical Agenda"
+- [x] Revise Example 1 (justify linearity)
+- [x] Add Section 6.1 "Empirical Agenda"
 
 ### CR2: Existence Proof Tightening
 - [ ] Rewrite Appendix A.1 with three attribution cases
