@@ -209,6 +209,81 @@ where $\gamma_i > 0$ is guilt sensitivity and $\lambda_i^{GUILT} \in [0,1]$ is t
 
 \citet{demelo2017people} find that participants feel ``considerably less guilt'' when exploiting machines than humans, suggesting guilt requires attribution of experience (capacity to suffer) that humans do not readily grant to AI. Cross-cultural evidence reveals heterogeneity: Japanese participants exhibit guilt toward robots comparable to guilt toward humans, while Western participants show strong attenuation \citep{karpus2025cross}.
 
+\subsection{Welfare Measures}
+\label{sec:welfare-measures}
+
+Two welfare concepts arise naturally from the payoff decomposition. We define each, establish normative foundations, and characterize divergence.
+
+\begin{defn}[Material Welfare]
+\label{def:material-welfare}
+For strategy profile $s \in S$, \textbf{material welfare} is the sum of material payoffs:
+\begin{equation}
+    W(s) = \sum_{i \in N} \pi_i(s).
+\end{equation}
+\end{defn}
+
+Material welfare counts only outcomes that are transferable, verifiable, and comparable across agents---monetary payoffs, consumption, or quantities.
+
+\begin{defn}[Extended Welfare]
+\label{def:extended-welfare}
+For strategy profile $s \in S$ with belief profile $(h, \tilde{h})$, \textbf{extended welfare} is:
+\begin{equation}
+    W^{ext}(s, h, \tilde{h}) = W(s) + \sum_{i \in N_H} \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}).
+\end{equation}
+\end{defn}
+
+Extended welfare includes the psychological payoffs $\psi_i$ that humans experience. AI agents contribute no psychological terms since they lack subjective experience.
+
+\subsubsection{Normative Justification}
+\label{sec:welfare-normative}
+
+The choice between welfare measures reflects a prior normative position on the status of psychological payoffs.
+
+\citet{kahneman1997back} distinguish \emph{decision utility}---revealed preference over choices---from \emph{experienced utility}---hedonic quality of outcomes. Material welfare $W$ aligns with decision utility: it counts what agents choose to maximize, abstracting from the subjective states accompanying those choices. Extended welfare $W^{ext}$ aligns with experienced utility: it incorporates hedonic content, including guilt and disappointment.
+
+When should each apply? The answer depends on whether psychological payoffs have intrinsic or instrumental value.
+
+\paragraph{Instrumental view.} If guilt and disappointment matter only because they distort decisions, then $W$ is the appropriate measure. Psychological disutility is a means to material ends---it motivates behavior but has no standing in the social objective. Under this view, a planner seeks to maximize material outcomes, treating psychological costs as constraints that shape equilibrium but not as ends in themselves.
+
+\paragraph{Intrinsic view.} If subjective experience has inherent value, then $W^{ext}$ applies. Guilt reduces human well-being directly, not merely through its behavioral consequences. A planner who values experienced happiness includes $\psi_i$ in the objective.
+
+Standard welfare economics adopts the instrumental view: consumer surplus and Pareto efficiency concern material allocations. Yet behavioral welfare economics increasingly recognizes that experienced utility may diverge from decision utility \citep{kahneman1997back}. In human-AI interaction, this divergence takes a specific form: humans experience guilt toward agents that cannot reciprocate the experience.
+
+\subsubsection{When Measures Diverge}
+\label{sec:welfare-divergence}
+
+With prosocial AI ($\rho_j > 0$), the two measures typically agree. The AI's objective incorporates human welfare, so attributed beliefs reflect genuine concern. Guilt from disappointing a prosocial AI corresponds to disappointing an entity that valued cooperation---the psychological cost has a material counterpart in the AI's design.
+
+With materialist AI ($\rho_j = 0$), the measures can diverge. The AI maximizes its own material payoff and holds no expectations about human cooperation. Yet humans may attribute such expectations through anthropomorphism. The resulting guilt is real---humans experience the disutility---but corresponds to no genuine expectation.
+
+\begin{example}[Phantom Expectations]
+\label{ex:phantom-expectations}
+Consider human $i$ interacting with materialist AI $j$. The AI's objective is $U_j^A = \pi_j(s)$, containing no term that depends on $i$'s cooperation. The AI holds no expectation about $i$'s behavior.
+
+If $\omega_i > 0$, human $i$ attributes beliefs via $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i) > 0$. Human $i$ believes the AI expected cooperation. When $i$ defects, guilt follows:
+\begin{equation}
+    \psi_i^{GUILT} = -\gamma_i \lambda_i^{GUILT} \max\{0, \tilde{h}_i^{(2,j)} - \pi_j(s)\} < 0.
+\end{equation}
+This guilt is phantom: it responds to attributed expectations that exist only in the human's model of the AI. Material welfare $W$ ignores this cost. Extended welfare $W^{ext}$ counts it.
+\end{example}
+
+The divergence has policy implications. If a designer maximizes $W$, phantom guilt is irrelevant---only material outcomes matter. If the designer maximizes $W^{ext}$, phantom guilt is costly even when AI is indifferent. The optimal design of AI interfaces may differ across objectives.
+
+\subsubsection{The Belief Revision Puzzle}
+\label{sec:belief-revision}
+
+A natural question arises: if phantom expectations impose psychological costs, why don't humans revise their attributed beliefs to eliminate them? A rational agent who learns that AI lacks genuine expectations should update $\tilde{h}_i^{(2,j)} \to 0$, avoiding guilt entirely.
+
+Three mechanisms prevent full revision.
+
+\paragraph{Automaticity of attribution.} Humans do not consciously choose attributed beliefs. Perceiving AI as agent-like automatically activates anthropomorphic inferences---without reflection and without deliberation \citep{epley2007seeing}. The attribution function $\phi_i$ operates as System~1 cognition: fast, automatic, and resistant to conscious override.
+
+\paragraph{Limited correction capacity.} Belief revision requires System~2 cognition: effortful, deliberate, and slow. In interactive settings, real-time decisions prevent sustained correction. Under cognitive load, correction diminishes. The game-theoretic context---where humans must choose strategies while processing beliefs---imposes precisely these demands.
+
+\paragraph{Incomplete correction residue.} Even with time and motivation, correction is characteristically insufficient. Users who know AI lacks mental states still exhibit residual anthropomorphism \citep{epley2007seeing}. The egocentric anchor---using self-knowledge as template for reasoning about agents---cannot be fully suppressed. Some attributed belief persists.
+
+Together, these mechanisms explain the persistence of phantom expectations. Attributed beliefs are inferred rather than chosen, and deliberate correction (System~2) cannot fully override automatic inference (System~1). The resulting welfare losses are not irrational in the sense of violating preference axioms; they reflect the architecture of human social cognition applied to novel agents.
+
 \subsection{Game Definition}
 
 \begin{defn}[Asymmetric Human-AI Psychological Game]

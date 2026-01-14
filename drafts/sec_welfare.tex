@@ -6,17 +6,7 @@ This section examines the welfare implications of ABE and derives principles for
 
 \subsection{Welfare Measures}
 
-Define social welfare as the sum of material payoffs:
-\[
-    W(s) = \sum_{i \in N} \pi_i(s).
-\]
-This measure focuses on material outcomes, treating psychological payoffs as instrumental---they affect behaviour but are not valued directly for welfare purposes.
-
-An alternative is to include human psychological welfare:
-\[
-    W^{ext}(s, h, \tilde{h}) = \sum_{i \in N} \pi_i(s) + \sum_{i \in N_H} \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)}).
-\]
-This extended measure values psychological states intrinsically.
+Section~\ref{sec:welfare-measures} introduced two welfare concepts: material welfare $W(s)$ (Definition~\ref{def:material-welfare}) counting only transferable payoffs, and extended welfare $W^{ext}$ (Definition~\ref{def:extended-welfare}) incorporating psychological payoffs. The choice between measures reflects whether psychological states have intrinsic or instrumental value. This section applies both measures to characterize the welfare effects of anthropomorphism and derive principles for AI design.
 
 \subsection{Anthropomorphism and Welfare}
 
@@ -24,18 +14,27 @@ The welfare effects of anthropomorphism depend critically on AI design.
 
 \begin{proposition}[Welfare Effects of Anthropomorphism]
 \label{prop:welfare-anthro}
-Consider the public goods game (Part 1) or trust game (Part 2). Under Assumptions (A1)--(A3) and (A2') attribution monotonicity:
+Consider the public goods game (Parts i, iii) or trust game (Parts i--iii). Suppose Assumptions (A1)--(A3) regularity and (A2') attribution monotonicity hold.
 \begin{enumerate}
-    \item When AI is prosocially designed ($\rho_A > 0$), if (E) cooperation is efficient ($m > 1$) and (I) indignation dominance holds, then higher anthropomorphism $\omega$ weakly increases material welfare $W(s^*)$.
-    \item When AI is materialistically designed ($\rho_A = 0$), if (G) guilt dominance holds ($G = \gamma_H \lambda_H^{GUILT} > 1$), then higher anthropomorphism $\omega$ may reduce extended welfare $W^{ext}(s^*, h^*, \tilde{h}^*)$.
+    \item[(i)] \textbf{Material welfare with prosocial AI.} Under material welfare $W(s^*)$ (Definition~\ref{def:material-welfare}): when AI is prosocially designed ($\rho_A > 0$), if (E) cooperation is efficient ($m > 1$) and (I) indignation dominance holds, then higher anthropomorphism $\omega$ weakly increases $W(s^*)$.
+
+    \item[(ii)] \textbf{Extended welfare with materialist AI.} Under extended welfare $W^{ext}(s^*, h^*, \tilde{h}^*)$ (Definition~\ref{def:extended-welfare}): when AI is materialistically designed ($\rho_A = 0$), if (G) guilt dominance holds ($G = \gamma_H \lambda_H^{GUILT} > 1$), then higher anthropomorphism $\omega$ may reduce $W^{ext}$.
+
+    \item[(iii)] \textbf{Material welfare with materialist AI.} Under material welfare $W(s^*)$: when AI is materialistically designed ($\rho_A = 0$), anthropomorphism $\omega$ has no effect on $W(s^*)$.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}[Proof Sketch]
-Part 1: With prosocial AI, attributed expectations favour cooperation. Higher $\omega$ elevates attributed expectations, increasing the psychological cost of defection. This induces more cooperation, which raises total material payoffs when $m > 1$.
+\textit{Part (i).} With prosocial AI, attributed expectations favor cooperation. Higher $\omega$ elevates attributed expectations via attribution monotonicity (A2'), increasing the psychological cost of defection. This induces more cooperation, which raises total material payoffs when $m > 1$. The improvement is weak: within pure defection or pure cooperation regions, marginal increases in $\omega$ do not alter behavior.
 
-Part 2: With materialist AI, the AI has no prosocial expectations. But if humans over-anthropomorphise, they attribute \emph{phantom expectations} that do not exist. When these phantom expectations exceed feasible returns, humans incur guilt---a pure welfare loss that benefits no one.
+\textit{Part (ii).} With materialist AI, the AI holds no prosocial expectations ($\rho_A = 0$). If humans over-anthropomorphize, they attribute \emph{phantom expectations} that correspond to nothing in AI objectives. When phantom expectations exceed feasible returns, humans incur guilt---a psychological cost counted by $W^{ext}$ but not by $W$. This is an existence result: welfare loss requires both that phantom expectations exceed feasibility and that $G > 1$.
+
+\textit{Part (iii).} With materialist AI, equilibrium actions depend only on material payoffs. The AI plays its best response to maximize $\pi_A(s)$; humans best-respond to AI actions. Although higher $\omega$ increases attributed expectations and may induce guilt, guilt affects only the psychological component $\psi_i$, which $W$ excludes. Material outcomes---contributions, returns, transfers---remain unchanged.
 \end{proof}
+
+\begin{remark}[Asymmetric Welfare Implications]
+Parts (i) and (ii) reveal a fundamental asymmetry. With prosocial AI, attributed expectations align directionally with AI preferences---humans who anthropomorphize attribute expectations that reflect, though potentially overestimate, genuine AI concern. With materialist AI, any attributed expectation is phantom: it exists only in the human's psychological model. Part (iii) clarifies that this asymmetry matters only when psychological welfare is valued intrinsically. If the planner adopts the instrumental view (material welfare only), anthropomorphism toward materialist AI is welfare-neutral.
+\end{remark}
 
 \begin{example}[Phantom Expectations in the Trust Game]
 \label{ex:phantom}
@@ -116,6 +115,66 @@ The comparative statics in Parts (i) and (iii) move in opposite directions: $\pa
 The three parts nest naturally. As $\rho_A \to 1$, attributed expectations are met in cooperation equilibrium, guilt vanishes, and the solution approaches Part (i). As $\rho_A \to 0$, baseline expectations vanish, expectations become purely signal-driven, and the solution approaches Part (ii): $x^* \to 0$.
 
 The proposition has implications for AI regulation. It characterises the \emph{social} optimum, where the planner internalises psychological costs. Private AI designers may have misaligned incentives: anthropomorphic presentation increases engagement and revenue, while psychological costs (guilt, disappointment) are externalised to users. When $\rho_A < 1$, private designers prefer higher $x$ than the social optimum, creating a case for regulation---disclosure requirements or anthropomorphism limits.
+
+\subsection{Optimal Design Under Extended Welfare}
+\label{sec:optimal-design-extended}
+
+Proposition~\ref{prop:optimal-design} characterizes optimal AI design when the planner maximizes material welfare $W$. We now derive corresponding results for extended welfare $W^{ext}$, which values psychological experience intrinsically.
+
+\begin{proposition}[Extended Welfare Optimal Design]
+\label{prop:optimal-design-extended}
+Consider the public goods game (Parts i, iii) or trust game (Part ii). Suppose (A1)--(A3) regularity, (A2') attribution monotonicity, and (A2''') signal monotonicity hold. Let $\omega \in (0,1)$ denote the representative human's anthropomorphism tendency.
+\begin{enumerate}
+    \item \textbf{Prosocial AI} ($\rho_A = 1$): Under (E) cooperation efficiency, (I) indignation dominance, and (T) temptation dominance, the optimal signal under extended welfare is $x^{*,ext} = \max\{0, x_{crit}^{ext}\}$, where $x_{crit}^{ext}$ is the minimal signal inducing cooperation without phantom guilt. When $\tilde{h}_i^{(2,j)} \leq \bar{\pi}_j$ (attributed expectations do not exceed feasible returns, where $\bar{\pi}_j \equiv \max_{s} \pi_j(s)$), $x^{*,ext} = x^*$. When $\tilde{h}_i^{(2,j)} > \bar{\pi}_j$, $x^{*,ext} < x^*$.
+
+    \item \textbf{Materialist AI} ($\rho_A = 0$): Under (G') positive guilt sensitivity, $x^{*,ext} = 0$. This coincides with the material welfare optimum.
+
+    \item \textbf{Mixed AI} ($\rho_A \in (0,1)$): Under (E) and (G'), the optimal signal $x^{*,ext} \in [0, x^*)$ satisfies $x^{*,ext} \leq x^*$. The inequality is strict when phantom expectations arise at the material-optimal signal. At interior solutions: $\partial x^{*,ext}/\partial \gamma < 0$, where $\gamma$ is guilt sensitivity.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof Sketch]
+Part (i): With prosocial AI, attributed expectations reflect genuine AI preferences. When these expectations do not exceed feasible returns, humans who cooperate satisfy them and incur no guilt. The extended welfare objective then reduces to material welfare, and the solutions coincide. When attributed expectations exceed feasible returns---even with cooperation---phantom guilt arises. The extended welfare planner trades off cooperation benefits against guilt costs, preferring a lower signal that limits attributed expectations.
+
+Part (ii): With materialist AI, all attributed expectations are phantom. Any positive signal increases $\tilde{h}_i^{(2,j)}$ without corresponding AI preferences. When humans cannot satisfy phantom expectations, guilt reduces $W^{ext}$. Since $\partial W^{ext}/\partial x < 0$ for all $x > 0$, the optimum is $x^{*,ext} = 0$. This matches Proposition~\ref{prop:optimal-design}(ii) because phantom guilt costs enter both objectives negatively.
+
+Part (iii): With mixed AI, attributed expectations partially reflect genuine preferences. The extended welfare planner weighs cooperation benefits against two costs: guilt from unmet phantom expectations, and reduced cooperation from insufficient signals. Since $W^{ext}$ penalizes guilt directly while $W$ does not, the extended welfare optimum features weakly lower signals: $x^{*,ext} \leq x^*$. At interior solutions, higher guilt sensitivity reduces the optimal signal because the marginal psychological cost of attribution rises.
+\end{proof}
+
+The key insight is that extended welfare optimization incorporates phantom guilt as a direct cost, not merely a behavioral constraint. This shifts optimal design toward less anthropomorphic presentation whenever phantom expectations arise.
+
+\begin{corollary}[Agreement of Welfare Measures]
+\label{cor:welfare-agreement}
+The material-optimal and extended-optimal designs coincide ($x^* = x^{*,ext}$) if either:
+\begin{enumerate}
+    \item AI is prosocial ($\rho_A > 0$) and attributed expectations do not exceed feasible returns: $\tilde{h}_i^{(2,j)} \leq \bar{\pi}_j(s^*)$; or
+    \item AI is materialist ($\rho_A = 0$) and both objectives yield $x^* = x^{*,ext} = 0$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}[Proof Sketch]
+Condition (i): When attributed expectations are feasible, cooperating humans satisfy them exactly. The guilt term vanishes: $\psi_i^{GUILT} = 0$. Extended welfare reduces to material welfare plus non-negative psychological terms, and the first-order conditions coincide.
+
+Condition (ii): With materialist AI, any positive signal creates pure phantom expectations. Both $W$ and $W^{ext}$ are maximized at $x = 0$---the former because no material benefit offsets behavioral distortions, the latter because phantom guilt is eliminated.
+\end{proof}
+
+\begin{corollary}[Divergence of Welfare Measures]
+\label{cor:welfare-divergence}
+The material-optimal and extended-optimal designs diverge ($x^* > x^{*,ext}$) when:
+\begin{enumerate}
+    \item AI is prosocial ($\rho_A > 0$) but over-anthropomorphism creates phantom expectations exceeding feasibility: $\tilde{h}_i^{(2,j)}(x^*) > \bar{\pi}_j(s^*)$; or
+    \item AI is mixed ($\rho_A \in (0,1)$) and the material-optimal signal induces phantom expectations with positive guilt sensitivity.
+\end{enumerate}
+In both cases, $W^{ext}$-optimization recommends lower anthropomorphic presentation than $W$-optimization.
+\end{corollary}
+
+\begin{proof}[Proof Sketch]
+Condition (i): Even with prosocial AI, extreme anthropomorphism can generate expectations beyond what cooperation achieves. The material welfare planner ignores the resulting guilt; the extended welfare planner counts it. At $x^*$, the marginal benefit of reducing phantom guilt exceeds the marginal cost of reduced cooperation under $W^{ext}$, yielding $x^{*,ext} < x^*$.
+
+Condition (ii): With mixed AI, baseline expectations are positive but below fully prosocial levels. Signal-driven attribution adds expectations that may become phantom. The material welfare planner sets $x^*$ where marginal cooperation benefits equal marginal behavioral costs. The extended welfare planner faces an additional marginal cost---phantom guilt---and optimizes at a lower signal.
+\end{proof}
+
+The divergence has regulatory implications. If regulators adopt $W^{ext}$ as the social objective---valuing human psychological well-being intrinsically---they recommend stricter limits on anthropomorphic AI presentation than designers maximizing $W$. The gap between $x^*$ and $x^{*,ext}$ measures the welfare cost of treating psychological states as purely instrumental.
 
 \subsection{AI Transparency and Regulation}
 
