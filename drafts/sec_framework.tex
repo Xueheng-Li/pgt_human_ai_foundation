@@ -92,18 +92,59 @@ Linearity is tractable: first-order approximations yield closed-form equilibria 
 The parameter $\omega_i \in [0,1]$ measures individual anthropomorphism tendency and multiplies the entire expression: when $\omega_i = 0$, no beliefs are attributed regardless of AI characteristics, representing the limiting case of purely mechanistic perception. Inside the bracket, $\rho_j \in [0,1]$ captures AI prosociality embedded in design, while $\eta \cdot x_j$ (with signal strength $x_j \in [0,1]$ and sensitivity $\eta > 0$) captures presentation effects from anthropomorphic cues. These terms are additive because they represent distinct attribution channels---what the AI is designed to do versus how human-like it appears. Section~\ref{sec:empirical-implementation} derives testable predictions; Section~\ref{sec:mind-perception} grounds this specification in established mind perception theory.
 \end{example}
 
+% Specification Selection Table (from Agent 3.2)
+\begin{table}[htbp]
+\centering
+\caption{Attribution Specification Selection Guide}
+\label{tab:specification-selection}
+\small
+\begin{tabular}{@{}p{2.2cm}p{2.5cm}p{3.2cm}p{3cm}p{2.8cm}@{}}
+\toprule
+Specification & Observable Trigger & When to Use & Example Context & Identification \\
+\midrule
+Behavioral & AI's observed strategy $s_j^{\text{obs}}$ & Repeated interactions where AI actions inform beliefs & Multi-round trust games, learning experiments & Within-subject variation across rounds \\[6pt]
+Signal-based & Interface signals $x_j$ & One-shot games with interface manipulation & Voice assistant design, chatbot framing & Between-subject treatment assignment \\[6pt]
+Dispositional & Individual tendency $\omega_i$ & Fixed AI with focus on individual heterogeneity & Survey studies, field experiments & IDAQ instrument or similar scale \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The three specifications represent complementary modeling choices, not competing theories. Each captures a distinct source of variation in attributed beliefs.
+
+Signal-based attribution suits one-shot experiments where researchers manipulate AI interface features---voice characteristics, avatar appearance, or conversational style. Random assignment to interface conditions provides clean between-subject identification. This specification isolates design effects from learning.
+
+Behavioral attribution applies when humans interact with AI repeatedly and update attributed beliefs based on observed actions. Trust games with multiple rounds exemplify this setting: a player who observes cooperative AI behavior in early rounds may attribute stronger cooperative intent in later rounds. Within-subject variation across rounds identifies the attribution response $\partial \tilde{h} / \partial s_j^{\text{obs}}$.
+
+Dispositional attribution fits studies where AI behavior remains fixed but individual differences in anthropomorphization drive outcome variation. Survey instruments like the IDAQ measure this tendency directly. Field experiments with standardized AI deployments fall in this category.
+
+A practical diagnostic distinguishes behavioral from signal-based attribution: estimate whether $\partial \tilde{h} / \partial s_j^{\text{obs}} \neq 0$ conditional on interface signals. A significant effect indicates behavioral attribution operates; a null effect suggests signal-based attribution suffices.
+
+\begin{remark}[Linear Specification Focus]
+The linear specification in Example~\ref{ex:linear-attribution} serves as our primary working model for three reasons. First, it nests signal-based attribution as a leading special case: setting $\beta = 0$ yields attributed beliefs determined entirely by interface signals. Second, linearity delivers tractable equilibrium characterization while preserving the core insight that attributed beliefs depend on observable AI features. Third, empirical research on mind perception consistently finds monotonic relationships between anthropomorphic cues and attributed mental states \citep{waytz2010causes,epley2007seeing}. We derive general existence results for the broad class, then specialize to the linear case for applications.
+\end{remark}
+
 \subsubsection{Empirical Implementation and Testability}
 \label{sec:empirical-implementation}
 
 The attribution function $\phi_i$ is identified through experimental variation in its arguments. We describe the measurement strategy, illustrate with a trust game design, and derive testable predictions.
 
+\paragraph{Empirical Grounding.}
+
+The linear specification in Example~\ref{ex:linear-attribution} has both theoretical and empirical support. Meta-analyses of human-AI interaction confirm monotonic relationships between anthropomorphic cues and trust: \citet{blut2021understanding} find that across 97 effect sizes, anthropomorphism's effect on trust is consistent with linearity within observed ranges. Since trust toward AI requires attributing beliefs about the AI's expectations and intentions, this evidence supports the linear attribution specification. The multiplicative structure---anthropomorphism tendency $\omega_i$ scaling signal effects---matches IDAQ validation studies showing that individual differences moderate responses to anthropomorphic design \citep{waytz2010who}.
+
+Mind perception research provides further grounding. \citet{gray2007dimensions} establish that agency attribution---the dimension most relevant to strategic interaction---increases continuously with behavioral cues rather than exhibiting threshold effects. The SEEK framework \citep{epley2007seeing} predicts that both dispositional ($\omega_i$) and situational ($x_j$) factors contribute additively to anthropomorphism, consistent with our additive-inside-multiplicative structure. While nonlinear specifications (logistic saturation, uncanny valley discontinuities) may better fit extreme ranges, linearity captures first-order effects and enables closed-form identification. We maintain linearity for tractability; Section~\ref{sec:conclusion} discusses nonlinear extensions.
+
 \paragraph{Identification Strategy.}
 
 To identify $\phi_i$, we measure attributed beliefs $\tilde{h}_i^{(2,j)}$ while varying AI signals $x_j$ and measuring individual anthropomorphism $\omega_i$. Three components enable identification.
 
-\emph{Belief elicitation.} We elicit attributed beliefs using incentive-compatible mechanisms. Quadratic scoring rules \citep{gachter2010peer} reward accuracy: subjects report their belief that the AI expects cooperation, and payment increases quadratically in the accuracy of that belief. To address hedging---subjects adjusting stated beliefs to insure against game outcomes---we follow \citet{blanco2010belief} in paying either the belief elicitation task or the strategic game, never both. This eliminates the incentive to hedge beliefs against strategic payoffs.
+\paragraph{Belief Elicitation.}
 
-\emph{Strategy method.} Complete mapping of the attribution function requires observing $\tilde{h}_i^{(2,j)}$ across the full domain of $(x_j, \omega_i)$. The strategy method \citep{brandts2011strategy} elicits beliefs for each possible signal level within-subject, recovering the full $\phi_i$ mapping without relying on between-subject variation alone. Subjects state their attributed belief conditional on each interface treatment before learning which treatment applies.
+We elicit attributed beliefs using incentive-compatible mechanisms. Quadratic scoring rules \citep{gachter2010peer} reward accuracy: subjects report their belief that the AI expects cooperation, and payment increases quadratically in the accuracy of that belief. To address hedging---subjects adjusting stated beliefs to insure against game outcomes---we follow \citet{blanco2010belief} in paying either the belief elicitation task or the strategic game, never both.
+
+The strategy method enables post-hoc rationalization: when subjects state beliefs after observing outcomes, they may rationalize choices rather than report true beliefs \citep{danz2022belief}. Three design features mitigate this concern. First, \emph{belief-first elicitation}: subjects report attributed beliefs before making strategic choices, preventing outcome-driven rationalization. Second, \emph{monotonicity tests}: if subjects exhibit non-monotonic beliefs across signal levels (e.g., attributing lower beliefs to more anthropomorphic interfaces), this signals measurement error or demand effects. Third, \emph{separate payment randomization}: following \citet{blanco2010belief}, we determine payment-relevant decisions after all responses are collected, eliminating hedging incentives at each elicitation stage.
+
+\emph{Strategy method.} Complete mapping of the attribution function requires observing $\tilde{h}_i^{(2,j)}$ across the full domain of $(x_j, \omega_i)$. The strategy method \citep{brandts2011strategy} elicits beliefs for each possible signal level within-subject, recovering the full $\phi_i$ mapping without relying on between-subject variation alone.
 
 \emph{Anthropomorphism measurement.} Individual anthropomorphism $\omega_i$ is measured using the Individual Differences in Anthropomorphism Questionnaire (IDAQ; \citealp{waytz2010who}). The IDAQ contains 15 items measuring attribution of mental states to non-human entities (e.g., ``To what extent does a robot have intentions?''). We use the technology subscale, which correlates with trust in automated systems \citep{waytz2014trusting}.
 
@@ -130,9 +171,43 @@ The theoretical model generates testable restrictions:
     \item $\beta_3 > 0$: Anthropomorphism moderates signal effect; high-$\omega_i$ subjects respond more to interface manipulation
 \end{enumerate}
 
+\paragraph{Separating Attribution from Psychological Preferences.}
+
+The attribution function $\phi_i$ and psychological preference parameters ($\gamma_i$ for guilt sensitivity, $\beta_i$ for indignation sensitivity) enter utilities jointly, creating an identification problem: observed behavior reflects both how beliefs are attributed and how they affect payoffs. We propose a two-stage identification strategy.
+
+\emph{Stage 1: Estimate psychological parameters from human-human interactions.} In interactions between human players, belief attribution is standard---$\tilde{h}_i^{(2,j)} = h_i^{(2,j)}$---and the attribution function is the identity. This baseline allows estimation of psychological preference parameters using established methods \citep{bellemare2023measuring}. For guilt aversion, we estimate $\gamma_i$ from trustee behavior in human-human trust games; for indignation, from punishment decisions after human defection. The key identifying assumption is that $\gamma_i$ and $\beta_i$ are stable across human and AI counterparts.
+
+\emph{Stage 2: Identify $\phi_i$ from human-AI interactions.} With psychological parameters estimated from Stage 1, human-AI interactions isolate the attribution function. The difference between observed behavior toward AI and predicted behavior (using $\gamma_i$ with truthful beliefs) identifies the attribution wedge. Formally, let $a_i^*(h)$ denote the optimal action given second-order belief $h$. The observed action $a_i^{AI}$ toward an AI with attributed belief $\tilde{h}_i^{(2,A)}$ satisfies:
+\begin{equation}
+    a_i^{AI} = a_i^*\left(\phi_i(x_A, \omega_i, \rho_A)\right)
+\end{equation}
+Inverting the best-response correspondence recovers $\tilde{h}_i^{(2,A)}$ and hence the attribution function.
+
+Alternative approaches include instrumental variables: exogenous variation in interface design (satisfying exclusion from psychological preferences) instruments for attributed beliefs. \citet{bellemare2023measuring} develop related techniques for identifying belief-dependent preferences.
+
+\paragraph{Identification with Opaque AI Objectives.}
+
+The parameter recovery strategy assumes $\rho_A$---the AI's true prosociality---is known from design. This assumption fails when AI objectives are proprietary or emergent from training. We consider three approaches.
+
+First, \emph{partial identification}: without point identification of $\rho_A$, we bound the attribution function. If $\rho_A \in [\underline{\rho}, \overline{\rho}]$, the estimated $\phi_i$ lies in a corresponding interval. The bounds tighten as the anthropomorphism range expands: variation in $\omega_i$ traces out the attribution function's shape even when the intercept is unknown.
+
+Second, \emph{sensitivity analysis}: we estimate $\phi_i$ under alternative assumptions about $\rho_A$ and report which conclusions are robust. If the interaction effect $\beta_3 > 0$ holds across plausible $\rho_A$ values, the core prediction survives.
+
+Third, \emph{direct elicitation}: subjects state beliefs about AI objectives. While potentially biased, elicited $\rho_A$ beliefs provide an alternative reference point. Comparing elicited beliefs to design-implied values reveals systematic misperception of AI objectives, a distinct phenomenon from attribution.
+
 The interaction coefficient $\beta_3$ directly estimates the signal sensitivity $\eta$. Given $\rho_A$ known from design, the baseline effect $\beta_1$ identifies anthropomorphism scaling.
 
 The key testable prediction is the interaction effect $\beta_3 > 0$. Under the null hypothesis that attributed beliefs do not depend on anthropomorphism ($\omega_i$ irrelevant), $\beta_3 = 0$ and interface manipulation affects all subjects equally. A positive interaction indicates that anthropomorphic signals operate through the attribution mechanism specified in the model. Alternative specifications (logistic, threshold) accommodate saturation and uncanny valley effects; we maintain linearity for tractability.
+
+\paragraph{Falsification Criteria.}
+
+The model generates sharp falsifiable predictions. Consider three possible empirical patterns.
+
+If $\beta_3 = 0$ (no interaction), anthropomorphism does not moderate signal interpretation. This falsifies the core mechanism: attributed beliefs would respond to interface manipulation identically for high- and low-$\omega_i$ subjects. The attribution function would reduce to $\phi_i(x_j) = f(x_j)$, independent of individual anthropomorphism tendency---inconsistent with mind perception theory and IDAQ validation evidence.
+
+If $\beta_2 \neq 0$ with $\beta_3 = 0$, interface signals affect attributed beliefs directly without anthropomorphism mediation. This pattern suggests alternative mechanisms: perhaps anthropomorphic cues serve as quality signals or attention directors rather than triggering belief attribution.
+
+Both null findings would require theoretical revision. The model does not predict that anthropomorphism always matters; rather, it predicts a specific functional relationship. Rejecting this relationship advances understanding even if it refutes the proposed mechanism.
 
 \subsubsection{Psychological Foundations: Mind Perception Theory}
 \label{sec:mind-perception}
