@@ -81,11 +81,11 @@ Three main approaches to specifying $\phi_i$ are:
 
 \begin{example}[Linear Attribution]
 \label{ex:linear-attribution}
-A simple parametric form is
+Linearity is tractable: first-order approximations yield closed-form equilibria and testable predictions. Mind perception research finds monotonic relationships between anthropomorphism and attributed mental states---linearity captures this without untested curvature. We adopt:
 \begin{equation}
     \tilde{h}_i^{(2,j)}(C) = \omega_i \cdot \left( \rho_j + \eta \cdot x_j \right)
 \end{equation}
-where $\rho_j \in [0,1]$ is AI's prosociality parameter, $x_j \in [0,1]$ is anthropomorphic signal strength, $\eta > 0$ is signal sensitivity, and $\omega_i \in [0,1]$ is individual anthropomorphism. Attributed beliefs about AI's expectation of cooperation increase with AI prosociality, anthropomorphic signals, and individual anthropomorphism tendency.
+The parameter $\omega_i \in [0,1]$ measures individual anthropomorphism tendency and multiplies the entire expression: when $\omega_i = 0$, no beliefs are attributed regardless of AI characteristics, representing the limiting case of purely mechanistic perception. Inside the bracket, $\rho_j \in [0,1]$ captures AI prosociality embedded in design, while $\eta \cdot x_j$ (with signal strength $x_j \in [0,1]$ and sensitivity $\eta > 0$) captures presentation effects from anthropomorphic cues. These terms are additive because they represent distinct attribution channels---what the AI is designed to do versus how human-like it appears. Section~\ref{sec:empirical-implementation} derives testable predictions; Section~\ref{sec:mind-perception} grounds this specification in established mind perception theory.
 \end{example}
 
 \subsubsection{Empirical Implementation and Testability}
