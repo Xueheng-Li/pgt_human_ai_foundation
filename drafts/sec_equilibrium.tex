@@ -218,25 +218,27 @@ Consider a psychological game $\Gamma$ with at least one human and one AI. Suppo
 Then $\Gamma$ admits ABE under $\phi$ and $\phi'$ with distinct equilibrium strategy profiles: $s^*(\phi) \neq s^*(\phi')$.
 \end{proposition}
 
+The proof appears in Online Appendix OA.2.4.
+
 \begin{remark}[Comparison with Standard PGT Multiplicity]
-In standard psychological game theory, multiplicity arises from feedback between equilibrium strategies and belief consistency. In ABE, a distinct source emerges: attributed beliefs are exogenously fixed by $\phi$, so changing $\phi$ directly changes utility and thereby equilibrium. This feed-forward structure---$\phi \to \tilde{h}^{(2)} \to U^H \to s^*$---makes ABE multiplicity conceptually cleaner.
+In standard psychological game theory, multiplicity arises from feedback between equilibrium strategies and belief consistency. In ABE, a distinct source emerges: attributed beliefs are exogenously fixed by $\phi$, so changing $\phi$ directly changes utility and thereby equilibrium. This feed-forward structure---$\phi \to \tilde{h}^{(2)} \to U^H \to s^*$---means ABE multiplicity is determined by design choices, not coordination. A formal comparison appears in Online Appendix OA.2.4.
 \end{remark}
 
 \begin{remark}[Genericity]
-Conditions (i)--(iii) are generic. Condition (i) fails only when $\psi_i$ is independent of attributed beliefs. Condition (ii) fails only when all attribution functions coincide. Condition (iii) fails only when payoff changes leave best responses unchanged. Attribution-dependent multiplicity is the typical outcome, not an exceptional one.
+Conditions (i)--(iii) are generic. They fail only in degenerate cases: $\psi_i$ independent of attributed beliefs, all attribution functions identical, or payoff changes leaving best responses unchanged. Attribution-dependent multiplicity is the typical outcome, not an exceptional one.
 \end{remark}
 
-This multiplicity has important design implications. Interface design, framing, and behavioural presentation affect attribution patterns and thereby equilibrium selection---even with fixed material payoffs. A prosocial AI signalling expectations through humanlike cues induces more cooperation than an equally prosocial AI with a mechanical interface.
+This multiplicity has direct design implications. Interface design, framing, and behavioural presentation affect attribution patterns and thereby equilibrium selection---even with fixed material payoffs. A prosocial AI signalling expectations through humanlike cues induces more cooperation than an equally prosocial AI with a mechanical interface.
 
 \subsubsection*{Illustrative Examples}
 
 We provide three numerical examples demonstrating the proposition.
 
 \paragraph{Example 1: Trust Game.}
-AI trustor ($E = 10$, $\rho_A = 0.3$), human trustee ($\gamma_H = 2$, $\lambda_H^{GUILT} = 0.5$, $\omega_H = 0.8$). Under anthropomorphic interface: $\tilde{h}_H^{(2,A)} = 15.2$, return $y^* = 15.2$. Under mechanical interface: $\tilde{h}_H^{(2,A)} = 7.2$, return $y^* = 7.2$. The interface doubles AI payoff through elevated attributed expectations.
+AI trustor ($E = 10$, $\rho_A = 0.3$), human trustee ($\gamma_H = 2$, $\lambda_H^{GUILT} = 0.5$, $\omega_H = 0.8$). Under anthropomorphic interface: $\tilde{h}_H^{(2,A)} = 15.2$, return $y^* = 15.2$. Under mechanical interface: $\tilde{h}_H^{(2,A)} = 7.2$, return $y^* = 7.2$. The anthropomorphic interface increases AI return from 7.2 to 15.2---a 111\% gain from framing alone.
 
 \paragraph{Example 2: Public Goods.}
-One human, one AI ($E = 10$, $m = 1.5$, binary contributions). AI contributes $c_A = 10$. Human: $\beta_H = 8$, $\lambda_H^{IND} = 0.5$. Material gain from defection: 2.5. Under high attribution ($\tilde{h}_H^{(2,A)}(C) = 0.64$): indignation cost $= 2.56 > 2.5$, human cooperates. Under low attribution ($\tilde{h}_H^{(2,A)}(C) = 0.16$): indignation cost $= 0.64 < 2.5$, human defects.
+One human, one AI ($E = 10$, $m = 1.5$, binary contributions). AI contributes $c_A = 10$. Human: $\beta_H = 8$, $\lambda_H^{IND} = 0.5$. Material gain from defection: 2.5. Under high attribution ($\tilde{h}_H^{(2,A)}(C) = 0.64$): indignation cost $= 8 \times 0.5 \times 0.64 = 2.56 > 2.5$, so human cooperates. Under low attribution ($\tilde{h}_H^{(2,A)}(C) = 0.16$): indignation cost $= 0.64 < 2.5$, human defects.
 
 \paragraph{Example 3: Coordination.}
 One human, one AI choosing technology $\{A, B\}$. Coordination: 2; miscoordination: 0. AI plays $A$; human has $\beta_H = 3$. Under $\phi$ (AI expects $A$ with probability 0.9): human plays $A$, ABE is $(A, A)$. Under $\phi'$ (AI expects $B$ with probability 0.9): human plays $B$, ABE is $(B, A)$ with payoffs $(0, 0)$. Attribution serves as equilibrium selection device.

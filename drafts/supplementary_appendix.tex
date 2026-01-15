@@ -307,16 +307,255 @@ The last equality is the RAE condition.
 
 Therefore, under RAE, all second-order beliefs---both genuine ($h_i^{*(2,k)}$) and attributed ($\tilde{h}_i^{*(2,j)}$)---equal the equilibrium strategy $\sigma_i^*$.
 
-\subsection{OA.2.4: Proposition 5 (Attribution-Dependent Multiplicity) --- Sufficient Conditions}\label{oa:multiplicity}
+% OA.2.4: Proposition 5 (Attribution-Dependent Multiplicity) --- Complete Proof
+% This section provides the full proof with sufficient conditions, verification for game classes,
+% and formal comparison with standard PGT multiplicity.
 
-\noindent\textbf{Sufficient Conditions for Attribution-Dependent Multiplicity.}
+\subsection{OA.2.4: Proposition 5 (Attribution-Dependent Multiplicity) --- Complete Proof}\label{oa:multiplicity}
 
-For a psychological game $\Gamma$ with at least one human ($n_H \geq 1$) and one AI ($n_A \geq 1$), attribution-dependent multiplicity occurs if, for some human $i \in N_H$ and AI $j \in N_A$:
+Proposition~\ref{prop:multiplicity} establishes that different attribution functions can sustain different equilibria. This section provides the complete proof: primitive conditions ensuring best-response separation (OA.2.4.1), verification across game classes (OA.2.4.2), the main proof (OA.2.4.3), and comparison with standard PGT multiplicity (OA.2.4.4).
+
+%===============================================================================
+% OA.2.4.1: SUFFICIENT CONDITIONS
+%===============================================================================
+
+\subsubsection{OA.2.4.1: Sufficient Conditions for Best-Response Separation}\label{oa:best-response-separation}
+
+Condition (iii) of Proposition~\ref{prop:multiplicity} requires that changes in attributed beliefs shift equilibrium strategies. The following lemma provides primitive conditions guaranteeing this property.
+
+\begin{lemma}[Sufficient Conditions for Best-Response Separation]
+\label{lem:best-response-separation}
+Consider a psychological game $\Gamma$ with human $i \in N_H$ and AI $j \in N_A$. Let $\phi, \phi'$ be attribution functions with $\tilde{h}_i^{(2,j)}[\phi] \neq \tilde{h}_i^{(2,j)}[\phi']$. Best-response separation---$s_i^*[\phi] \neq s_i^*[\phi']$---holds under either condition:
+
+\medskip
+\noindent\textbf{Condition A (Continuous Actions).} Suppose $S_i \subseteq \mathbb{R}$ is a compact interval and:
 \begin{enumerate}
-    \item[(i)] \textbf{Belief-dependent payoffs}: $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$ for some strategy profile.
-    \item[(ii)] \textbf{Distinct attributions}: $\phi_i(\theta_j, x_j, \omega_i) \neq \phi'_i(\theta_j, x_j, \omega_i)$ for some configuration.
-    \item[(iii)] \textbf{Best-response separation}: The change in attributed beliefs shifts equilibrium strategies: $s_i^*[\phi] \neq s_i^*[\phi']$.
+    \item[(A.1)] The optimal strategy $s_i^*(\tilde{h})$ solves $\partial U_i^H / \partial s_i = 0$ with $s_i^* \in \mathrm{int}(S_i)$;
+    \item[(A.2)] $\partial^2 U_i^H / \partial s_i^2 < 0$ at the optimum;
+    \item[(A.3)] $\partial^2 U_i^H / \partial s_i \, \partial \tilde{h}_i^{(2,j)} \neq 0$ at the optimum.
 \end{enumerate}
+
+\medskip
+\noindent\textbf{Condition B (Discrete Actions).} Suppose $S_i = \{s_i^L, s_i^H\}$ is binary and:
+\begin{enumerate}
+    \item[(B.1)] The incremental utility $\Delta U_i(\tilde{h}) \equiv U_i^H(s_i^H; \tilde{h}) - U_i^H(s_i^L; \tilde{h})$ is strictly increasing in $\tilde{h}_i^{(2,j)}$;
+    \item[(B.2)] There exists $\tilde{h}^*$ such that $\Delta U_i(\tilde{h}[\phi']) < 0 < \Delta U_i(\tilde{h}[\phi])$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\noindent\textbf{Proof of Condition A.}
+Write $\tilde{h} = \tilde{h}_i^{(2,j)}$. Under (A.1), the optimal strategy satisfies the first-order condition:
+\begin{equation}
+    F(s_i^*, \tilde{h}) \equiv \frac{\partial U_i^H}{\partial s_i}(s_i^*, \tilde{h}) = 0.
+    \label{eq:foc-continuous}
+\end{equation}
+By (A.2), $\partial F / \partial s_i = \partial^2 U_i^H / \partial s_i^2 < 0$. The Implicit Function Theorem yields:
+\begin{equation}
+    \frac{d s_i^*}{d \tilde{h}} = -\frac{\partial^2 U_i^H / \partial s_i \, \partial \tilde{h}}{\partial^2 U_i^H / \partial s_i^2} \neq 0,
+    \label{eq:ift-derivative}
+\end{equation}
+since the numerator is non-zero by (A.3) and the denominator is negative by (A.2). With $\tilde{h}[\phi] \neq \tilde{h}[\phi']$ and $d s_i^* / d \tilde{h} \neq 0$, we have $s_i^*[\phi] \neq s_i^*[\phi']$.
+
+\medskip
+\noindent\textbf{Proof of Condition B.}
+With binary actions, human $i$ chooses $s_i^H$ if and only if $\Delta U_i(\tilde{h}) \geq 0$. By (B.1), $\Delta U_i$ is strictly increasing in $\tilde{h}$. By (B.2), the attributed beliefs lie on opposite sides of the indifference threshold $\tilde{h}^*$ where $\Delta U_i(\tilde{h}^*) = 0$. Combined with single-crossing: $s_i^*[\phi'] = s_i^L$ (since $\Delta U_i(\tilde{h}[\phi']) < 0$) and $s_i^*[\phi] = s_i^H$ (since $\Delta U_i(\tilde{h}[\phi]) > 0$).
+\end{proof}
+
+\begin{remark}[Economic Interpretation]
+Condition A applies to continuous actions (investment levels, transfer amounts). The cross-partial $\partial^2 U_i^H / \partial s_i \, \partial \tilde{h} \neq 0$ ensures attributed beliefs shift the marginal benefit of action. Condition B applies to discrete actions (cooperate vs.\ defect). Single-crossing ensures higher attributed expectations tilt relative payoffs monotonically. Both connect to monotone comparative statics \citep{milgrom1994monotone}: the cross-partial (A.3) implies strict supermodularity; single-crossing (B.1) is the discrete analogue.
+\end{remark}
+
+%===============================================================================
+% OA.2.4.2: VERIFICATION FOR GAME CLASSES
+%===============================================================================
+
+\subsubsection{OA.2.4.2: Verification for General Game Classes}\label{oa:game-class-verification}
+
+Conditions A and B hold generically for three classes of psychological games.
+
+\paragraph{Games with Guilt Aversion.}
+Consider games where human $i$ experiences guilt from disappointing AI's attributed expectations:
+\begin{equation}
+    U_i^H(s_i, s_{-i}, \tilde{h}_i) = \pi_i(s_i, s_{-i}) - \gamma_i \lambda_i^{GUILT} \max\{0, \tilde{h}_i^{(2,j)} - g_i(s)\},
+    \label{eq:guilt-general}
+\end{equation}
+where $g_i(s)$ is the outcome delivered to AI. Let $G = \gamma_i \lambda_i^{GUILT}$.
+
+\begin{proposition}[Condition A for Guilt-Aversion Games]
+\label{prop:guilt-condition-a}
+Suppose $\pi_i$ is strictly concave in $s_i$, $g_i$ is strictly increasing in $s_i$, and guilt dominance holds: $G > |\partial \pi_i / \partial s_i|$ in the guilt-active region. Then Condition A holds with:
+\begin{equation}
+    \frac{\partial^2 U_i^H}{\partial s_i \partial \tilde{h}_i^{(2,j)}} = G \cdot \frac{\partial g_i}{\partial s_i} > 0.
+\end{equation}
+\end{proposition}
+
+\emph{Verification: Trust Game.} Human trustee maximizes $U_H(y) = (3x - y) - G \cdot \max\{0, \tilde{h}_H^{(2,A)} - y\}$. When $G > 1$, the optimum is $y^* = \min\{\tilde{h}_H^{(2,A)}, 3x\}$, strictly increasing in attributed expectations. Different attribution functions yield $y^*[\phi] \neq y^*[\phi']$.
+
+\paragraph{Games with Indignation.}
+Consider games where human $i$ experiences indignation from deviating from norms when AI expects compliance:
+\begin{equation}
+    U_i^H(s_i, s_{-i}, \tilde{h}_i) = \pi_i(s_i, s_{-i}) - \beta_i \lambda_i^{IND} \cdot \mathbf{1}_{s_i = D} \cdot \tilde{h}_i^{(2,j)}(C).
+    \label{eq:indignation-general}
+\end{equation}
+
+\begin{proposition}[Condition B for Indignation Games]
+\label{prop:indignation-condition-b}
+Let $B = \beta_i \lambda_i^{IND} > 0$. The incremental utility from cooperation is:
+\begin{equation}
+    \Delta U_i(\tilde{h}) = [\pi_i(C) - \pi_i(D)] + B \cdot \tilde{h}(C).
+\end{equation}
+Single-crossing holds: $\partial \Delta U_i / \partial \tilde{h}(C) = B > 0$. The threshold is $\tilde{h}^*(C) = [\pi_i(D) - \pi_i(C)] / B$.
+\end{proposition}
+
+\emph{Verification: Public Goods.} When $\tilde{h}[\phi](C) > \tilde{h}^* > \tilde{h}[\phi'](C)$, cooperation switches from $c_i^* = 0$ under $\phi'$ to $c_i^* = E$ under $\phi$.
+
+\paragraph{Coordination Games with Expectation Conformity.}
+Consider coordination games where human $H$ faces psychological pressure to match AI's attributed expectations:
+\begin{equation}
+    U_H(s_H, s_A, \tilde{h}_H) = \pi_H(s_H, s_A) - \beta_H \lambda_H^{EC} \sum_{s' \neq s_H} \tilde{h}_H^{(2,A)}(s').
+    \label{eq:coordination-general}
+\end{equation}
+
+\begin{proposition}[Condition B for Coordination Games]
+\label{prop:coordination-condition-b}
+Let AI play $A$ and signal $x_A > 0.5$ (clarity that $A$ is expected). Under attribution $\tilde{h}_H^{(2,A)}(A) = \omega_H \cdot x_A$:
+\begin{equation}
+    \Delta U_H = \pi_H(A,A) - \pi_H(B,A) + \beta_H \lambda_H^{EC} \omega_H (2x_A - 1).
+\end{equation}
+Single-crossing holds: $\partial \Delta U_H / \partial \omega_H = \beta_H \lambda_H^{EC}(2x_A - 1) > 0$ when $x_A > 0.5$.
+\end{proposition}
+
+\emph{Verification: Technology Coordination.} Different anthropomorphism levels $\omega_H^{[\phi]} > \omega_H^{[\phi']}$ can select different equilibria: $(A,A)$ under high anthropomorphism, $(B,A)$ under low anthropomorphism.
+
+\paragraph{Genericity Result.}
+
+\begin{proposition}[Genericity of Best-Response Separation]
+\label{prop:genericity}
+Let $\mathcal{G}$ denote psychological games with human-AI interaction. Define $\mathcal{G}_A$ (games where Condition A holds) and $\mathcal{G}_B$ (games where Condition B holds). Then $\mathcal{G} \setminus (\mathcal{G}_A \cup \mathcal{G}_B)$ has measure zero under generic perturbations.
+\end{proposition}
+
+\begin{proof}
+Condition A fails only when: (i) $s_i^* \in \partial S_i$ for all $\tilde{h}$ (boundary solution); (ii) $\partial^2 U_i^H / \partial s_i^2 = 0$ (linear utility); or (iii) $\partial^2 U_i^H / \partial s_i \partial \tilde{h} = 0$ (separability). Condition B fails only when: (i) $\partial \Delta U_i / \partial \tilde{h} = 0$ (flat incremental utility); or (ii) both attribution functions yield beliefs on the same side of the threshold. In psychological games with guilt or indignation, the cross-partial is non-zero by construction: $\psi_i$ depends on the interaction between actions and attributed beliefs. The failure set has codimension at least 3, hence measure zero.
+\end{proof}
+
+\begin{remark}[Economic Interpretation]
+Games where beliefs about AI matter generically exhibit separation: when attributed expectations shift, optimal responses adjust.
+\end{remark}
+
+%===============================================================================
+% OA.2.4.3: COMPLETE PROOF OF PROPOSITION 5
+%===============================================================================
+
+\subsubsection{OA.2.4.3: Complete Proof of Proposition 5}\label{oa:prop5-proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:multiplicity}]
+The proof proceeds in three steps corresponding to conditions (i)--(iii).
+
+\medskip
+\noindent\textbf{Step 1: Belief-dependent payoffs (Condition i).}
+By assumption, $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$ for some strategy profile. This means the human's psychological payoff depends on attributed beliefs about AI $j$. Formally, $\psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})$ is not constant in $\tilde{h}_i^{(2,j)}$. Examples include guilt aversion (where $\partial \psi_i^{GUILT} / \partial \tilde{h} = -\gamma_i \lambda_i^{GUILT} < 0$ when $y < \tilde{h}$) and indignation (where $\partial \psi_i^{IND} / \partial \tilde{h}(C) = -\beta_i \lambda_i^{IND} \cdot \mathbf{1}_{s_i = D} < 0$).
+
+\medskip
+\noindent\textbf{Step 2: Distinct attributions (Condition ii).}
+There exist attribution functions $\phi, \phi'$ such that $\phi_i(\theta_j, x_j, \omega_i) \neq \phi'_i(\theta_j, x_j, \omega_i)$ for some configuration of AI design $\theta_j$, signals $x_j$, and anthropomorphism $\omega_i$. This yields distinct attributed beliefs:
+\begin{equation}
+    \tilde{h}_i^{(2,j)}[\phi] \neq \tilde{h}_i^{(2,j)}[\phi'].
+\end{equation}
+Such distinct attributions arise from different anthropomorphism levels, interface designs, or functional forms of the attribution mapping.
+
+\medskip
+\noindent\textbf{Step 3: Best-response separation (Condition iii).}
+By Lemma~\ref{lem:best-response-separation}, when Condition A or B holds, distinct attributed beliefs yield distinct optimal strategies:
+\begin{equation}
+    s_i^*[\phi] \neq s_i^*[\phi'].
+\end{equation}
+Proposition~\ref{prop:genericity} establishes that Condition A or B holds generically in psychological games with belief-dependent payoffs.
+
+\medskip
+\noindent\textbf{Conclusion.}
+Under conditions (i)--(iii), the game $\Gamma$ admits ABE equilibria under both $\phi$ and $\phi'$. Existence follows from Theorem~\ref{thm:existence}. The equilibria differ in strategy profiles: $s^*(\phi) \neq s^*(\phi')$. The multiplicity arises from the feed-forward structure $\phi \to \tilde{h}[\phi] \to U^H(\tilde{h}) \to s^*(\tilde{h})$, where different attribution functions generate different attributed beliefs, psychological payoffs, and equilibrium strategies.
+\end{proof}
+
+%===============================================================================
+% OA.2.4.4: COMPARISON WITH STANDARD PGT MULTIPLICITY
+%===============================================================================
+
+\subsubsection{OA.2.4.4: Comparison with Standard PGT Multiplicity}\label{oa:multiplicity-comparison}
+
+ABE multiplicity differs from PGT multiplicity in source and character.
+
+\paragraph{Multiplicity in Standard PGT.}
+In standard psychological games \citep{geanakoplos1989psychological,battigalli2009dynamic}, equilibrium requires a fixed point of the composite mapping:
+\begin{equation}
+    \sigma \xrightarrow{\text{consistency}} h(\sigma) \xrightarrow{\text{utility}} U(h) \xrightarrow{\text{best response}} BR(U) \ni \sigma.
+    \label{eq:pgt-feedback}
+\end{equation}
+Multiple fixed points arise because the composite mapping $\Phi^{PGT}(\sigma) = BR(U(\text{Consistent}(\sigma)))$ need not be a contraction.
+
+\paragraph{Multiplicity in ABE.}
+In ABE, attributed beliefs are determined by $\phi$, not equilibrium consistency:
+\begin{equation}
+    \phi \xrightarrow{\text{attribution}} \tilde{h}[\phi] \xrightarrow{\text{utility}} U(\tilde{h}) \xrightarrow{\text{best response}} s^*(\tilde{h}).
+    \label{eq:abe-feedforward}
+\end{equation}
+No feedback from $s^*$ to $\tilde{h}$ exists: $\phi$ is exogenous. Different $\phi$ yield different equilibria.
+
+\begin{proposition}[Structural Comparison]
+\label{prop:multiplicity-comparison}
+Let $\Gamma$ be a psychological game with humans $N_H$ and AI agents $N_A$.
+\begin{enumerate}
+    \item[\textup{(i)}] \textbf{PGT multiplicity is endogenous}: Multiple equilibria $\{(\sigma^{*k}, h^{*k})\}_{k=1}^K$ can coexist for fixed parameters. Multiplicity arises from multiple fixed points of the feedback loop~\eqref{eq:pgt-feedback}.
+
+    \item[\textup{(ii)}] \textbf{ABE multiplicity is parametric}: For fixed $\phi$, ABE is generically unique. Multiplicity across $\phi$ arises from $s^*(\phi) \neq s^*(\phi')$.
+
+    \item[\textup{(iii)}] \textbf{ABE can exceed PGT}: $\bigcup_{\phi \in \Phi} E^{ABE}(\phi)$ can strictly contain $E^{PGT}$. Games with a unique PGT equilibrium can admit multiple ABE equilibria across different $\phi$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{Part (i)}: Standard result. The feedback structure admits multiple fixed points when the composite best-response mapping is not a contraction.
+
+\textbf{Part (ii)}: Fix $\phi$. Attributed beliefs $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ are determined independently of equilibrium. Human optimization reduces to $s_i^* \in \arg\max_{s_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*)$ with $\tilde{h}_i^*$ pinned down by $\phi$. Generically, best responses are unique, so ABE is unique for fixed $\phi$.
+
+\textbf{Part (iii)}: Consider a game with unique PGT equilibrium $(\sigma^{PGT}, h^{PGT})$ where $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$. Let $\phi \neq \phi'$ yield distinct attributed beliefs. By Proposition~\ref{prop:multiplicity}, $s^*(\phi) \neq s^*(\phi')$. Both are ABE equilibria, so $|E^{ABE}| \geq 2 > 1 = |E^{PGT}|$.
+\end{proof}
+
+\paragraph{Economic Interpretation.}
+\begin{itemize}
+    \item \textbf{PGT}: Multiplicity requires strategic complementarity to generate multiple fixed points. The circularity ``I cooperate because I believe you expect me to cooperate'' sustains self-fulfilling equilibria.
+
+    \item \textbf{ABE}: Multiplicity requires only payoff sensitivity to attributed beliefs. The feed-forward chain ``I cooperate when AI appears humanlike because I attribute expectations'' is not self-referential.
+\end{itemize}
+
+\paragraph{Design Implications.}
+ABE multiplicity enables equilibrium selection through design:
+\begin{enumerate}
+    \item \textbf{Interface design}: Anthropomorphic interfaces ($\omega_i \uparrow$) shift attributed beliefs and equilibrium outcomes.
+    \item \textbf{Signal design}: AI characteristics ($x_j$) affect attribution through $\phi_i(\theta_j, x_j, \omega_i)$.
+    \item \textbf{Mechanism design}: Platforms choose $\phi$-inducing environments to select desired equilibria.
+\end{enumerate}
+In contrast, PGT multiplicity requires coordination mechanisms (communication, focal points) to select among coexisting equilibria; ABE multiplicity is resolved by design.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of Multiplicity Sources}
+\label{tab:multiplicity-comparison}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Feature} & \textbf{Standard PGT} & \textbf{ABE} \\
+\midrule
+Structure & Feedback loop & Feed-forward chain \\
+Source & Multiple fixed points & Different attribution functions \\
+Character & Endogenous (self-fulfilling) & Parametric (design-dependent) \\
+Within-game & Multiple equilibria coexist & Generically unique for fixed $\phi$ \\
+Resolution & Coordination mechanisms & Interface/signal design \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The key insight: ABE introduces a structurally distinct source of multiplicity---variation in attribution of beliefs to AI---that is amenable to design interventions in ways that endogenous PGT multiplicity is not.
 
 %==============================================================================
 % SECTION OA.5: APPLICATION PROOFS

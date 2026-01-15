@@ -36,7 +36,6 @@ Don't add Claude as a contributor/coauthor when commit and push.
 
 ## Key References
 
-- `theory/foundations.tex`: Master reference for all assumptions and notation
 - `drafts/main.tex`: Current manuscript draft
 
 ## Paper Search/fetch Order
