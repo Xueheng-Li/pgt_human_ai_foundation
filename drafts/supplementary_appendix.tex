@@ -11,6 +11,7 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage[margin=1in]{geometry}
+\usepackage{natbib}
 
 % Theorem environments
 \newtheorem{theorem}{Theorem}
@@ -35,7 +36,11 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
+\newpage
+
 \section*{Overview}
+\addcontentsline{toc}{section}{Overview}
 
 This supplementary appendix contains technical details, routine calculations, and extended discussions supporting the main text proofs. Section references (OA.1, OA.2, etc.) correspond to references in the main appendix.
 
@@ -384,13 +389,10 @@ where $g_i(s)$ is the outcome delivered to AI. Let $G = \gamma_i \lambda_i^{GUIL
 
 \begin{proposition}[Condition A for Guilt-Aversion Games]
 \label{prop:guilt-condition-a}
-Suppose $\pi_i$ is strictly concave in $s_i$, $g_i$ is strictly increasing in $s_i$, and guilt dominance holds: $G > |\partial \pi_i / \partial s_i|$ in the guilt-active region. Then Condition A holds with:
-\begin{equation}
-    \frac{\partial^2 U_i^H}{\partial s_i \partial \tilde{h}_i^{(2,j)}} = G \cdot \frac{\partial g_i}{\partial s_i} > 0.
-\end{equation}
+Suppose $\pi_i$ is strictly concave in $s_i$, $g_i$ is strictly increasing in $s_i$, and guilt dominance holds: $G > |\partial \pi_i / \partial s_i|$ in the guilt-active region. Then Condition A holds via the constraint-binding mechanism: the optimal action $s_i^*$ is determined by binding the guilt constraint, yielding $s_i^*$ strictly increasing in $\tilde{h}_i^{(2,j)}$.
 \end{proposition}
 
-\emph{Verification: Trust Game.} Human trustee maximizes $U_H(y) = (3x - y) - G \cdot \max\{0, \tilde{h}_H^{(2,A)} - y\}$. When $G > 1$, the optimum is $y^* = \min\{\tilde{h}_H^{(2,A)}, 3x\}$, strictly increasing in attributed expectations. Different attribution functions yield $y^*[\phi] \neq y^*[\phi']$.
+\emph{Verification: Trust Game.} Human trustee maximizes $U_H(y) = (3x - y) - G \cdot \max\{0, \tilde{h}_H^{(2,A)} - y\}$. When $G > 1$, the marginal utility is $dU_H/dy = G - 1 > 0$ for $y < \tilde{h}$ and $dU_H/dy = -1 < 0$ for $y > \tilde{h}$. Hence the optimum is $y^* = \min\{\tilde{h}_H^{(2,A)}, 3x\}$---a corner solution at the guilt constraint, not an interior optimum. Different attribution functions yield $y^*[\phi] \neq y^*[\phi']$.
 
 \paragraph{Games with Indignation.}
 Consider games where human $i$ experiences indignation from deviating from norms when AI expects compliance:
@@ -436,7 +438,7 @@ Let $\mathcal{G}$ denote psychological games with human-AI interaction. Define $
 \end{proposition}
 
 \begin{proof}
-Condition A fails only when: (i) $s_i^* \in \partial S_i$ for all $\tilde{h}$ (boundary solution); (ii) $\partial^2 U_i^H / \partial s_i^2 = 0$ (linear utility); or (iii) $\partial^2 U_i^H / \partial s_i \partial \tilde{h} = 0$ (separability). Condition B fails only when: (i) $\partial \Delta U_i / \partial \tilde{h} = 0$ (flat incremental utility); or (ii) both attribution functions yield beliefs on the same side of the threshold. In psychological games with guilt or indignation, the cross-partial is non-zero by construction: $\psi_i$ depends on the interaction between actions and attributed beliefs. The failure set has codimension at least 3, hence measure zero.
+Condition A fails only when: (i) $s_i^* \in \partial S_i$ for all $\tilde{h}$ (boundary solution); (ii) $\partial^2 U_i^H / \partial s_i^2 = 0$ (linear utility); or (iii) the best response is insensitive to attributed beliefs (separability). Condition B fails only when: (i) $\partial \Delta U_i / \partial \tilde{h} = 0$ (flat incremental utility); or (ii) both attribution functions yield beliefs on the same side of the threshold. In psychological games with guilt or indignation, the best response depends on attributed beliefs by construction: $\psi_i$ captures the interaction between actions and attributed beliefs. The set of psychological games where neither Condition A nor Condition B holds has measure zero in the space of games satisfying our regularity conditions.
 \end{proof}
 
 \begin{remark}[Economic Interpretation]
@@ -507,7 +509,7 @@ Let $\Gamma$ be a psychological game with humans $N_H$ and AI agents $N_A$.
 \begin{enumerate}
     \item[\textup{(i)}] \textbf{PGT multiplicity is endogenous}: Multiple equilibria $\{(\sigma^{*k}, h^{*k})\}_{k=1}^K$ can coexist for fixed parameters. Multiplicity arises from multiple fixed points of the feedback loop~\eqref{eq:pgt-feedback}.
 
-    \item[\textup{(ii)}] \textbf{ABE multiplicity is parametric}: For fixed $\phi$, ABE is generically unique. Multiplicity across $\phi$ arises from $s^*(\phi) \neq s^*(\phi')$.
+    \item[\textup{(ii)}] \textbf{ABE multiplicity is parametric}: For fixed $\phi$, ABE is generically unique when the genuine-belief feedback among humans admits a unique consistent belief system. Multiplicity across $\phi$ arises from $s^*(\phi) \neq s^*(\phi')$.
 
     \item[\textup{(iii)}] \textbf{ABE can exceed PGT}: $\bigcup_{\phi \in \Phi} E^{ABE}(\phi)$ can strictly contain $E^{PGT}$. Games with a unique PGT equilibrium can admit multiple ABE equilibria across different $\phi$.
 \end{enumerate}
@@ -516,7 +518,7 @@ Let $\Gamma$ be a psychological game with humans $N_H$ and AI agents $N_A$.
 \begin{proof}
 \textbf{Part (i)}: Standard result. The feedback structure admits multiple fixed points when the composite best-response mapping is not a contraction.
 
-\textbf{Part (ii)}: Fix $\phi$. Attributed beliefs $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ are determined independently of equilibrium. Human optimization reduces to $s_i^* \in \arg\max_{s_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*)$ with $\tilde{h}_i^*$ pinned down by $\phi$. Generically, best responses are unique, so ABE is unique for fixed $\phi$.
+\textbf{Part (ii)}: Fix $\phi$. Attributed beliefs $\tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i)$ are determined independently of equilibrium. Human optimization reduces to $s_i^* \in \arg\max_{s_i} U_i^H(s_i, s_{-i}^*, h_i^*, \tilde{h}_i^*)$ with $\tilde{h}_i^*$ pinned down by $\phi$. When the genuine-belief consistency conditions among humans (ABE3) admit a unique solution for each strategy profile, best responses are generically unique, so ABE is unique for fixed $\phi$. Note that genuine-belief feedback among humans can still support multiple equilibria if ABE3 has multiple solutions; the parametric character of ABE multiplicity refers specifically to the attributed-belief channel.
 
 \textbf{Part (iii)}: Consider a game with unique PGT equilibrium $(\sigma^{PGT}, h^{PGT})$ where $\partial \psi_i / \partial \tilde{h}_i^{(2,j)} \neq 0$. Let $\phi \neq \phi'$ yield distinct attributed beliefs. By Proposition~\ref{prop:multiplicity}, $s^*(\phi) \neq s^*(\phi')$. Both are ABE equilibria, so $|E^{ABE}| \geq 2 > 1 = |E^{PGT}|$.
 \end{proof}
@@ -549,13 +551,341 @@ In contrast, PGT multiplicity requires coordination mechanisms (communication, f
 Structure & Feedback loop & Feed-forward chain \\
 Source & Multiple fixed points & Different attribution functions \\
 Character & Endogenous (self-fulfilling) & Parametric (design-dependent) \\
-Within-game & Multiple equilibria coexist & Generically unique for fixed $\phi$ \\
+Within-game & Multiple equilibria coexist & Generically unique for fixed $\phi$\textsuperscript{$\dagger$} \\
 Resolution & Coordination mechanisms & Interface/signal design \\
 \bottomrule
 \end{tabular}
+
+\smallskip
+\noindent\textsuperscript{$\dagger$}When genuine-belief feedback among humans admits a unique consistent belief system. Genuine H-H belief feedback can still support multiple equilibria.
 \end{table}
 
 The key insight: ABE introduces a structurally distinct source of multiplicity---variation in attribution of beliefs to AI---that is amenable to design interventions in ways that endogenous PGT multiplicity is not.
+
+%==============================================================================
+% SECTION OA.3: HIGHER-ORDER BELIEFS GENERALIZATION
+%==============================================================================
+
+\section{Higher-Order Beliefs: Extension to Richer Belief Hierarchies}\label{oa:higher-order}
+
+This section extends the Attributed Belief Equilibrium (ABE) framework to arbitrary higher-order beliefs. The main text restricts attention to second-order beliefs---sufficient for modeling guilt and indignation. We develop the general $n$-order framework following Battigalli et al.\ (2019), and show that $n$-ABE reduces to the second-order case when psychological payoffs depend only on beliefs up to order two.
+
+%------------------------------------------------------------------------------
+\subsection{OA.3.1: Higher-Order Belief Hierarchies for Humans}\label{oa:higher-order-human}
+%------------------------------------------------------------------------------
+
+We construct the belief hierarchy for human $i \in N_H$ inductively, paralleling Battigalli et al.\ (2019, Section 5.2).
+
+\medskip
+\noindent\textbf{Base cases.} Zeroth-order and first-order beliefs:
+\begin{align}
+    h_i^{(0)} &= t_i \in T_i & &\text{(type)} \label{eq:ho-h0} \\
+    h_i^{(1)} &\in \Delta(S_{-i}) & &\text{(first-order belief about others' strategies)} \label{eq:ho-h1}
+\end{align}
+Let $h_i^{(1,k)} \in \Delta(S_k)$ denote the marginal on player $k$'s strategy.
+
+\medskip
+\noindent\textbf{Second-order beliefs.} Human $i$'s second-order beliefs concern what other players believe about the strategy profile. For each $k \neq i$:
+\begin{equation}\label{eq:ho-h2}
+    h_i^{(2,k)} \in \Delta(\Delta(S_{-k}))
+\end{equation}
+This is human $i$'s belief about human $k$'s first-order beliefs.
+
+\medskip
+\noindent\textbf{Inductive definition for $n \geq 2$.} Let $\mathbf{k} = (k_1, \ldots, k_{n-1})$ be a sequence of distinct players in $N \setminus \{i\}$. The $n$-th order belief indexed by sequence $\mathbf{k}$ is:
+\begin{equation}\label{eq:ho-hn-general}
+    h_i^{(n,\mathbf{k})} \in \Delta\left( \Delta^{(n-1)}(S_{-k_{n-1}}) \right)
+\end{equation}
+where $\Delta^{(m)}(\cdot)$ denotes $m$-fold iteration of the probability distribution operator:
+\[
+    \Delta^{(1)}(X) = \Delta(X), \qquad \Delta^{(m+1)}(X) = \Delta(\Delta^{(m)}(X))
+\]
+The belief $h_i^{(n,k_1,\ldots,k_{n-1})}$ represents human $i$'s belief about what $k_1$ believes $k_2$ believes $\ldots$ believes $k_{n-1}$ expects from others.
+
+\medskip
+\noindent\textbf{Belief collection.} The collection of all beliefs up to order $n$ for human $i$:
+\begin{equation}\label{eq:ho-belief-collection}
+    h_i^{(\leq n)} = \left( h_i^{(0)}, h_i^{(1)}, \{h_i^{(2,k)}\}_{k \neq i}, \ldots, \{h_i^{(n,\mathbf{k})}\}_{\mathbf{k}} \right)
+\end{equation}
+For $n=2$, this reduces to $(h_i^{(0)}, h_i^{(1)}, h_i^{(2)})$ where $h_i^{(2)}$ is as defined in the main text.
+
+\begin{definition}[$n$-th Order Belief Space]\label{def:ho-belief-space-n}
+Let $\mathcal{K}^{n-1}_{-i}$ denote the set of all $(n-1)$-tuples of distinct players in $N \setminus \{i\}$, with cardinality $(|N|-1)!/(|N|-n)!$. For human $i \in N_H$, the $n$-th order belief space is:
+\begin{equation}
+    \mathcal{H}_i^{(n)} = \prod_{\mathbf{k} \in \mathcal{K}^{n-1}_{-i}} \Delta\left( \Delta^{(n-1)}(S_{-k_{n-1}}) \right)
+\end{equation}
+\end{definition}
+
+\medskip
+\noindent\textbf{Coherence.} Higher-order beliefs must satisfy coherence conditions linking them to lower-order beliefs. Following Battigalli et al.\ (2019), define the marginalization map
+\begin{equation}\label{eq:ho-marginalization}
+    \text{marg}^{(m)}_i : \mathcal{H}_i^{(m+1)} \to \mathcal{H}_i^{(m)}
+\end{equation}
+that projects $(m+1)$-th order beliefs onto $m$-th order beliefs. Explicitly, for $h_i^{(m+1,\mathbf{k})} \in \Delta(\Delta^{(m)}(S_{-k_m}))$:
+\begin{equation}\label{eq:ho-marg-explicit}
+    \text{marg}^{(m)}_i(h_i^{(m+1,\mathbf{k})}) = \int_{\Delta^{(m)}(S_{-k_m})} \pi_{m} \, d h_i^{(m+1,\mathbf{k})}
+\end{equation}
+where $\pi_m$ projects from $\Delta^{(m)}(S_{-k_m})$ to $\Delta^{(m-1)}(S_{-k_{m-1}})$ by integrating out the innermost belief layer.
+
+\begin{definition}[Belief Coherence]\label{def:ho-coherence}
+The belief hierarchy $(h_i^{(1)}, h_i^{(2)}, \ldots, h_i^{(n)})$ is \textbf{coherent} if for all $m = 1, \ldots, n-1$:
+\begin{equation}\label{eq:ho-coherence-condition}
+    h_i^{(m)} = \text{marg}^{(m)}_i(h_i^{(m+1)})
+\end{equation}
+\end{definition}
+
+%------------------------------------------------------------------------------
+\subsection{OA.3.2: Higher-Order Attributed Belief Hierarchies for AI}\label{oa:higher-order-attributed}
+%------------------------------------------------------------------------------
+
+When human $i$ interacts with AI agent $j \in N_A$, the human attributes mental states to $j$. The main text defines second-order attributed beliefs via the attribution function $\phi_i$. Here we extend to higher orders.
+
+\medskip
+\noindent\textbf{Second-order attributed beliefs.} As in the main text, the second-order attributed belief is:
+\begin{equation}\label{eq:ho-attr-h2}
+    \tilde{h}_i^{(2,j)} = \phi_i(\theta_j, x_j, \omega_i) \in \Delta(S_i)
+\end{equation}
+We write $\phi_i^{(2)} = \phi_i$ to clarify that the main text attribution function operates at order two.
+
+\medskip
+\noindent\textbf{Higher-order attributed beliefs.} For $n \geq 3$, we define the $n$-th order attribution function as a family indexed by belief sequences.
+
+\begin{definition}[$n$-th Order Attribution Function]\label{def:ho-phi-n}
+For sequence $\mathbf{k} = (k_1, \ldots, k_{n-1})$ containing AI agents $\mathbf{j}(\mathbf{k}) = \mathbf{k} \cap N_A$, the $n$-th order attribution function is:
+\begin{equation}\label{eq:ho-phi-n}
+    \phi_i^{(n,\mathbf{k})} : \left( \prod_{j' \in \mathbf{j}(\mathbf{k})} (\Theta_{j'} \times X_{j'}) \right) \times \Omega_i \to \Delta^{(n-1)}(S_{-k_{n-1}})
+\end{equation}
+\end{definition}
+
+For a sequence $\mathbf{k} = (j, k_2, \ldots, k_{n-1})$ where $j \in N_A$ is an AI agent:
+\begin{equation}\label{eq:ho-attr-hn}
+    \tilde{h}_i^{(n,j,k_2,\ldots,k_{n-1})} = \phi_i^{(n,\mathbf{k})}\left( (\theta_{j'}, x_{j'})_{j' \in \mathbf{j}(\mathbf{k})}, \omega_i \right)
+\end{equation}
+Attributed beliefs are determined by $\phi_i^{(n,\mathbf{k})}$, not by consistency with AI behavior. AI agents lack mental states.
+
+\medskip
+\noindent\textbf{When higher-order attribution matters.} Higher-order attributed beliefs become relevant when psychological payoffs depend on beliefs beyond order two.
+
+\begin{example}[Guilt-from-Blame]\label{ex:ho-guilt-from-blame}
+In guilt-from-blame models (Battigalli and Dufwenberg, 2007), player $i$ feels guilt when (i) player $k$ expected $i$ to choose action $a$ (second-order belief $h_i^{(2,k)}$), and (ii) player $k$ believes $i$ knew that $k$ expected action $a$ (third-order belief $h_i^{(3,k,i)}$). The guilt arises from disappointing expectations that $i$ was aware of, requiring third-order reasoning.
+
+If the blaming party is AI agent $j$, human $i$ must form:
+\[
+    \tilde{h}_i^{(3,j,i)} = \phi_i^{(3,(j,i))}(\theta_j, x_j, \omega_i)
+\]
+representing what $i$ attributes to $j$ regarding $j$'s belief about $i$'s awareness of $j$'s expectations.
+\end{example}
+
+\begin{example}[Reciprocity Chains]\label{ex:ho-reciprocity}
+In reciprocity models (Dufwenberg and Kirchsteiger, 2004), kindness depends on beliefs about intentions, which depend on beliefs about beliefs. A human interacting with an AI gift-giver may attribute intentions to the AI based on $\tilde{h}_i^{(2,j)}$ (what AI expects) and $\tilde{h}_i^{(3,j,i)}$ (what AI believes human believes AI expects). The depth of reciprocal reasoning determines the required belief order.
+\end{example}
+
+\begin{example}[Common Belief Approximation]\label{ex:ho-common-belief}
+Common belief requires consistency at all finite orders. For human-AI interaction, this would require attributed beliefs at arbitrarily high orders. Bounded rationality limits reasoning to $n \leq 3$ in practice.
+\end{example}
+
+\medskip
+\noindent\textbf{Properties of higher-order attribution.} The higher-order attribution function $\phi_i^{(n,\mathbf{k})}$ inherits properties from the second-order case: when $\omega_i = 0$, all attributed beliefs collapse to a default (no attribution); AI design parameters $\theta_j$ and signals $x_j$ shape attribution at all orders; attributed beliefs need not satisfy coherence with actual AI behavior.
+
+\begin{remark}[Diminishing Attribution at Higher Orders]
+Attribution strength decreases with belief order, captured by attenuation factors $\lambda_i^{(n)}$ decreasing in $n$, limiting practical relevance for $n > 3$.
+\end{remark}
+
+%------------------------------------------------------------------------------
+\subsection{OA.3.3: Generalized Psychological Utility}\label{oa:higher-order-utility}
+%------------------------------------------------------------------------------
+
+We extend the psychological utility function to depend on beliefs up to arbitrary order $n$.
+
+\begin{definition}[Generalized Psychological Utility]\label{def:ho-utility-n}
+Human $i$'s utility in the $n$-order framework is:
+\begin{equation}\label{eq:ho-utility-n}
+    U_i^H(s, h_i^{(\leq n)}, \tilde{h}_i^{(\leq n)}) = \pi_i(s) + \psi_i^{(n)}(s, h_i^{(\leq n)}, \tilde{h}_i^{(\leq n)})
+\end{equation}
+where $\pi_i(s)$ is the material payoff and $\psi_i^{(n)}$ is the psychological payoff depending on beliefs up to order $n$.
+\end{definition}
+
+The psychological payoff decomposes by belief order:
+\begin{equation}\label{eq:ho-psi-decomposition}
+    \psi_i^{(n)} = \sum_{m=2}^{n} \psi_i^{[m]}(s, h_i^{(m)}, \tilde{h}_i^{(m)})
+\end{equation}
+where $\psi_i^{[m]}$ captures psychological effects requiring exactly $m$-th order beliefs.
+
+Order 2 (guilt/indignation): Guilt arises from disappointing expectations; indignation from perceived norm violation. Both require second-order beliefs about what others expect. Order 3 (guilt-from-blame): Enhanced guilt when the victim believed the transgressor knew their expectations. Order 3 (reciprocity): Kindness attribution based on perceived intentions. Order 4 (strategic deception): Awareness that another player manipulates beliefs about beliefs.
+
+\begin{example}[Third-Order Guilt-from-Blame Payoff]\label{ex:ho-guilt-blame-payoff}
+Following Battigalli and Dufwenberg (2007), the guilt-from-blame payoff for human $i$ is:
+\begin{equation}\label{eq:ho-guilt-blame}
+    \psi_i^{[3],GfB} = -\gamma_i^{GfB} \cdot \sum_{k \neq i} h_i^{(3,k,i)}(\{h_k^{(2,i)} = E\}) \cdot \max\{0, E - \pi_k(s)\}
+\end{equation}
+where $h_i^{(3,k,i)}(\{h_k^{(2,i)} = E\})$ is the probability (according to $i$) that $k$ believes $i$ expected payoff $E$ from $k$, and $\gamma_i^{GfB} > 0$ is guilt-from-blame sensitivity. Guilt intensifies when the victim believes the transgressor was aware of the victim's expectations.
+
+For AI agent $j$:
+\begin{equation}\label{eq:ho-guilt-blame-ai}
+    \psi_i^{[3],GfB,AI} = -\gamma_i^{GfB} \cdot \lambda_i^{(3)} \cdot \sum_{j \in N_A} \tilde{h}_i^{(3,j,i)}(\{\tilde{h}_j^{(2,i)} = E\}) \cdot \max\{0, E - \pi_j(s)\}
+\end{equation}
+with third-order attenuation factor $\lambda_i^{(3)} \in [0,1]$.
+\end{example}
+
+\medskip
+\noindent\textbf{Assumptions.} We extend the main text assumptions:
+\begin{itemize}
+    \item[\textbf{A1c-n}] (Continuity): $\psi_i^{(n)}$ is continuous in $(s, h_i^{(\leq n)}, \tilde{h}_i^{(\leq n)})$.
+
+    \item[\textbf{A3-n}] (Boundedness): $|\psi_i^{(n)}| \leq M_n < \infty$.
+\end{itemize}
+A1c-n reduces to A1c when $n=2$; A3-n reduces to A3 when $n=2$. Boundedness follows from continuity and compactness: each $\Delta^{(m)}(S_{-k})$ is compact, so the product of belief spaces remains compact.
+
+%------------------------------------------------------------------------------
+\subsection{OA.3.4: Generalized ABE Definition}\label{oa:higher-order-abe}
+%------------------------------------------------------------------------------
+
+We now define $n$-ABE, the extension of Attributed Belief Equilibrium to $n$-th order beliefs.
+
+\begin{definition}[$n$-Attributed Belief Equilibrium]\label{def:ho-n-abe}
+An \textbf{$n$-Attributed Belief Equilibrium ($n$-ABE)} is a tuple $(s^*, h^{*(\leq n)}, \tilde{h}^{*(\leq n)})$ consisting of strategy profile $s^* = (s_i^*)_{i \in N}$, genuine belief hierarchies $(h_i^{*(\leq n)})_{i \in N_H}$ up to order $n$, and attributed belief hierarchies $(\tilde{h}_i^{*(\leq n)})_{i \in N_H}$ up to order $n$, satisfying:
+
+\medskip
+\noindent\textbf{Condition 1: Human Optimality.}
+For all $i \in N_H$:
+\begin{equation}\label{eq:ho-n-abe-human-opt}
+    s_i^* \in \argmax_{s_i \in S_i} U_i^H(s_i, s_{-i}^*, h_i^{*(\leq n)}, \tilde{h}_i^{*(\leq n)})
+\end{equation}
+
+\medskip
+\noindent\textbf{Condition 2: AI Optimality.}
+For all $j \in N_A$:
+\begin{equation}\label{eq:ho-n-abe-ai-opt}
+    s_j^* \in \argmax_{s_j \in S_j} U_j^A(s_j, s_{-j}^*; \theta_j)
+\end{equation}
+
+\medskip
+\noindent\textbf{Condition 3: Genuine Belief Consistency up to Order $n$.}
+For all $i, k \in N_H$ and all orders $m = 1, \ldots, n$:
+
+\textit{First-order consistency}:
+\begin{equation}\label{eq:ho-n-abe-first-order}
+    h_i^{*(1,k)} = s_k^*
+\end{equation}
+
+\textit{Higher-order consistency}: For $m = 2, \ldots, n$ and sequences $\mathbf{k} = (k_1, \ldots, k_{m-1})$ of humans:
+\begin{equation}\label{eq:ho-n-abe-higher-order}
+    h_i^{*(m,\mathbf{k})} = h_{k_1}^{*(m-1, k_2, \ldots, k_{m-1}, i)}
+\end{equation}
+That is, $i$'s $m$-th order belief about what $k_1$ believes $k_2$ believes $\ldots$ equals $k_1$'s actual $(m-1)$-th order belief about the corresponding chain ending with $i$. Condition 3 applies only to genuine beliefs about humans.
+
+\medskip
+\noindent\textbf{Condition 4: Attribution Consistency up to Order $n$.}
+For all $i \in N_H$, $j \in N_A$, and all orders $m = 2, \ldots, n$:
+\begin{equation}\label{eq:ho-n-abe-attribution}
+    \tilde{h}_i^{*(m,\mathbf{k})} = \phi_i^{(m,\mathbf{k})}\left( (\theta_{j'}, x_{j'})_{j' \in \mathbf{j}(\mathbf{k})}, \omega_i \right)
+\end{equation}
+for all sequences $\mathbf{k}$ containing at least one AI agent. Attributed beliefs about AI are determined by attribution functions, not by consistency with AI behavior.
+\end{definition}
+
+%------------------------------------------------------------------------------
+\subsection{OA.3.5: Existence of $n$-ABE}\label{oa:higher-order-existence}
+%------------------------------------------------------------------------------
+
+We establish existence of $n$-ABE under appropriate extensions of the main text assumptions.
+
+\begin{theorem}[Existence of $n$-ABE]\label{thm:ho-n-abe-existence}
+Consider a human-AI game with $n_H \geq 1$ humans and $n_A \geq 0$ AI agents. Suppose:
+\begin{itemize}
+    \item[\textbf{A1-n}] Strategy spaces are finite (A1a), type spaces are compact (A1b), and $n$-th order psychological payoffs are continuous (A1c-n);
+    \item[\textbf{A2-n}] Attribution functions $\phi_i^{(m,\mathbf{k})}$ for $m = 2, \ldots, n$ are continuous and map to valid probability distributions;
+    \item[\textbf{A3-n}] Psychological payoffs $\psi_i^{(n)}$ are bounded.
+\end{itemize}
+Then an $n$-ABE exists.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+The proof adapts the Kakutani fixed-point argument from Theorem 1 to the higher-order setting.
+
+Define $\Sigma = \prod_{i \in N} \Delta(S_i)$, compact and convex.
+
+For any $\sigma \in \Sigma$, beliefs are uniquely determined. Genuine beliefs: $h_i^{(1,k)} = \sigma_k$, and recursively
+\[
+    h_i^{(m,k_1,\ldots,k_{m-1})} = h_{k_1}^{(m-1,k_2,\ldots,k_{m-1},i)}
+\]
+for $m = 2, \ldots, n$. The recursion is well-founded: $h_i^{(m,\mathbf{k})}$ depends on $h_{k_1}^{(m-1,\cdot)}$, which depends on beliefs of order $m-2$, terminating at first-order beliefs determined by $\sigma$. By induction on $m$, all beliefs up to order $n$ are uniquely determined by $\sigma$.
+
+Attributed beliefs: $\tilde{h}_i^{(m,\mathbf{k})} = \phi_i^{(m,\mathbf{k})}((\theta_{j'}, x_{j'})_{j' \in \mathbf{j}(\mathbf{k})}, \omega_i)$, constant in $\sigma$ under exogenous attribution.
+
+Define the best-response correspondence $BR: \Sigma \rightrightarrows \Sigma$ by:
+\[
+    BR(\sigma) = \prod_{i \in N_H} BR_i^H(\sigma) \times \prod_{j \in N_A} BR_j^A(\sigma)
+\]
+where:
+\begin{align*}
+    BR_i^H(\sigma) &= \argmax_{\sigma_i' \in \Delta(S_i)} U_i^H(\sigma_i', \sigma_{-i}, h_i^{(\leq n)}(\sigma), \tilde{h}_i^{(\leq n)}) \\
+    BR_j^A(\sigma) &= \argmax_{\sigma_j' \in \Delta(S_j)} U_j^A(\sigma_j', \sigma_{-j}; \theta_j)
+\end{align*}
+
+Properties of $BR$: (i) Non-empty values by A1a (finite strategies). (ii) Convex values since expected utility is linear in own strategy $\sigma_i'$. (iii) Closed graph by A1c-n (continuity), A2-n (continuous attribution), A3-n (boundedness), and Berge's Maximum Theorem.
+
+By Kakutani's theorem, $BR$ has a fixed point $\sigma^* \in \Sigma$. Construct $(s^*, h^{*(\leq n)}, \tilde{h}^{*(\leq n)})$ from $\sigma^*$ using the belief determination above. This constitutes an $n$-ABE.
+\end{proof}
+
+\begin{remark}[Tractability]
+The belief space grows as $(|N|-1)^{n-1}$, making computation intractable for large $n$. Most emotions (guilt, indignation, reciprocity) require $n \leq 3$.
+\end{remark}
+
+\begin{remark}[Behavioral Attribution Extension]
+The existence proof extends to behavioral attribution (where $\phi_i^{(m,\mathbf{k})}$ depends on AI strategy $\sigma_j$) under the regularity conditions of A2-beh: $\phi_i^{(m,\mathbf{k})}$ continuous in $\sigma_j$ and independent of $\sigma_i$.
+\end{remark}
+
+%------------------------------------------------------------------------------
+\subsection{OA.3.6: Reduction to Main Text Framework}\label{oa:higher-order-reduction}
+%------------------------------------------------------------------------------
+
+We show that the $n$-ABE framework reduces to the second-order ABE of the main text when psychological payoffs depend only on beliefs up to order two.
+
+\begin{proposition}[Reduction to Second-Order ABE (Proposition 4)]\label{prop:ho-reduction-n2}
+\textit{Note: This is Proposition 4, introduced in this online appendix to maintain continuity with the main text numbering (Propositions 1--3 in the main text, Proposition 5 addressing multiplicity).}
+Suppose the psychological payoff $\psi_i^{(n)}$ depends only on second-order beliefs:
+\begin{equation}\label{eq:ho-psi-order-2}
+    \psi_i^{(n)}(s, h_i^{(\leq n)}, \tilde{h}_i^{(\leq n)}) = \psi_i(s, h_i^{(2)}, \tilde{h}_i^{(2)})
+\end{equation}
+for some function $\psi_i$ independent of beliefs of order 3 or higher. Then:
+\begin{enumerate}
+    \item[(i)] Every $n$-ABE induces a 2-ABE by projection onto strategies and second-order beliefs.
+    \item[(ii)] Every 2-ABE extends to an $n$-ABE by constructing consistent higher-order beliefs.
+    \item[(iii)] The strategy profiles in $n$-ABE and 2-ABE coincide.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{Part (i)}: Let $(s^*, h^{*(\leq n)}, \tilde{h}^{*(\leq n)})$ be an $n$-ABE. Define the 2-ABE candidate as $(s^*, h^{*(\leq 2)}, \tilde{h}^{*(\leq 2)})$ by projection.
+
+Human optimality: Under \eqref{eq:ho-psi-order-2}, human $i$'s utility depends only on $(s, h_i^{(2)}, \tilde{h}_i^{(2)})$. Since $s_i^*$ maximizes $U_i^H$ in the $n$-ABE, it maximizes $U_i^H$ when restricted to second-order beliefs. AI optimality is unchanged. The $n$-ABE consistency conditions \eqref{eq:ho-n-abe-first-order}--\eqref{eq:ho-n-abe-higher-order} include the second-order conditions. The attribution condition \eqref{eq:ho-n-abe-attribution} at $m=2$ gives the required second-order attribution.
+
+\textbf{Part (ii)}: Let $(s^*, h^{*(\leq 2)}, \tilde{h}^{*(\leq 2)})$ be a 2-ABE. Construct higher-order beliefs recursively.
+
+For $m = 3, \ldots, n$, define genuine beliefs by the consistency condition:
+\[
+    h_i^{*(m,k_1,\ldots,k_{m-1})} = h_{k_1}^{*(m-1,k_2,\ldots,k_{m-1},i)}
+\]
+starting from $m=3$. This recursion is well-defined since $(m-1)$-th order beliefs are already constructed. For instance, at $m=3$: $h_i^{*(3,k_1,k_2)} = h_{k_1}^{*(2,(k_2,i))}$, where the right-hand side is $k_1$'s second-order belief (already given by the 2-ABE) about what $k_2$ expects from $i$.
+
+For attributed beliefs: $\tilde{h}_i^{*(m,\mathbf{k})} = \phi_i^{(m,\mathbf{k})}((\theta_{j'}, x_{j'})_{j' \in \mathbf{j}(\mathbf{k})}, \omega_i)$.
+
+The constructed $(s^*, h^{*(\leq n)}, \tilde{h}^{*(\leq n)})$ satisfies all $n$-ABE conditions: optimality holds since utility depends only on second-order beliefs; consistency holds by construction.
+
+\textbf{Part (iii)}: Parts (i) and (ii) establish maps between $n$-ABE and 2-ABE preserving strategy profiles. The bijection follows because both projection and extension preserve the consistency conditions, and beliefs at each order are uniquely determined by beliefs at lower orders.
+\end{proof}
+
+\begin{remark}[When $n = 2$ Suffices]
+For guilt and indignation, psychological payoffs depend only on second-order beliefs ($h_i^{(2,k)}$, $\tilde{h}_i^{(2,j)}$).
+\end{remark}
+
+\begin{remark}[When $n > 2$ Is Needed]
+Higher-order beliefs are necessary for guilt-from-blame ($n=3$ for awareness), sequential reciprocity (third-order intentions), signaling games (beliefs about revealed information), and reputation concerns.
+\end{remark}
+
+\begin{remark}[Practical Recommendation]
+Use $n = 2$ (guilt, indignation), $n = 3$ (blame, signaling), or $n \geq 4$ (rarely). Exponential belief growth makes $n \geq 4$ difficult to calibrate empirically.
+\end{remark}
 
 %==============================================================================
 % SECTION OA.5: APPLICATION PROOFS
@@ -1223,11 +1553,10 @@ Together, these results provide both descriptive (how $\omega$ affects outcomes)
 \end{remark}
 
 %==============================================================================
-% BIBLIOGRAPHY PLACEHOLDER
+% BIBLIOGRAPHY
 %==============================================================================
 
-\section*{References}
-
-\noindent References cited in this online appendix can be found in the main paper bibliography.
+\bibliographystyle{apalike}
+\bibliography{../references,../ExportedItems}
 
 \end{document}
